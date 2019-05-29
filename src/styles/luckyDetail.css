@@ -1,0 +1,175 @@
+.infoTitle{
+    width: 100%;
+    padding-bottom:50px;
+}
+.takeTurn{
+    width:100%;
+    color: #000000;
+    font-size: 20px;
+    padding:15px 0px 15px 15px;
+    float:left
+}
+.valueUser{
+    width:100%;
+    float:left;
+    padding:0px 0px 15px 15px;
+}
+.optionLeft{
+    width:100%;
+    float:left;
+}
+
+
+.closeBuy{
+    color: #808080;
+    border: 0px solid;
+    background: #232936;
+    padding: 10px 25px;
+    margin-right: 20px;
+    border-radius: 20px;
+}
+.buttonOrange{
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background: #ffffff;
+    color: #3dcec0;
+    border: 0px solid;
+    padding: 10px; height:40px;
+    font-size: 0.8em;
+    white-space: nowrap;
+    min-width: auto;
+    min-height: auto
+}
+.buttonGreen{
+    width: 100%;
+    border-radius: 5px;
+    background: #ec961f;
+    color: #fff;
+    border: 0px solid;
+    padding: 10px; height:40px;
+    font-size: 0.8em;
+    white-space: nowrap;
+    min-width: auto;
+    min-height: auto;
+}
+.action{
+    float:right;
+     margin-top:20px;
+}
+.buy{
+    color: #fff;
+    border: 0px solid;
+    background: #00ccd4;
+    padding: 10px 30px;
+    border-radius: 20px;
+}
+.buy:hover{
+    background: #1af7ff;
+}
+.buttonOrange:hover{
+    background: #e6e6e6;
+}
+.buttonGreen:hover{
+    background: #efa743;
+}
+
+.tutorial{
+    text-align: left;
+    border-radius: 10px;
+    margin-bottom:20px;
+}
+.tutorial p{
+    margin: 5px !important;
+}
+
+.actionPlay{
+    width: 100%;
+}
+
+.btn_bonus_latthe{
+    margin-top: 15px;
+    margin-bottom: 10px;
+    text-align: center;
+	padding: 10px;
+	padding-left: calc(50% - 50px);
+	width: 100%;
+	cursor: pointer;
+}
+
+.btn_buy_latthe{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+	padding: 10px;
+	padding-left: calc(50% - 35px);
+	width: 100%;
+	cursor: pointer;
+}
+@media only screen and (max-width:1024px){
+
+    .tutorial p{
+        margin: 7px !important;
+    }
+
+}
+
+
+@media only screen and (max-width:600px){
+    .infoTitle{
+        width: auto;
+        text-align: center;
+        padding-bottom:0px;
+    }
+    .takeTurn{
+        width:100%;
+    }
+    .valueUser{
+        width:100%;
+        padding: 20px 0px;
+    }
+    .optionLeft{
+        width:100%;
+    }
+    .optionRight{
+        width:100%;
+    }
+    .closeBuy{
+        margin-bottom: 15px;
+        width: 100%;
+    }
+    .buy{
+        width: 100%;
+    }
+    .action{
+       width: 100%;
+    }
+}
+
+@media only screen and (max-width:576px){
+    .tutorial{
+        font-size: 14px;
+    }
+    .tutorial p{
+        margin: 7px !important;
+    }
+
+}
+
+
+@media only screen and (max-width:414px){
+    .tutorial{
+        font-size: 14px;
+    }
+    .tutorial p{
+        margin: 7px !important;
+    }
+}
+
+@media only screen and (max-width:375px){
+
+}
+
+@media only screen and (max-width:320px){
+
+}
