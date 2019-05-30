@@ -161,81 +161,77 @@ class LuckyDetailComponent extends React.Component {
 		if(splayPoint !== undefined){
 			splayPoint=this.convettoLocaleString(splayPoint);
 		}
-		return (cardArr.length > 0) ? (
-			<div className="lucky-detail-root" style={{ marginTop: "8px" }}>
+		return (dataDetail) ? (
+			<div className="lucky-detail-root">
 				<Grid container spacing={12}>
 					<Grid item xs={12} md={12}>
 						<Grid container className="lucky-detail-root" spacing={8}>
-							<Grid item xs={12} sm={12}>
-								<div className="lucky-wrap"
-									style={{ margin: "auto", width: (cardWidth * numberWidth) + "px", height: (cardHeight * numberHeight) + "px", position: "relative" }}>
-									{cardArr.map((obj, key) => {
-										var top = "0px";
-										var left = "0px";
-										if (!collapse) {
-											left = (key % numberWidth) * cardWidth + "px";
-											top = (Math.floor(key / numberWidth)) * cardHeight + "px"
-										}
-										return (<div key={key} className="lucky-card lucky-card-collapse"
-											style={{
-												transition: "0.5s",
-												WebkitTransition: "0.5s",
-												padding:"5px",
-												width: cardWidth,
-												height: cardHeight + "px",
-												left: left,
-												top: top
-											}}>
-											<ReactCardFlip style={{ height: '100%' }} isFlipped={flippedArr.find(x => x.id === obj.item.id).status}>
-												<div key={this.state.div1} style={{
-													opacity: (highLightCard === null || highLightCard === obj.item.id) ? "1" : "0.5",
-													backgroundSize: "contain",
-													backgroundRepeat: "no-repeat",
-													backgroundPosition: "center",
-													backgroundImage: "url(../cardfront1.png)",
-													width: "100%",
-													height: cardHeight + "px",
-													textAlign: "center"
-												}}>
-													<div style={{ paddingTop: cardHeight * 0.3 + "px" }}><img alt="just alt" style={{ width: (cardWidth * 0.5) + "px" }}
-														src={obj.item.urlImage} /></div>
-													<div style={{ fontSize: fontSize }}>{obj.item.name}</div>
-												</div>
-												<div key={this.state.div2} onClick={() => this.pick(obj.item.id)} style={{
-													backgroundSize: "contain",
-													backgroundRepeat: "no-repeat",
-													backgroundPosition: "center",
-													backgroundImage: "url(../cardback1.png)",
-													width: "100%",
-													height: cardHeight + "px",
-													textAlign: "center",
-													cursor:'pointer'
-													
-												}}>
-												</div>
-											</ReactCardFlip>
-										</div>)
-									}
-									)}
-								</div>
-							
-							
-							</Grid>
-							<Grid style={{padding:"8px"}} container spacing={8} sm={12}>
-								<Grid container>
-									<div className="tutorial">
-										<p style={{color:'#black', textAlign:'left', paddingTop:'10px'}}>{this.state.guide1}</p>
-										<p style={{color:'#black', textAlign:'left', paddingBottom:'15px'}}>{this.state.guide2}</p>
-									</div>
+							<Grid container xs={12} md={12} style={{background:'#fff', border:'1px solid #d0d0d1', padding:10}}>
+								<Grid item xs={12} md={12} style={{marginTop:5, marginBottom:40}}>
+									<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_latthe.png" alt="icon"/></div><span style={{float:'left', fontWeight:'bold', color:"#6a6a6a"}}>Chi tiết lật thể</span>
 								</Grid>
-								<Grid container></Grid>
-								<Grid container></Grid>
-								<Grid container></Grid>
-								<Grid container></Grid>
-								<Grid container></Grid>
-								<Grid container></Grid>
-								<Grid container></Grid>
-								<Grid container></Grid>
+								<Grid item xs={12} sm={12}>
+									<div className="lucky-wrap"
+										style={{ margin: "auto", width: (cardWidth * numberWidth) + "px", height: (cardHeight * numberHeight) + "px", position: "relative" }}>
+										{cardArr.map((obj, key) => {
+											var top = "0px";
+											var left = "0px";
+											if (!collapse) {
+												left = (key % numberWidth) * cardWidth + "px";
+												top = (Math.floor(key / numberWidth)) * cardHeight + "px"
+											}
+											return (<div key={key} className="lucky-card lucky-card-collapse"
+												style={{
+													transition: "0.5s",
+													WebkitTransition: "0.5s",
+													padding:"5px",
+													width: cardWidth,
+													height: cardHeight + "px",
+													left: left,
+													top: top
+												}}>
+												<ReactCardFlip style={{ height: '100%' }} isFlipped={flippedArr.find(x => x.id === obj.item.id).status}>
+													<div key={this.state.div1} style={{
+														opacity: (highLightCard === null || highLightCard === obj.item.id) ? "1" : "0.5",
+														backgroundSize: "contain",
+														backgroundRepeat: "no-repeat",
+														backgroundPosition: "center",
+														backgroundImage: "url(../cardfront1.png)",
+														width: "100%",
+														height: cardHeight + "px",
+														textAlign: "center"
+													}}>
+														<div style={{ paddingTop: cardHeight * 0.3 + "px" }}><img alt="just alt" style={{ width: (cardWidth * 0.5) + "px" }}
+															src={obj.item.urlImage} /></div>
+														<div style={{ fontSize: fontSize }}>{obj.item.name}</div>
+													</div>
+													<div key={this.state.div2} onClick={() => this.pick(obj.item.id)} style={{
+														backgroundSize: "contain",
+														backgroundRepeat: "no-repeat",
+														backgroundPosition: "center",
+														backgroundImage: "url(../cardback1.png)",
+														width: "100%",
+														height: cardHeight + "px",
+														textAlign: "center",
+														cursor:'pointer'
+														
+													}}>
+													</div>
+												</ReactCardFlip>
+											</div>)
+										}
+										)}
+									</div>
+								
+									<Grid container>
+										<div className="tutorial">
+											<p style={{color:'#black', textAlign:'left', paddingTop:'10px'}}>{this.state.guide1}</p>
+											<p style={{color:'#black', textAlign:'left', paddingBottom:'15px'}}>{this.state.guide2}</p>
+										</div>
+									</Grid>
+								</Grid>
+							</Grid>
+							<Grid style={{paddingLeft:"8px", marginTop:20, marginBottom:20, paddingBottom:20, borderBottom:'1px solid #d0d1d5'}} container spacing={8} sm={12}>			
 								<Grid container spacing={8}>
 									<div className="actionPlay">
 										<Grid item xs={12} style={{paddingBottom:"5px"}}>
@@ -250,12 +246,6 @@ class LuckyDetailComponent extends React.Component {
 										<div item xs={12} className="btn_buy_latthe" onClick={this.showBuyTurn}>
 											<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_add.png" alt="icon"/></div><span style={{float:'left', color:'#33cccc'}}>Mua Lượt</span>
 										</div>
-										{/* <Grid item xs={12} style={{paddingBottom:"5px"}}>
-											<button className="buttonOrange" onClick={this.showItem}>PHẦN THƯỞNG</button>
-										</Grid>
-										<Grid item xs={12} style={{paddingBottom:"5px"}}>
-											<button className="buttonOrange" onClick={this.showBuyTurn}>MUA LƯỢT</button>
-										</Grid> */}
 									</div>
 								</Grid>
 							</Grid>
@@ -324,7 +314,7 @@ class LuckyDetailComponent extends React.Component {
 			{(waiting === true) ? (												
 				<CircularProgress style={{ color: "black" }} size={50} />):((server===true)?(<img className="error" alt="just alt"
 				src="../baotri.png" />):(<div style={{color:"black", fontSize:"20px"}}>Không có dữ liệu!</div>))}
-			<LoginRequired open={dialogLoginOpen}></LoginRequired>
+			{/* <LoginRequired open={dialogLoginOpen}></LoginRequired> */}
 		</div>)
 	}
 }

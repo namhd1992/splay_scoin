@@ -32,8 +32,23 @@ class MissionComponent extends React.Component {
 		super(props);
 		this.state = {
 			title_popup:"",
-			openPopupMission:false
+			openPopupMission:false,
+			height:0,
+			paddingL:0,
 		};
+	}
+
+	componentWillMount(){
+		var w=window.innerWidth;
+		var padding_l=0;
+		if(w>1080){
+			padding_l=100;
+		}else if(w>=768){
+			padding_l=30;
+		}else{
+			padding_l=0;
+		}
+		this.setState({paddingL:padding_l});
 	}
 
 
@@ -103,63 +118,65 @@ class MissionComponent extends React.Component {
 			<Grid container style={{ width: "100%", margin: "0px" }}>
 				<Grid item xs={12} md={12} >
 					<Grid container>
-						<Grid item xs={12} style={{marginTop:15}}>
-							<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_nhiemvu.png" alt="icon"/></div><span style={{float:'left'}}>Nhiệm vụ</span>
+						<Grid container xs={12} md={12} style={{background:'#fff', border:'1px solid #d0d0d1', padding:10}}>
+							<Grid item xs={12} md={12} style={{marginTop:5, marginBottom:40}}>
+								<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_nhiemvu.png" alt="icon"/></div><span style={{float:'left', fontWeight:'bold', color:"#6a6a6a"}}>Nhiệm vụ</span>
+							</Grid>
+							<Grid item xs={12} md={12}>
+								<List className="mission-list-root" >
+									{data.map((obj, key) => (
+										<ListItem className="mission-item" key={key} style={{ backgroundColor: "#fff", border:"1px solid #cccccc", borderRadius: "5px", marginBottom: "10px", paddingRight: 2 }}>
+											{/* {(obj.award === "Thịt") ? ( */}
+											<div>
+												<img style={{width:40, height:40}} src={this.getSrcImage(obj,key)}
+													id={key}
+													onClick={() => this.showDetail(obj.description,"Chi tiết nhiệm vụ")} />
+											</div>
+											<ListItemText style={{width:"60%", padding:"0 7px"}} disableTypography={true}
+												primary={(<div className="mission_title">{obj.missionName}</div>)}
+												secondary={(
+													<span className="global-thit" style={{ color: "#fe8731" }}><img alt="just alt"
+														src="../Xu.png" /> <span style={{ color: "#ff9933" }}>+{obj.valueAward}</span> </span>)} />
+											<div className="mission_action" style={{paddingLeft:this.state.paddingL}}>
+												<img style={{width:30, height:30, float:'left', marginRight:5}} src='../icon_question.png'
+													onClick={() => this.openPopupMission(obj)} />
+												{(obj.finish && !obj.received && obj.awardAvailable !==0 && obj.missionStatus ==="active") ? (<div>
+													<button onClick={() => this.reward(obj.missionId)} className="buttonMissionReceive" variant="raised">Nhận</button>
+												</div>) : (<div></div>)}
+												{(!obj.finish && !obj.received && obj.missionStatus ==="active") ? (<div>
+													<button className="buttonGhostMission" onClick={() => this.doMission(obj.actionName, obj.objectId, obj.objectValue, obj.scoinGameId,obj.condition)}>Thực Hiện</button>
+												</div>) : (<div></div>)}
+												{(obj.finish && obj.received && obj.missionStatus ==="active") ? (
+													<Button style={{ color: "#888787", textTransform:"none" }} disabled>
+														Đã Nhận
+													</Button>
+												) : (<div></div>)}
+												{(obj.finish && !obj.received && obj.awardAvailable ===0 && obj.missionStatus ==="active") ? (
+													<Button style={{ color: "#888787", textTransform:"none" }} disabled>
+														Đã Hết
+													</Button>
+												) : (<div></div>)}
+												{(obj.missionStatus ==="inactive") ? (
+													<Button style={{ color: "#888787", textTransform:"none" }} disabled>
+														Hết Hạn
+													</Button>
+												) : (<div></div>)}
+											</div>
+										</ListItem>
+									))}
+								</List>
+							</Grid>
+							
+							{(waiting) ? (<Grid item xs={12} style={{ textAlign: "center" }}>
+							{(server !== true) ? (												
+									<CircularProgress style={{ color: "black" }} size={50} />):(<img className="error" alt="just alt"
+									src="../baotri.png" />)}
+							</Grid>) : (totalRecords > loadedRecords) ? (
+								<div item xs={12} className="div_more_mission" onClick={this.loadMoreAction}>
+									<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_add.png" alt="icon"/></div><span style={{float:'left'}}>Xem Thêm</span>
+								</div>
+							) : (<div></div>)}
 						</Grid>
-						<Grid item xs={12} >
-							<List className="mission-list-root" >
-								{data.map((obj, key) => (
-									<ListItem className="mission-item" key={key} style={{ backgroundColor: "#fff", border:"1px solid #cccccc", borderRadius: "5px", marginBottom: "10px", paddingRight: 2 }}>
-										{/* {(obj.award === "Thịt") ? ( */}
-										<div>
-											<img style={{width:40, height:40}} src={this.getSrcImage(obj,key)}
-												id={key}
-												onClick={() => this.showDetail(obj.description,"Chi tiết nhiệm vụ")} />
-										</div>
-										<ListItemText style={{width:"60%", padding:"0 7px"}} disableTypography={true}
-											primary={(<div className="mission_title">{obj.missionName}</div>)}
-											secondary={(
-												<span className="global-thit" style={{ color: "#fe8731" }}><img alt="just alt"
-													src="../Xu.png" /> <span style={{ color: "#ff9933" }}>+{obj.valueAward}</span> </span>)} />
-										<div className="mission_action">
-											<img style={{width:30, height:30, float:'left', marginRight:5}} src='../icon_question.png'
-												onClick={() => this.openPopupMission(obj)} />
-											{(obj.finish && !obj.received && obj.awardAvailable !==0 && obj.missionStatus ==="active") ? (<div>
-												<button onClick={() => this.reward(obj.missionId)} className="buttonMissionReceive" variant="raised">Nhận</button>
-											</div>) : (<div></div>)}
-											{(!obj.finish && !obj.received && obj.missionStatus ==="active") ? (<div>
-												<button className="buttonGhostMission" onClick={() => this.doMission(obj.actionName, obj.objectId, obj.objectValue, obj.scoinGameId,obj.condition)}>Thực Hiện</button>
-											</div>) : (<div></div>)}
-											{(obj.finish && obj.received && obj.missionStatus ==="active") ? (
-												<Button style={{ color: "#888787", textTransform:"none" }} disabled>
-													Đã Nhận
-												</Button>
-											) : (<div></div>)}
-											{(obj.finish && !obj.received && obj.awardAvailable ===0 && obj.missionStatus ==="active") ? (
-												<Button style={{ color: "#888787", textTransform:"none" }} disabled>
-													Đã Hết
-												</Button>
-											) : (<div></div>)}
-											{(obj.missionStatus ==="inactive") ? (
-												<Button style={{ color: "#888787", textTransform:"none" }} disabled>
-													Hết Hạn
-												</Button>
-											) : (<div></div>)}
-										</div>
-									</ListItem>
-								))}
-							</List>
-						</Grid>
-						
-						{(waiting) ? (<Grid item xs={12} style={{ textAlign: "center" }}>
-						{(server !== true) ? (												
-								<CircularProgress style={{ color: "black" }} size={50} />):(<img className="error" alt="just alt"
-								src="../baotri.png" />)}
-						</Grid>) : (totalRecords > loadedRecords) ? (
-							<div item xs={12} className="div_more" onClick={this.loadMoreAction}>
-								<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_add.png" alt="icon"/></div><span style={{float:'left'}}>Xem Thêm</span>
-							</div>
-						) : (<div></div>)}
 						<Grid item xs={12}>
 							<div style={{textAlign:'center', marginTop:40, marginBottom:25, fontSize:14}}>
 								<div><span>Hệ thống phát hành game VTC Mobile</span></div>

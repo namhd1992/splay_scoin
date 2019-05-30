@@ -28,24 +28,26 @@ class LuckyItemComponent extends React.Component {
 
 		return (dataDetail!==undefined) ? (
 			<div>
-				<Grid item xs={12}>
-					<div style={{height:"50px", padding:15, backgroundColor:'#fff'}}>
-						<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_bonus.png" alt="icon"/></div><span style={{float:'left'}}>Phần thưởng</span>
-					</div>
-							
-				</Grid>
-				{dataDetail.itemOfSpin.map((obj, key) => (
-					<ListItem key={key} style={{ minWidth: "120px", color:'black', borderBottom:'1px solid #999999' }}>
-						<div>
-							<img alt="just alt" className="lucky-item-img" src={obj.item.urlImage} />
-						</div>&nbsp;&nbsp;&nbsp;&nbsp;
-						<span>{obj.item.name}</span>
-					</ListItem>
-				))}
+				<Grid container xs={12} md={12} style={{background:'#fff', border:'1px solid #d0d0d1', padding:10}}>
+					<Grid item xs={12}>
+						<div style={{height:"50px", padding:15, borderBottom:'1px solid #999999'}}>
+							<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_bonus.png" alt="icon"/></div><span style={{float:'left'}}>Phần thưởng</span>
+						</div>
+								
+					</Grid>
+					{dataDetail.itemOfSpin.map((obj, key) => (
+						<ListItem key={key} style={{ minWidth: "120px", color:'black', borderBottom:'1px solid #999999' }}>
+							<div>
+								<img alt="just alt" className="lucky-item-img" src={obj.item.urlImage} />
+							</div>&nbsp;&nbsp;&nbsp;&nbsp;
+							<span>{obj.item.name}</span>
+						</ListItem>
+					))}
 
-				<div item xs={12} className="btn_buy_latthe" onClick={this.backLucky}>
-					<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_back.png" alt="icon"/></div><span style={{float:'left', color:'#33cccc'}}>Quay Lại</span>
-				</div>
+					<div item xs={12} className="btn_buy_latthe" onClick={this.backLucky}>
+						<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_back.png" alt="icon"/></div><span style={{float:'left', color:'#33cccc'}}>Quay Lại</span>
+					</div>
+				</Grid>
 
 				<Grid item xs={12}>
 					<div style={{textAlign:'center', marginTop:40, marginBottom:25, fontSize:14}}>
