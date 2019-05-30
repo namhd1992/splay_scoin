@@ -61,12 +61,12 @@ class CheckinComponent extends React.Component {
 						<Grid container spacing={12} >
 							<Grid container xs={12} md={12} style={{background:'#fff', border:'1px solid #d0d0d1'}}>
 								<Grid item xs={12} style={{marginTop:10, marginLeft:10, marginBottom:-15 }}>
-									<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_diemdanh.png" alt="icon"/></div><span style={{float:'left', fontWeight:'bold', color:"#6a6a6a"}}>Điểm danh</span>
+									<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_diemdanh.png" alt="icon"/></div><span style={{float:'left', fontWeight:'bold', color:"#6a6a6a", fontSize:18}}>Điểm danh</span>
 								</Grid>
 								<Grid item xs={12}>
 									<List className="checkin-root-list">
 										<ListItem>
-											<ListItemText primary={(<span><span style={{color:'#666666', marginRight:3}}>Quà đăng nhập hôm nay</span> <span className="global-thit" style={{ color: "#ff9933" }}> <img style={{width:24, height:24}} alt="just alt" src="../icon_xu.png" /> +{award}</span></span>)}></ListItemText>
+											<ListItemText primary={(<span><span style={{fontWeight:'bold', color:"#6a6a6a", fontSize:16, marginRight:3}}>Quà đăng nhập hôm nay</span> <span className="global-thit" style={{ color: "#ff9933", fontWeight:'bold', fontSize:16 }}> <img style={{width:24, height:24}} alt="just alt" src="../icon_xu.png" /> +{award}</span></span>)}></ListItemText>
 											<div>
 												{(!toDay.checkined) ? (
 													<button onClick={this.checkin} style={{
@@ -79,9 +79,10 @@ class CheckinComponent extends React.Component {
 														border:'0px solid',
 														cursor:'pointer',
 														minWidth: "auto",
-														minHeight: "auto"
+														minHeight: "auto",
+														fontSize:18
 													}}>Điểm danh</button>) : (
-														<button disabled style={{ color: "#999999" }}>Đã nhận</button>)}
+														<button disabled style={{ color: "#999999", border:'0px solid', padding: "10px",borderRadius: "5px", fontSize:18}}>Đã nhận</button>)}
 											</div>
 										</ListItem>
 									</List>
@@ -91,11 +92,11 @@ class CheckinComponent extends React.Component {
 										<div style={{height:height}} className='checkin-item'>
 											{(toDay.toDay > obj.day || (toDay.checkined && obj.day === toDay.toDay)) ? (
 												<div style={{float:'right', marginRight:-18, marginTop:-18}}><img style={{width:18, height:18}} alt="just alt" src="../icon_tich_small.png" /></div>) : (<div></div>)}
-											<div className="checkin-day" style={{marginBottom:marginB, marginTop:marginT}}><span style={{fontWeight:'bold', fontSize:14}}>{"Ngày " + obj.day}</span></div>
+											<div className="checkin-day" style={{marginBottom:marginB, marginTop:marginT}}><span style={{fontWeight:'bold', fontSize:18, color:'#666666'}}>{"Ngày " + obj.day}</span></div>
 											<div className="checkin-icon" style={{marginBottom:marginB}}><img alt="just alt" src="../icon_vatpham.png" /></div>
 											<div style={{textAlign:'center'}}>
 												<span className="global-thit" style={{ color: "#fe8731" }}><img alt="just alt"
-														src="../Xu.png" /> <span style={{ color: "#ff9933" }}>+{obj.awardPoint + obj.pointBonus}</span> </span>
+														src="../Xu.png" /> <span style={{ color: "#ff9933", fontWeight:'bold', fontSize:16 }}>+{obj.awardPoint + obj.pointBonus}</span> </span>
 											</div>
 										</div>
 									</Grid>
@@ -103,8 +104,8 @@ class CheckinComponent extends React.Component {
 							</Grid>
 							<Grid item xs={12}>
 								<div style={{textAlign:'center', marginTop:40, marginBottom:25, fontSize:14}}>
-									<div><span>Hệ thống phát hành game VTC Mobile</span></div>
-									<div><span>Copyright 2017 VTC Mobile. All rights reverved</span></div>
+									<div><span style={{color:'#747c89'}}>Hệ thống phát hành game VTC Mobile</span></div>
+									<div><span style={{color:'#747c89'}}>Copyright 2017 VTC Mobile. All rights reverved</span></div>
 									<div><span style={{color:'#59d0c4'}}>Hotline 1900 1104</span></div>
 								</div>
 							</Grid>

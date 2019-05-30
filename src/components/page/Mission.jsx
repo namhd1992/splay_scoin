@@ -120,7 +120,7 @@ class MissionComponent extends React.Component {
 					<Grid container>
 						<Grid container xs={12} md={12} style={{background:'#fff', border:'1px solid #d0d0d1', padding:10}}>
 							<Grid item xs={12} md={12} style={{marginTop:5, marginBottom:40}}>
-								<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_nhiemvu.png" alt="icon"/></div><span style={{float:'left', fontWeight:'bold', color:"#6a6a6a"}}>Nhiệm vụ</span>
+								<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_nhiemvu.png" alt="icon"/></div><span style={{float:'left', fontWeight:'bold', color:"#6a6a6a", fontSize:18}}>Nhiệm vụ</span>
 							</Grid>
 							<Grid item xs={12} md={12}>
 								<List className="mission-list-root" >
@@ -136,7 +136,7 @@ class MissionComponent extends React.Component {
 												primary={(<div className="mission_title">{obj.missionName}</div>)}
 												secondary={(
 													<span className="global-thit" style={{ color: "#fe8731" }}><img alt="just alt"
-														src="../Xu.png" /> <span style={{ color: "#ff9933" }}>+{obj.valueAward}</span> </span>)} />
+														src="../Xu.png" /> <span style={{ color: "#ff9933", fontSize:16, fontWeight:'bold' }}>+{obj.valueAward}</span> </span>)} />
 											<div className="mission_action" style={{paddingLeft:this.state.paddingL}}>
 												<img style={{width:30, height:30, float:'left', marginRight:5}} src='../icon_question.png'
 													onClick={() => this.openPopupMission(obj)} />
@@ -147,17 +147,17 @@ class MissionComponent extends React.Component {
 													<button className="buttonGhostMission" onClick={() => this.doMission(obj.actionName, obj.objectId, obj.objectValue, obj.scoinGameId,obj.condition)}>Thực Hiện</button>
 												</div>) : (<div></div>)}
 												{(obj.finish && obj.received && obj.missionStatus ==="active") ? (
-													<Button style={{ color: "#888787", textTransform:"none" }} disabled>
+													<Button style={{ color: "#888787", textTransform:"none", fontSize:16 }} disabled>
 														Đã Nhận
 													</Button>
 												) : (<div></div>)}
 												{(obj.finish && !obj.received && obj.awardAvailable ===0 && obj.missionStatus ==="active") ? (
-													<Button style={{ color: "#888787", textTransform:"none" }} disabled>
+													<Button style={{ color: "#888787", textTransform:"none", fontSize:16 }} disabled>
 														Đã Hết
 													</Button>
 												) : (<div></div>)}
 												{(obj.missionStatus ==="inactive") ? (
-													<Button style={{ color: "#888787", textTransform:"none" }} disabled>
+													<Button style={{ color: "#888787", textTransform:"none", fontSize:16 }} disabled>
 														Hết Hạn
 													</Button>
 												) : (<div></div>)}
@@ -179,8 +179,8 @@ class MissionComponent extends React.Component {
 						</Grid>
 						<Grid item xs={12}>
 							<div style={{textAlign:'center', marginTop:40, marginBottom:25, fontSize:14}}>
-								<div><span>Hệ thống phát hành game VTC Mobile</span></div>
-								<div><span>Copyright 2017 VTC Mobile. All rights reverved</span></div>
+								<div><span style={{color:'#747c89'}}>Hệ thống phát hành game VTC Mobile</span></div>
+								<div><span style={{color:'#747c89'}}>Copyright 2017 VTC Mobile. All rights reverved</span></div>
 								<div><span style={{color:'#59d0c4'}}>Hotline 1900 1104</span></div>
 							</div>
 						</Grid>
@@ -195,17 +195,17 @@ class MissionComponent extends React.Component {
 				aria-labelledby="responsive-dialog-title"
 				classes={{ paper: classes.paper }}
 			>
-				<DialogTitle id="responsive-dialog-title"><span style={{ color: secondary.main }}>{title_dialog}</span></DialogTitle>
+				<DialogTitle id="responsive-dialog-title"><span style={{ color: "#666666", fontWeight:'bold', fontSize:18 }}>{title_dialog}</span></DialogTitle>
 				<DialogContent>
-					<div style={{ color: "#fff" }}>
-						{dialogContent}
+					<div>
+						<span style={{ color: "#666666", fontSize:16 }}>{dialogContent}</span>
 					</div>
 				</DialogContent>
 				<DialogActions>
 					<div>
-						<Button onClick={this.handleCloseDialogDetail} style={{ color: "#fe8731", borderRadius:"20px" }}>
+						<button onClick={this.handleCloseDialogDetail} className='btn_close_popup'>
 							Đóng
-		  </Button>
+		  				</button>
 					</div>
 				</DialogActions>
 			</Dialog>

@@ -13,7 +13,6 @@ import '../../styles/imageServerError.css'
 
 const styles = theme => ({
 	root: {
-		marginTop: "8px",
 		margin: "auto"
 	},
 	gridItem: {
@@ -24,6 +23,31 @@ const styles = theme => ({
 });
 
 class LuckyComponent extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			height:0,
+			width:0,
+		};
+	}
+
+	componentWillMount(){
+		var w=window.innerWidth;
+		var height=0, width=0;
+		if(w>1080){
+			height=40;
+			width=200;
+		}else if(w>=768){
+			height=35;
+			width=170;
+		}else{
+			height=30;
+			width=150;
+		}
+		this.setState({height:height, width:width});
+	}
+
 
 	loadMoreAction=()=>{
 		this.props.loadMoreAction();
@@ -74,12 +98,12 @@ class LuckyComponent extends React.Component {
 														backgroundPosition: "center"
 													}} />
 													<GridListTileBar
-														style={{backgroundColor:'#2b7f7d'}}
+														style={{backgroundColor:'rgba(45, 124, 125, 0.8)', width:this.state.width, height:this.state.height, borderRadius:5}}
 														title={time_text}
-														actionIcon={
-															<IconButton>
-															</IconButton>
-														}
+														// actionIcon={
+														// 	<IconButton>
+														// 	</IconButton>
+														// }
 													/>
 												</GridListTile>
 											</Link>
@@ -103,8 +127,8 @@ class LuckyComponent extends React.Component {
 					</Grid>
 					<Grid item xs={12}>
 						<div style={{textAlign:'center', marginTop:40, marginBottom:25, fontSize:14}}>
-							<div><span>Hệ thống phát hành game VTC Mobile</span></div>
-							<div><span>Copyright 2017 VTC Mobile. All rights reverved</span></div>
+							<div><span style={{color:'#747c89'}}>Hệ thống phát hành game VTC Mobile</span></div>
+							<div><span style={{color:'#747c89'}}>Copyright 2017 VTC Mobile. All rights reverved</span></div>
 							<div><span style={{color:'#59d0c4'}}>Hotline 1900 1104</span></div>
 						</div>
 					</Grid>

@@ -51,8 +51,8 @@ class LuckyItemComponent extends React.Component {
 
 				<Grid item xs={12}>
 					<div style={{textAlign:'center', marginTop:40, marginBottom:25, fontSize:14}}>
-						<div><span>Hệ thống phát hành game VTC Mobile</span></div>
-						<div><span>Copyright 2017 VTC Mobile. All rights reverved</span></div>
+						<div><span style={{color:'#747c89'}}>Hệ thống phát hành game VTC Mobile</span></div>
+						<div><span style={{color:'#747c89'}}>Copyright 2017 VTC Mobile. All rights reverved</span></div>
 						<div><span style={{color:'#59d0c4'}}>Hotline 1900 1104</span></div>
 					</div>
 				</Grid>

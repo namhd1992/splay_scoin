@@ -45,16 +45,17 @@ class PopupMission extends React.Component {
 			<div>
 				<Dialog
 					fullScreen={false}
+					onBackdropClick={this.props.handleClosePopupMission}
 					open={openPopupMission}
 					aria-labelledby="responsive-dialog-title"
 				>	
 				<div style={{background:"#212833"}}>
-					<DialogTitle id="responsive-dialog-title"><span style={{ color: "#23c9b6" }}>Chi tiết nhiệm vụ</span></DialogTitle>
+					<DialogTitle id="responsive-dialog-title"><span style={{ color: "#666666", fontWeight:'bold', fontSize:18 }}>Chi tiết nhiệm vụ</span></DialogTitle>
 					<DialogContent style={{ color: "#fff" }}>
 					{(dataMission !==undefined) ? (
 						<div>		
 							<div style={{minWidth:"200px"}}>
-								{dataMission.description}
+								<span style={{ color: "#666666", fontSize:16 }}>{dataMission.description}</span>
 							</div>
 								<div>
 									<div style={{background:"#2b313b", marginTop:"15px", marginBottom:"15px", height:"50px"}}>
@@ -67,26 +68,22 @@ class PopupMission extends React.Component {
 										</div>):(
 										<div style={{padding:"15px"}}>
 											<div style={{width:"18px", height:"18px", border:"1px solid #779796", float:"left", marginRight:"15px"}}></div>
-											<span>{dataMission.missionProgress}/{dataMission.missionSatisfying}</span>
+											<span style={{ color: "#666666", fontSize:16 }}>{dataMission.missionProgress}/{dataMission.missionSatisfying}</span>
 										</div>)}
 									</div>
 									<div>
-										<div style={{float:"left", paddingRight:"15px"}}>Phần thưởng: </div>
+										<div style={{float:"left", paddingRight:"15px", color: "#666666", fontSize:16}}>Phần thưởng: </div>
 										<div>
 											{(dataMission.award === "Thịt") ? (
 											<ListItemText style={{width:"100%", padding:"0 7px"}} disableTypography={true}
 												secondary={(
-													<span className="global-thit" style={{ color: "#fe8731" }}><img alt="just alt"
-														src="../thit.png" /> <span className="valueBonus">{dataMission.valueAward}</span></span>)} />) : (<div></div>)}
-											{(dataMission.award === "giftcode") ? (
-											<ListItemText style={{width:"100%", padding:"0 7px"}} disableTypography={true}
-												secondary={(
-													<span className="global-thit" style={{ color: "#fe8731" }}><span className="valueBonus">Giftcode</span></span>)} />) : (<div></div>)}
+													<span className="global-thit" style={{ color: "#ff9933" }}><img alt="just alt"
+														src="../icon_xu.png" /> <span className="valueBonus">+{dataMission.valueAward}</span></span>)} />) : (<div></div>)}
 											{(dataMission.award === "XO") ? (
 											<ListItemText style={{width:"100%", padding:"0 7px"}} disableTypography={true}
 												secondary={(
-													<span className="global-thit" style={{ color: "#fe8731" }}><img alt="just alt"
-														src="../XO.png" /> <span className="valueBonus">{dataMission.valueAward}</span></span>)} />) : (<div></div>)}
+													<span className="global-thit" style={{ color: "#ff9933" }}><img alt="just alt"
+														src="../XO.png" /> <span className="valueBonus">+{dataMission.valueAward}</span></span>)} />) : (<div></div>)}
 										</div>
 									</div>
 								</div>
@@ -95,9 +92,9 @@ class PopupMission extends React.Component {
 					</DialogContent>
 					<DialogActions>
 						<div>
-							<Button onClick={this.handleClosePopupMission} style={{ color: "#fe8731", borderRadius:"20px" }}>
+							<button onClick={this.handleClosePopupMission} className="btn_close_popup">
 								Đóng
-							</Button>
+							</button>
 						</div>
 						{(dataMission !==undefined) ? (
 						<div>
@@ -136,14 +133,14 @@ class PopupMission extends React.Component {
 					fullScreen={false}
 					open={this.state.openBonus}
 					aria-labelledby="responsive-dialog-title">
-					<DialogContent style={{ color: "#fff" }}>
+					<DialogContent style={{ color: "#666666", fontSize:16 }}>
 						{this.state.message}
 					</DialogContent>
 					<DialogActions>
 						<div>
-							<Button onClick={this.handleCloseBonus} style={{ color: "#fe8731", borderRadius:"20px"}}>
+							<button onClick={this.handleCloseBonus} className="btn_close_popup">
 								Đóng
-							</Button>
+							</button>
 						</div>
 					</DialogActions>
 				</Dialog>

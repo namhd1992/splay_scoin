@@ -61,6 +61,7 @@ button.buttonCircleMission:hover{
 }
 
 button.buttonMissionReceive{
+	font-size:16px;
 	border-radius: 5px;
 	border: none;
 	background: #33cccc;
@@ -76,6 +77,37 @@ button.buttonMissionReceive:hover{
 	background: #5cd6d6;
 }
 
+button.buttonFull{
+	border-radius: 5px;
+	font-size:16px;
+	border: none;
+	background: #34cccb;
+	min-width:88px;
+	color: #fff;
+	padding: 8px;
+	font-size: 0.8em;
+	white-space: nowrap;
+	cursor: pointer;
+}
+button.buttonGhost{
+	font-size:16px;
+	border-radius: 5px;
+	background:#232b36;
+	min-width:88px;
+	color: #00948d;
+	border: 1px solid #00948d;
+	padding: 8px;
+	font-size: 0.8em;
+	white-space: nowrap;
+	cursor: pointer;
+}
+.btn_close_popup{
+	color:#cccccc;
+	border-radius: 5px;
+	background:#232b36;
+	border: 1px solid #cccccc;
+	padding: 8px 10px;
+}
 .mission_container{
 	width:100%;
 }
@@ -97,7 +129,9 @@ button.buttonMissionReceive:hover{
 }
 .mission_title{
 	font-weight: 400;
-	color: black;
+	font-size: 16px;
+	font-weight: bold;
+	color: #666666;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
