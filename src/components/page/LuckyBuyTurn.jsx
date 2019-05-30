@@ -56,13 +56,13 @@ class LuckyBuyTurnComponent extends React.Component {
 							</div>
 							<Grid item xs={12} style={{margin:15}}>
 									<div style={{marginBottom:20}}>
-										<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_add_inactive.png" alt="icon"/></div><span style={{float:'left'}}>Mua thêm lượt</span>
+										<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_add_inactive.png" alt="icon"/></div><span style={{float:'left', fontWeight:'bold', color:'#666666'}}>Mua thêm lượt</span>
 									</div>
 							</Grid>
 							<div className="optionLeftBuyTurn">
 								{items.map((obj, key) => (
 									<div key={key} style={{border:"1px solid #e5e5e5", borderRadius:"10px", height:"60px", marginBottom:"15px", cursor:"pointer", background:(this.state.intValue === obj.number)?this.state.whenSelect:""}} onClick={()=>this.selectPackage(obj.number)}>
-										<div style={{color:"#33cbcc", padding:"5px 10px", lineHeight:"60px"}}><span>+ {this.convettoLocaleString(obj.number)} lượt</span><span className="global-thit" style={{float:'right'}}><img alt="just alt" src="../scoin.png" /> <span style={{color:'black'}}>{this.convettoLocaleString(obj.price)}</span></span></div>
+										<div style={{color:"#33cbcc", padding:"5px 10px", lineHeight:"60px"}}><span style={{fontWeight:'bold'}}>+ {this.convettoLocaleString(obj.number)} lượt</span><span className="global-thit" style={{float:'right'}}><img alt="just alt" src="../scoin.png" /> <span style={{color:'#666666', fontWeight:'bold'}}>{this.convettoLocaleString(obj.price)}</span></span></div>
 									</div>
 								))}
 							</div>
