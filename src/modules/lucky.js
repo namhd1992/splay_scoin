@@ -126,18 +126,19 @@ export const getDetailData = (id) => {
 		})
 	}
 }
-export const pickCard = (token, scoinToken, id) => {
+export const pickCard = (id) => {
 	var header = {
 		headers: {
 			"Content-Type": "application/json",
-			"Authorization": "bearer " + token,
+			// "Authorization": "bearer " + token,
 		}
 	}
 	return dispatch => {
 		dispatch({
 			type: LUCKY_REQUEST
 		})
-		var url = Ultilities.base_url() + "/awardSpin?spinId=" + id + "&scoinToken=" + scoinToken;
+		// var url = Ultilities.base_url() + "/awardSpin?spinId=" + id + "&scoinToken=" + scoinToken;
+		var url = Ultilities.base_url() + "lucky-spin/award-spin?lucky_sprin_id=" + id;
 		return axios.get(url, header).then(function (response) {
 			dispatch({
 				type: LUCKY_PICK_RESPONSE,
