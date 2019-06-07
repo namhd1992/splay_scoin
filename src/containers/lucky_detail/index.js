@@ -49,23 +49,35 @@ class Lucky_detail extends React.Component {
 
 	componentDidMount() {
 		var _this = this;
-		var user = JSON.parse(localStorage.getItem("user"));
-		if (user !== null) {
-			this.props.getDetailData(user.access_token, this.props.match.params.id).then(function () {
-				if(_this.props.dataDetail!==null){
-					// _this.props.changeTitle(_this.props.dataDetail.luckyspin.name);
-					var new_arr = [];
-					_this.props.dataDetail.itemOfSpin.forEach(function (item, key) {
-						new_arr.push({ id: item.item.id, status: true });
-					});
-					_this.setState({ cardArr: _this.props.dataDetail.itemOfSpin, flippedArr: new_arr });
-				}
+		// var user = JSON.parse(localStorage.getItem("user"));
+		// if (user !== null) {
+		// 	this.props.getDetailData(user.access_token, this.props.match.params.id).then(function () {
+		// 		if(_this.props.dataDetail!==null){
+		// 			// _this.props.changeTitle(_this.props.dataDetail.luckyspin.name);
+		// 			var new_arr = [];
+		// 			_this.props.dataDetail.itemOfSpin.forEach(function (item, key) {
+		// 				new_arr.push({ id: item.item.id, status: true });
+		// 			});
+		// 			_this.setState({ cardArr: _this.props.dataDetail.itemOfSpin, flippedArr: new_arr });
+		// 		}
 			
-			});
-			// this.props.getData(user.access_token, user.scoinAccessToken);
-		} else {
-			_this.setState({ dialogLoginOpen: true });
-		}
+		// 	});
+		// 	// this.props.getData(user.access_token, user.scoinAccessToken);
+		// } else {
+		// 	_this.setState({ dialogLoginOpen: true });
+		// }
+		this.props.getDetailData(this.props.match.params.id).then(function () {
+			if(_this.props.dataDetail!==undefined){
+				// _this.props.changeTitle(_this.props.dataDetail.luckyspin.name);
+				var new_arr = [];
+				_this.props.dataDetail.itemOfSpin.forEach(function (item, key) {
+					console.log(_this.props.dataDetail)
+					new_arr.push({ id: item.item.id, status: true });
+				});
+				_this.setState({ cardArr: _this.props.dataDetail.itemOfSpin, flippedArr: new_arr });
+			}
+		
+		});
 	}
 
 	handleCloseSnack = () => {
@@ -146,7 +158,7 @@ class Lucky_detail extends React.Component {
 	}
 
 	start = () => {
-		if (this.props.dataDetail.userSpinInfo.turnsBuy + this.props.dataDetail.userSpinInfo.turnsFree <= 0) {
+		if (this.props.dataDetail.userTurnSpin.turnsBuy + this.props.dataDetail.userTurnSpin.turnsFree <= 0) {
 			this.setState({ dialogMoreTurnOpen: true });
 		} else {
 			if (this.state.canPlay) {
@@ -170,8 +182,19 @@ class Lucky_detail extends React.Component {
 		if (this.state.canPlay) {
 			var _this = this;
 			this.setState({ canPlay: false });
-			var user = JSON.parse(localStorage.getItem("user"));
-			this.props.pickCard(user.access_token, user.scoinAccessToken, this.props.match.params.id).then(function () {
+			// var user = JSON.parse(localStorage.getItem("user"));
+			// this.props.pickCard(user.access_token, user.scoinAccessToken, this.props.match.params.id).then(function () {
+			// 	if (_this.props.dataPick === null) {
+			// 		_this.setState({ openSnack: true, message: "Bạn đã hết lượt quay", snackVariant: "error" });
+			// 	} else {
+			// 		_this.swap(key, _this.props.dataPick.item.id);
+			// 		_this.openCard(_this.props.dataPick.item.id);
+			// 		_this.setState({ openSnack: true, message: "Thành công, vào hộp thư để xem vật phẩm trúng thưởng", snackVariant: "success" });
+			// 	}
+			// 	_this.props.getDetailData(user.access_token, _this.props.match.params.id);
+			// 	// _this.props.getData(user.access_token, user.scoinAccessToken);
+			// });
+			this.props.pickCard(this.props.match.params.id).then(function () {
 				if (_this.props.dataPick === null) {
 					_this.setState({ openSnack: true, message: "Bạn đã hết lượt quay", snackVariant: "error" });
 				} else {
@@ -179,7 +202,7 @@ class Lucky_detail extends React.Component {
 					_this.openCard(_this.props.dataPick.item.id);
 					_this.setState({ openSnack: true, message: "Thành công, vào hộp thư để xem vật phẩm trúng thưởng", snackVariant: "success" });
 				}
-				_this.props.getDetailData(user.access_token, _this.props.match.params.id);
+				_this.props.getDetailData(_this.props.match.params.id);
 				// _this.props.getData(user.access_token, user.scoinAccessToken);
 			});
 		}

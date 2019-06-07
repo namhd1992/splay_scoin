@@ -21,7 +21,7 @@ import '../../styles/luckyDetail.css';
 
 const styles = {
 	paper: {
-		background: "#2b323d"
+		background: "#cfe3fc"
 	},
 	buttonOrange:{
 		borderRadius: "20px",
@@ -102,7 +102,7 @@ class LuckyDetailComponent extends React.Component {
 	}
 	
 	start=()=>{
-		if(this.props.dataDetail.userSpinInfo.turnsBuy + this.props.dataDetail.userSpinInfo.turnsFree >0){
+		if(this.props.dataDetail.userTurnSpin.turnsBuy + this.props.dataDetail.userTurnSpin.turnsFree >0){
 			this.setState({btnPlay: true,div1:'front', div2:'back', guide1:'- Mời bạn lật thẻ để nhận phần thưởng.', guide2:''})
 		}
 		this.props.start();
@@ -168,7 +168,7 @@ class LuckyDetailComponent extends React.Component {
 						<Grid container className="lucky-detail-root" spacing={8}>
 							<Grid container xs={12} md={12} style={{background:'#fff', border:'1px solid #d0d0d1', padding:10}}>
 								<Grid item xs={12} md={12} style={{marginTop:5, marginBottom:40}}>
-									<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_latthe.png" alt="icon"/></div><span style={{float:'left', fontWeight:'bold', color:"#6a6a6a"}}>Chi tiết lật thể</span>
+									<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_latthe.png" alt="icon"/></div><span style={{float:'left', fontWeight:'bold', color:"#6a6a6a"}}>Chi tiết lật thẻ</span>
 								</Grid>
 								<Grid item xs={12} sm={12}>
 									<div className="lucky-wrap"
@@ -225,8 +225,8 @@ class LuckyDetailComponent extends React.Component {
 								
 									<Grid container>
 										<div className="tutorial">
-											<p style={{color:'#black', textAlign:'left', paddingTop:'10px'}}>{this.state.guide1}</p>
-											<p style={{color:'#black', textAlign:'left', paddingBottom:'15px'}}>{this.state.guide2}</p>
+											<p style={{color:'#6b6b6b', textAlign:'left', paddingTop:'10px'}}>{this.state.guide1}</p>
+											<p style={{color:'#6b6b6b', textAlign:'left', paddingBottom:'15px'}}>{this.state.guide2}</p>
 										</div>
 									</Grid>
 								</Grid>
@@ -236,7 +236,7 @@ class LuckyDetailComponent extends React.Component {
 									<div className="actionPlay">
 										<Grid item xs={12} style={{paddingBottom:"5px"}}>
 											{(this.state.btnPlay)?(<button className="buttonGreen">LẬT BẤT KỲ</button>):(
-												<button className="buttonGreen" onClick={this.start}>CHƠI ({dataDetail.userSpinInfo.turnsBuy + dataDetail.userSpinInfo.turnsFree})</button>
+												<button className="buttonGreen" onClick={this.start}>CHƠI ({dataDetail.userTurnSpin.turnsBuy + dataDetail.userTurnSpin.turnsFree})</button>
 											)}
 											
 										</Grid>
@@ -252,8 +252,8 @@ class LuckyDetailComponent extends React.Component {
 						</Grid>
 						<Grid item xs={12}>
 								<div style={{textAlign:'center', marginTop:40, marginBottom:25, fontSize:14}}>
-									<div><span>Hệ thống phát hành game VTC Mobile</span></div>
-									<div><span>Copyright 2017 VTC Mobile. All rights reverved</span></div>
+									<div><span style={{color:'#747c89'}}>Hệ thống phát hành game VTC Mobile</span></div>
+									<div><span style={{color:'#747c89'}}>Copyright 2017 VTC Mobile. All rights reverved</span></div>
 									<div><span style={{color:'#59d0c4'}}>Hotline 1900 1104</span></div>
 								</div>
 							</Grid>
@@ -268,16 +268,16 @@ class LuckyDetailComponent extends React.Component {
 					aria-labelledby="responsive-dialog-title"
 					classes={{ paper: classes.paper }}
 				>
-					<DialogTitle id="responsive-dialog-title"><span style={{ color: secondary.main }} >Bạn đã hết lượt quay</span></DialogTitle>
+					<DialogTitle id="responsive-dialog-title"><span style={{ color: '#666666', fontSize:18 }} >Bạn đã hết lượt quay</span></DialogTitle>
 					<DialogContent>
-						<div style={{ color: "#fff" }}>
+						<div style={{ color: "#666666" }}>
 							Mua thêm lượt quay để tiếp tục
 						</div>
 					</DialogContent>
 					<DialogActions>
 						<div>
-							<Button className={classes.buttonOrange} onClick={this.showBuyTurn}>Mua lượt</Button>
-							<Button onClick={this.handleCloseMoreTurnDialog} style={{ color: "#888787", borderRadius:"20px", marginRight:"15px" }}>Đóng</Button>
+							<button className='btn_buy_lucky' onClick={this.showBuyTurn}>Mua lượt</button>
+							<button onClick={this.handleCloseMoreTurnDialog} className="btn_close_lucky">Đóng</button>
 						</div>
 					</DialogActions>
 				</Dialog>

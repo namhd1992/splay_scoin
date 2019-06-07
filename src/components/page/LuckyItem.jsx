@@ -66,7 +66,7 @@ class LuckyItemComponent extends React.Component {
 			{(waiting === true) ? (												
 				<CircularProgress style={{ color: "black" }} size={50} />):((server===true)?(<img className="error" alt="just alt"
 				src="../baotri.png" />):(<div style={{color:"black", fontSize:"20px"}}>Không có dữ liệu!</div>))}
-			<LoginRequired open={dialogLoginOpen}></LoginRequired>
+			{/* <LoginRequired open={dialogLoginOpen}></LoginRequired> */}
 		</div>)
 	}
 }

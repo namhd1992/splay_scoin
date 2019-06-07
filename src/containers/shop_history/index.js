@@ -11,7 +11,7 @@ import {
 import {
 	changeTitle
 } from '../../modules/global'
-import ShopHistoryComponent from '../../components/page/ShopHistory'
+import HistoryComponent from '../../components/page/History'
 
 class Shop_history extends React.Component {
 
@@ -73,7 +73,7 @@ class Shop_history extends React.Component {
 		
 		return (
 			<div>
-				<ShopHistoryComponent
+				<HistoryComponent
 					loadMoreAction={this.loadMoreAction}
 					handleExpandItem={this.handleExpandItem}
 					handleCloseDialogLogin={this.handleCloseDialogLogin}

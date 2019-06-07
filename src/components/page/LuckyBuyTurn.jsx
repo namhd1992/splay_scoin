@@ -41,6 +41,11 @@ class LuckyBuyTurnComponent extends React.Component {
 	convettoLocaleString(value){
 		return value.toLocaleString();
 	}
+	buyTurn=()=>{
+		if(this.state.intValue!==0){
+			this.props.buyTurn(this.state.intValue);
+		}
+	}
 
 	render() {
 		const {message,openSnack,snackVariant, dataDetail, server,waiting, dialogLoginOpen}=this.props;
@@ -51,7 +56,7 @@ class LuckyBuyTurnComponent extends React.Component {
 						<div style={{width:"100%"}}>
 							<div className="infoTitle">
 								<div className="valueUserBuyTurn">
-									<span className="global-thit" style={{color:"black"}}>Còn <span style={{marginLeft:'50px'}}><img alt="just alt"src="../thit.png" /> <span style={{ color: "black" }} >{this.convettoLocaleString(dataDetail.userSpinInfo.rewardPoint) }</span></span><span style={{float:'right'}}> {dataDetail.userSpinInfo.turnsBuy + dataDetail.userSpinInfo.turnsFree} lượt lật thẻ</span></span>
+									<span className="global-thit" style={{color:"black"}}>Còn <span style={{marginLeft:'50px'}}><img alt="just alt"src="../thit.png" /> <span style={{ color: "black" }} >{this.convettoLocaleString(dataDetail.userTurnSpin.rewardPoint) }</span></span><span style={{float:'right'}}> {dataDetail.userTurnSpin.turnsBuy + dataDetail.userTurnSpin.turnsFree} lượt lật thẻ</span></span>
 								</div>	
 							</div>
 							<Grid item xs={12} style={{margin:15}}>
@@ -68,7 +73,7 @@ class LuckyBuyTurnComponent extends React.Component {
 							</div>
 						</div>
 						<div className="actionBuyTurn" style={{width:"100%", paddingBottom:20}}>
-							<button className="buyTurn" onClick={() => this.buyTurn()}>
+							<button className="buyTurn" onClick={this.buyTurn}>
 								MUA
 							</button>
 							<div item xs={12} className="btn_back" onClick={this.backLucky}>
@@ -90,7 +95,7 @@ class LuckyBuyTurnComponent extends React.Component {
 			{(waiting === true) ? (												
 				<CircularProgress style={{ color: "black" }} size={50} />):((server===true)?(<img className="error" alt="just alt"
 				src="../baotri.png" />):(<div style={{color:"black", fontSize:"20px"}}>Không có dữ liệu!</div>))}
-			<LoginRequired open={dialogLoginOpen}></LoginRequired>
+			{/* <LoginRequired open={dialogLoginOpen}></LoginRequired> */}
 		</div>)
 	}
 }

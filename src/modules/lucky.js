@@ -62,11 +62,11 @@ export const getData = (limit, offset) => {
 		dispatch({
 			type: LUCKY_REQUEST
 		})
-		var url = Ultilities.base_url() + "/anonymous/spinList?limit=" + limit + "&offset=" + offset;
+		var url = Ultilities.base_url() + "lucky-spin/get?limit=" + limit + "&offset=" + offset;
 		return axios.get(url).then(function (response) {
 			dispatch({
 				type: LUCKY_RESPONSE,
-				data: response.data.dataArr,
+				data: response.data.data,
 				totalRecords: response.data.totalRecords
 			})
 		}).catch(function (error) {
@@ -78,15 +78,20 @@ export const getData = (limit, offset) => {
 }
 
 export const getMoreData = (limit, offset) => {
+	var header = {
+		headers: {
+			"Content-Type": "application/json",
+		}
+	}
 	return dispatch => {
 		dispatch({
 			type: LUCKY_REQUEST
 		})
-		var url = Ultilities.base_url() + "/anonymous/spinList?limit=" + limit + "&offset=" + offset;
-		return axios.get(url).then(function (response) {
+		var url = Ultilities.base_url() + "lucky-spin/get?limit=" + limit + "&offset=" + offset;
+		return axios.get(url, header).then(function (response) {
 			dispatch({
 				type: LUCKY_RESPONSE_MORE,
-				data: response.data.dataArr,
+				data: response.data.data,
 				totalRecords: response.data.totalRecords
 			})
 		}).catch(function (error) {
@@ -97,22 +102,22 @@ export const getMoreData = (limit, offset) => {
 	}
 }
 
-export const getDetailData = (token, id) => {
+export const getDetailData = (id) => {
 	var header = {
 		headers: {
 			"Content-Type": "application/json",
-			"Authorization": "bearer " + token,
+			// "Authorization": "bearer " + token,
 		}
 	}
 	return dispatch => {
 		dispatch({
 			type: LUCKY_REQUEST
 		})
-		var url = Ultilities.base_url() + "/spinDetail?spinId=" + id;
+		var url = Ultilities.base_url() + "lucky-spin/detail?lucky_spin_id=" + id;
 		return axios.get(url, header).then(function (response) {
 			dispatch({
 				type: LUCKY_DETAIL_RESPONSE,
-				data: response.data.dataObj
+				data: response.data.data
 			})
 		}).catch(function (error) {
 			dispatch({
@@ -136,7 +141,7 @@ export const pickCard = (token, scoinToken, id) => {
 		return axios.get(url, header).then(function (response) {
 			dispatch({
 				type: LUCKY_PICK_RESPONSE,
-				data: response.data.dataObj
+				data: response.data.data
 			})
 		}).catch(function (error) {
 			dispatch({
@@ -146,24 +151,26 @@ export const pickCard = (token, scoinToken, id) => {
 	}
 }
 
-export const buyTurn = (token, scoinToken, id, turn) => {
+export const buyTurn = (id, turn, spin_name) => {
 	var header = {
 		headers: {
 			"Content-Type": "application/json",
-			"Authorization": "bearer " + token,
+			// "Authorization": "bearer " + token,
 		}
 	}
 	var body = {
-		spinId: id,
-		numberTurns: turn,
-		scoinToken: scoinToken
+		spin_id: +id,
+		number_turn: turn,
+		spin_name:spin_name,
+		// scoinToken: scoinToken
 	}
 	return dispatch => {
 		dispatch({
 			type: LUCKY_REQUEST
 		})
-		var url = Ultilities.base_url() + "/spinBuyTurns";
+		var url = Ultilities.base_url() + "lucky-spin/buy-turn";
 		return axios.post(url, body, header).then(function (response) {
+			console.log(response.data)
 			dispatch({
 				type: LUCKY_TURN_RESPONSE,
 				data: response.data

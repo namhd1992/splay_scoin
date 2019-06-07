@@ -37,11 +37,12 @@ class Lucky_BuyTurn extends React.Component {
 		var _this = this;
 		var user = JSON.parse(localStorage.getItem("user"));
 		var idLucky= localStorage.getItem("idLucky");
-		if (user !== null) {
-			this.props.getDetailData(user.access_token, idLucky);
-		} else {
-			_this.setState({ dialogLoginOpen: true });
-		}
+		// if (user !== null) {
+		// 	this.props.getDetailData(user.access_token, idLucky);
+		// } else {
+		// 	_this.setState({ dialogLoginOpen: true });
+		// }
+		this.props.getDetailData(idLucky);
 	}
 
 	handleCloseSnack = () => {
@@ -52,14 +53,24 @@ class Lucky_BuyTurn extends React.Component {
 		var _this = this;
 		var user = JSON.parse(localStorage.getItem("user"));
 		var idLucky= localStorage.getItem("idLucky");
-		this.props.buyTurn(user.access_token, user.scoinAccessToken, idLucky, turn).then(function () {
+		var spin_name=this.props.dataDetail.luckySpin.name;
+		// this.props.buyTurn(user.access_token, user.scoinAccessToken, idLucky, turn).then(function () {
+		// 	if (_this.props.dataTurn.statusCode === "T") {
+		// 		_this.setState({ openSnack: true, message: "Mua lượt thành công", snackVariant: "success" });
+		// 	} else {
+		// 		_this.setState({ openSnack: true, message: "Số thịt không đủ", snackVariant: "error" });
+		// 	}
+		// 	_this.props.getDetailData(user.access_token,idLucky);
+		// 	// _this.props.getData(user.access_token, user.scoinAccessToken);
+		// });
+
+		this.props.buyTurn(idLucky, turn, spin_name).then(function () {
 			if (_this.props.dataTurn.statusCode === "T") {
 				_this.setState({ openSnack: true, message: "Mua lượt thành công", snackVariant: "success" });
 			} else {
 				_this.setState({ openSnack: true, message: "Số thịt không đủ", snackVariant: "error" });
 			}
-			_this.props.getDetailData(user.access_token,idLucky);
-			// _this.props.getData(user.access_token, user.scoinAccessToken);
+			_this.props.getDetailData(idLucky);
 		});
 	}
 

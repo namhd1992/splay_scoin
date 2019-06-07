@@ -22,7 +22,6 @@ import '../../styles/imageServerError.css'
 
 const styles = theme => ({
 	root: {
-		margin: "8px 0px",
 		borderRadius: "5px",
 		width: "100%"
 	},
@@ -183,86 +182,30 @@ class AuctionComponent extends React.Component {
 		}
 		return (
 			<div className={classes.root}>
-				<HeadMenu></HeadMenu>
 				<Grid container spacing={8} style={{ width: "100%", margin: "0px" }}>
 					<Grid item xs={12} md={12}>
-						<Grid container justify="center" style={{ marginBottom: "10px" }} spacing={8}>
+						<Grid container spacing={8} justify="center" style={{backgroundColor:'#fff'}}>
 							<Grid item xs={12} >
-								<ListItem style={{ padding: "2px" }}>
-									<Avatar src={"../default_ava.png"} ></Avatar>
-									<div style={{ color: secondary.main, backgroundColor: "#15191e", width: "100%", marginLeft: "-20px", paddingLeft: "30px", borderRadius: "20px" }}>{profileData.fullName}</div>
-								</ListItem>
-							</Grid>
-							<Grid item xs={6} >
-								<ListItem style={{ padding: "2px" }}>
-									<Avatar style={{ padding: "2px" }} src="../thit.png"><img style={{ maxWidth: "100%" }} src="../thit.png" /></Avatar>
-									<div style={{ color: "#fe8731", backgroundColor: "#15191e", width: "100%", marginLeft: "-20px", paddingLeft: "30px", borderRadius: "20px" }}>{(profileData.splayPoint) ? profileData.splayPoint.toLocaleString() : "0"}</div>
-								</ListItem>
-							</Grid>
-							<Grid item xs={6} >
-								<ListItem style={{ padding: "2px" }}>
-									<Avatar style={{ padding: "2px" }} src="../scoin.png"><img style={{ maxWidth: "100%" }} src="../scoin.png" /></Avatar>
-									<div style={{ color: "#fe8731", backgroundColor: "#15191e", width: "100%", marginLeft: "-20px", paddingLeft: "30px", borderRadius: "20px" }}>{(profileData.splayPoint) ? profileData.scoinBalance.toLocaleString() : "0"}</div>
-								</ListItem>
-							</Grid>
-							<Grid item xs={3} style={{ textAlign: "center" }}>
-								<Link className={classes.link} to='/checkin'>
-									<img src="../diemdanh_new.png" style={{ width: "100%", maxWidth: "128px" }} />
-								</Link>
-							</Grid>
-							<Grid item xs={3} style={{ textAlign: "center" }}>
-								<Link className={classes.link} to='/mission'>
-									<img src="../nhiemvu_new.png" style={{ width: "100%", maxWidth: "128px" }} />
-								</Link>
-							</Grid>
-							<Grid item xs={3} style={{ textAlign: "center" }}>
-								<Link className={classes.link} to='/lucky'>
-									<img src="../mayman_new.png" style={{ width: "100%", maxWidth: "128px" }} />
-								</Link>
-							</Grid>
-							<Grid item xs={3} style={{ textAlign: "center" }}>
-								<Link className={classes.link} to='/history'>
-									<img src="../homthu_new.png" style={{ width: "100%", maxWidth: "128px" }} />
-								</Link>
-							</Grid>
-						</Grid>
-						<Grid container spacing={8} justify="center">
-							<Grid item xs={12}>
-									<div style={{display:this.state.close, background:'#f4dede', height:'40px', marginLeft:'3px', borderRadius:'5px', border:'1px solid #b4504b'}}>
-										<div className="marquee_home">			
-												<marquee id="bonus "className="contentRun" scrollamount={this.state.speed} direction="left">
-												</marquee>
-										</div>
-										<div>
-											<img className="closeMarquee" alt="just alt" src="../close.png" onClick={this.closeMarquee}/>
-										</div>
-									</div>
-								
-							</Grid>
-						</Grid>
-						<Grid container spacing={8} justify="center">
-							<Grid item xs={12}>
 								<AppBar
-									style={{ boxShadow: "none"}}
+									style={{ boxShadow: "none", borderBottom:'1px solid #d1d1d1'}}
 									position="static">
-									<Toolbar style={{ display: "block", minHeight: "auto", padding: "5px", margin: "0px", background: "transparent" }}>
-										<Tabs indicatorColor={secondary.main} value={value} onChange={this.handleChange}>
-											<Tab style={{width:'25%'}} label="Tất cả" />
-											<Tab style={{width:'25%'}} label="Code" />
-											<Tab style={{width:'25%'}} label="Đấu giá" />
-											<Tab style={{width:'25%'}} label="In Game" />
+									<Toolbar style={{ display: "block", minHeight: "auto", padding: "5px", margin: "0px"}}>
+										<Tabs indicatorColor='primary' value={value} onChange={this.handleChange}>
+											<Tab style={{width:'33%'}} label="Tất cả" />
+											<Tab style={{width:'33%'}} label="Code" />
+											<Tab style={{width:'33%'}} label="Đấu giá" />
 										</Tabs>
 									</Toolbar>
 								</AppBar>
 								{value === 0 && <TabContainer style={{
 									padding: "0px"
 								}}>
-									{(dataAll.length <= 0 && !waitingAll) ? (<Grid container spacing={8}><Grid item xs={12} style={{ textAlign: "center" }}>Không có vật phẩm</Grid></Grid>) : (<span></span>)}
+									{(dataAll.length <= 0 && !waitingAll) ? (<Grid container spacing={8}><Grid item xs={12} style={{ textAlign: "center", color:'#676767' }}>Không có vật phẩm</Grid></Grid>) : (<span></span>)}
 									<Grid container spacing={8}>
 										{dataAll.map((obj, key) => (
 											<Grid key={key} item xs={12} sm={12}>
 												<Link to={(obj.objectType === "auction") ? "/auctiondetail/" + obj.shopingItemAndAuction.id : "itemgiftcodedetail/" + obj.shopingItemAndAuction.id} key={key} className={classes.gridLink}>
-													<div className={classes.gridItem}>
+													<div className={classes.gridItem} style={{ border:'1px solid #d1d1d1', padding:15, borderRadius:5 }}>
 														<div style={{ width: "70%", position: "relative" }}>
 														{(obj.shopingItemAndAuction.hasPromotion)?(<div><div><span className="auctionNameWhite">{this.getNameObject(obj.shopingItemAndAuction.name)}</span>&nbsp;&nbsp;<span style={{color:"#fff", padding:"2px 5px", backgroundColor:"#f24726", border:"0px solid", borderRadius:"5px"}}>{obj.promotion.tagView.toLocaleString()}% OFF</span></div>
 														 	<div className="auctionNameBlack">{this.setImage(obj.shopingItemAndAuction.coinType)} <span style={{ color: "#fe8731" }}>{obj.promotion.newPrice.toLocaleString()}</span>&nbsp;&nbsp;&nbsp;<span style={{ color: "#fff", textDecoration:"line-through" }}>{obj.shopingItemAndAuction.price.toLocaleString()}</span></div></div>):(<div><div className="auctionNameWhite">{obj.shopingItemAndAuction.name}</div>
@@ -300,12 +243,12 @@ class AuctionComponent extends React.Component {
 								{value === 1 && <TabContainer style={{
 									padding: "0px"
 								}}>
-									{(dataShopItemGiftcode.length <= 0 && !waitingShopItemGiftcode) ? (<Grid container spacing={8}><Grid item xs={12} style={{ textAlign: "center" }}>Không có vật phẩm</Grid></Grid>) : (<span></span>)}
+									{(dataShopItemGiftcode.length <= 0 && !waitingShopItemGiftcode) ? (<Grid container spacing={8}><Grid item xs={12} style={{ textAlign: "center", color:'#676767' }}>Không có vật phẩm</Grid></Grid>) : (<span></span>)}
 									<Grid container spacing={8} >
 										{dataShopItemGiftcode.map((obj, key) => (
 											<Grid key={key} item xs={12} sm={12}>
 												<Link to={"/itemgiftcodedetail/" + obj.shopingItem.id} key={key} className={classes.gridLink}>
-													<div className={classes.gridItem}>
+													<div className={classes.gridItem} style={{ border:'1px solid #d1d1d1', padding:15, borderRadius:5 }}>
 														<div style={{ width: "70%", position: "relative" }}>
 															{(obj.shopingItem.hasPromotion)?(<div><div className="auctionNameWhite"><span >{obj.shopingItem.name}</span>&nbsp;&nbsp;<span style={{color:"#fff", padding:"2px 5px", backgroundColor:"#f24726", border:"0px solid", borderRadius:"5px"}}>{obj.promotion.tagView.toLocaleString()}</span></div>
 														 	<div className="auctionNameBlack">{this.setImage(obj.shopingItem.coinType)} <span style={{ color: "#fe8731" }}>{obj.promotion.newPrice.toLocaleString()}</span>&nbsp;&nbsp;&nbsp;<span style={{ color: "#fff", textDecoration:"line-through" }}>{obj.shopingItem.price.toLocaleString()}</span></div></div>):(<div><div className="auctionNameWhite">{obj.shopingItem.name}</div>
@@ -343,12 +286,12 @@ class AuctionComponent extends React.Component {
 								{value === 2 && <TabContainer style={{
 									padding: "0px"
 								}}>
-									{(data.length <= 0 && !waiting) ? (<Grid container spacing={8}><Grid item xs={12} style={{ textAlign: "center" }}>Không có vật phẩm</Grid></Grid>) : (<span></span>)}
+									{(data.length <= 0 && !waiting) ? (<Grid container spacing={8}><Grid item xs={12} style={{ textAlign: "center", color:'#676767' }}>Không có vật phẩm</Grid></Grid>) : (<span></span>)}
 									<Grid container spacing={8} >
 										{data.map((obj, key) => (
 											<Grid key={key} item xs={12} sm={12}>
 												<Link to={"/auctiondetail/" + obj.id} key={key} className={classes.gridLink}>
-													<div className={classes.gridItem}>
+													<div className={classes.gridItem} style={{ border:'1px solid #d1d1d1', padding:15, borderRadius:5 }}>
 														<div style={{ width: "70%", position: "relative" }}>
 															<div className="auctionNameWhite">{obj.name}</div>
 															<div className="auctionNameBlack">{this.setImage(obj.coinType)} <span style={{ color: "#fe8731" }}>{obj.topPrice.toLocaleString()}</span></div>
@@ -391,51 +334,18 @@ class AuctionComponent extends React.Component {
 										) : (<div></div>)}
 									</Grid>
 								</TabContainer>}
-								{value === 3 && <TabContainer style={{
-									padding: "0px"
-								}}>
-									{(dataShopItem.length <= 0 && !waitingShopItem) ? (<Grid container spacing={8}><Grid item xs={12} style={{ textAlign: "center" }}>Không có vật phẩm</Grid></Grid>) : (<span></span>)}
-									<Grid container spacing={8} >
-										{dataShopItem.map((obj, key) => (
-											<Grid key={key} item xs={12} sm={12}>
-												<Link to={"/itemgiftcodedetail/" + obj.shopingItem.id} key={key} className={classes.gridLink}>
-													<div className={classes.gridItem}>
-														<div style={{ width: "70%", position: "relative" }}>
-															{(obj.shopingItem.hasPromotion)?(<div><div><span className="auctionNameWhite">{this.getNameObject(obj.shopingItem.name)}</span>&nbsp;&nbsp;<span style={{color:"#fff", padding:"2px 5px", backgroundColor:"#f24726", border:"0px solid", borderRadius:"5px"}}>{obj.promotion.tagView.toLocaleString()}% OFF</span></div>
-														 	<div className="auctionNameBlack">{this.setImage(obj.shopingItem.coinType)} <span style={{ color: "#fe8731" }}>{obj.promotion.newPrice.toLocaleString()}</span>&nbsp;&nbsp;&nbsp;<span style={{ color: "#fff", textDecoration:"line-through" }}>{obj.shopingItem.price.toLocaleString()}</span></div></div>):(<div><div className="auctionNameWhite">{obj.shopingItem.name}</div>
-														 	<div className="auctionNameBlack">{this.setImage(obj.shopingItem.coinType)} <span style={{ color: "#fe8731" }}>{obj.shopingItem.price.toLocaleString()}</span></div></div>)}
-														</div>
-														<div style={{
-
-															width: "70px",
-															paddingBottom: "80px",
-															backgroundImage: "url(" + obj.defaultImage + ")",
-															backgroundSize: "contain",
-															backgroundRepeat: "no-repeat",
-															margin: "auto",
-															backgroundPosition: "center"
-														}}></div>
-													</div>
-												</Link>
-											</Grid>
-										))}
-										{(waitingShopItem) ? (<Grid item xs={12}>
-											<div className="global-loading">
-											{(server !== true) ? (												
-												<CircularProgress style={{ color: "#fff" }} size={50} />):(<img className="error" alt="just alt"
-												src="../baotri.png" />)}
-											</div>
-										</Grid>) : (totalRecordsShopItem > loadedRecordsShopItem) ? (
-											<Grid item xs={12}>
-												<div className="global-loadmore">
-													<a onClick={this.loadMoreShopItemAction}>Xem thêm</a>
-												</div>
-											</Grid>
-										) : (<div></div>)}
-									</Grid>
-								</TabContainer>}
 							</Grid>
+							<div item xs={12} className="div_more_lucky" onClick={this.loadMoreAction}>
+								<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_add.png" alt="icon"/></div><span style={{float:'left'}}>Lịch sử mua sắm</span>
+							</div>
 						</Grid>
+						<Grid item xs={12} style={{borderTop:'1px solid #d1d1d1', paddingTop:15, marginTop:15}}>
+								<div style={{textAlign:'center', marginTop:20, marginBottom:25, fontSize:14}}>
+									<div><span style={{color:'#747c89'}}>Hệ thống phát hành game VTC Mobile</span></div>
+									<div><span style={{color:'#747c89'}}>Copyright 2017 VTC Mobile. All rights reverved</span></div>
+									<div><span style={{color:'#59d0c4'}}>Hotline 1900 1104</span></div>
+								</div>
+							</Grid>
 					</Grid>
 				</Grid>
 				<ReactResizeDetector handleWidth={true} handleHeight={true} onResize={this.onResize} />

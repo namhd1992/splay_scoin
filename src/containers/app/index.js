@@ -8,8 +8,10 @@ import Lucky_BuyTurn from '../lucky_buyturn';
 import Checkin from '../checkin';
 import Mission from '../mission';
 import MenuAppBar from '../../components/MenuAppBar';
-// import Auction from '../auction';
-// import Auction_detail from '../auction_detail';
+import Game_detail from '../game_detail';
+import Auction from '../auction';
+import Auction_detail from '../auction_detail';
+import History from '../shop_history';
 
 class App extends React.Component {
 
@@ -41,8 +43,11 @@ class App extends React.Component {
 						<Route exact path="/itemgiftcodedetail/:id" component={Item_giftcode_detail} />
 						<Route exact path="/giftcode" component={Giftcode} />
 						<Route exact path="/giftcodedetail/:id" component={Giftcode_detail} /> */}
-						<Route exact path="/" component={Mission} />
+						<Route exact path="/" component={Lucky} />
+						<Route exact path="/auction" component={Auction} />
+						<Route exact path="/history" component={History} />
 						<Route exact path="/lucky" component={Lucky} />
+						<Route exact path="/gamedetail" component={Game_detail} />
 						{/* <Route exact path="/help" component={Help} />
 						<Route exact path="/dieu-khoan" component={Dieukhoan} />
 						<Route exact path="/vip" component={Vip} /> */}
