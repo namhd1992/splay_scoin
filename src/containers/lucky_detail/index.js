@@ -116,7 +116,8 @@ class Lucky_detail extends React.Component {
 		setTimeout(function () {
 			_this.setState({ flippedArr: new_arr_after, highLightCard: id, canPlay: true });
 		}, 1000);
-		this.props.getDetailData(user.access_token, this.props.match.params.id)
+		// this.props.getDetailData(user.access_token, this.props.match.params.id)
+		this.props.getDetailData(this.props.match.params.id)
 	}
 
 	random = () => {

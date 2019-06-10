@@ -34,7 +34,7 @@ class Game_detail extends React.Component {
 			lightBoxIndex: 0,
 			youtubeOpen: false,
 			gameArticles: [],
-			gameData: [],
+			gameData: {},
 		};
 	}
 
@@ -46,14 +46,14 @@ class Game_detail extends React.Component {
 
 	componentDidMount() {
 		var _this = this;
-		this.props.getDataId(3).then(function () {
+		this.props.getDataId(330017).then(function () {
 			console.log(_this.props.data)
-			_this.props.getDataByGame(_this.props.data[0].id);
+			// _this.props.getDataByGame(_this.props.data[0].id);
 			// _this.props.getMissionByGame(_this.props.data[0].id);
-			_this.props.getArticleData(6, 0, undefined, undefined, _this.props.data[0].id).then(function () {
-				_this.setState({ gameArticles: _this.props.articleData });
-			});
-			_this.props.getYoutubeData(_this.props.data[0].youtubeChannelId, _this.props.data[0].youtubeDefaultSearch);
+			// _this.props.getArticleData(6, 0, undefined, undefined, _this.props.data[0].id).then(function () {
+			// 	_this.setState({ gameArticles: _this.props.articleData });
+			// });
+			_this.props.getYoutubeData(_this.props.data.youtubeChannelId, _this.props.data.youtubeDefaultSearch);
 			_this.setState({ gameData: _this.props.data });
 		});
 	}

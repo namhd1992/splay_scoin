@@ -66,7 +66,7 @@ export const getData = (limit, offset, token) => {
     dispatch({
       type: MISSION_REQUEST
     })
-    var url = Ultilities.base_url() + "mission?limit=" + limit + "&offset=" + offset;
+    var url = Ultilities.base_url() + "mission/active?limit=" + limit + "&offset=" + offset;
     return axios.get(url, header).then(function (response) {
       dispatch({
         type: MISSION_RESPONSE,
@@ -92,7 +92,7 @@ export const finishData = (id, scoin, token) => {
     dispatch({
       type: MISSION_REQUEST
     })
-    var url = Ultilities.base_url() + "mission?missionId=" + id;
+    var url = Ultilities.base_url() + "mission/finish?missionId=" + id;
     return axios.post(url, {scoinToken: scoin}, header).then(function (response) {
       dispatch({
         type: MISSION_FINISH,
@@ -119,7 +119,7 @@ export const getMoreData = (limit, offset, token) => {
     dispatch({
       type: MISSION_REQUEST
     })
-    var url = Ultilities.base_url() + "mission?limit=" + limit + "&offset=" + offset;
+    var url = Ultilities.base_url() + "mission/active?limit=" + limit + "&offset=" + offset;
     return axios.get(url, header).then(function (response) {
       dispatch({
         type: MISSION_RESPONSE_MORE,

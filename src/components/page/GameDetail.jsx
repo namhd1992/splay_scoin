@@ -250,7 +250,7 @@ class GameDetailComponent extends React.Component {
 				}
 			]
 		};
-		return (gameData.length === 1) ? (
+		return (gameData.tagsList !==undefined) ? (
 			<div style={{ marginTop: "8px", borderRadius: "5px", overflow: "hidden", margin: "auto" }}>
 				<Grid container style={{
 					margin: "0px",
@@ -260,7 +260,7 @@ class GameDetailComponent extends React.Component {
 						<Grid container style={{
 							margin: "0px",
 							width: "100%",
-							backgroundImage: "url(" + gameData[0].bigImage + ")",
+							backgroundImage: "url(" + gameData.bigImage + ")",
 							backgroundSize: "100% auto",
 							backgroundPosition: "center top",
 							backgroundRepeat: "no-repeat"
@@ -271,27 +271,27 @@ class GameDetailComponent extends React.Component {
 							<Grid item xs={12}
 								style={{ background: "linear-gradient(180deg,transparent,rgba(231, 241, 253,0) 5%,rgba(231, 241, 253,.8) 20%,#fff 50%,#fff)" }}>
 								<ListItem style={{ padding: "5px", maxWidth: "1100px", margin: "auto" }}>
-									<img alt="game icon" style={{ width: "72px" }} src={gameData[0].defaultImage} />
+									<img alt="game icon" style={{ width: "72px" }} src={gameData.defaultImage} />
 									<Hidden xsDown>
 										<ListItemText style={{ textAlign: "left", padding: "10px" }} secondary={(
-											<span style={{color:'#6b6b6b'}}> {gameData[0].downloadTurns + " Lượt tải"}<br /><span
-												onClick={this.openRatingDialog}><Rating point={gameData[0].pointReview}></Rating></span>
+											<span style={{color:'#6b6b6b'}}> {gameData.downloadTurns + " Lượt tải"}<br /><span
+												onClick={this.openRatingDialog}><Rating point={gameData.pointReview}></Rating></span>
 												<span style={{
 															marginLeft:"20px",
 															fontSize:"11px",
 															border: "1px solid #6b6b6b",
 															padding:"1px 2px",
 															borderRadius: "5px"}}>
-															<label style={{color:"#6b6b6b"}}>{this.getTheLoai(gameData[0])}</label>
+															<label style={{color:"#6b6b6b"}}>{this.getTheLoai(gameData)}</label>
 													</span></span>)}
-											primary={(<span style={{ color: '#6b6b6b' }}><b>{gameData[0].name}</b></span>)} />
+											primary={(<span style={{ color: '#6b6b6b' }}><b>{gameData.name}</b></span>)} />
 									</Hidden>
 									<Hidden smUp>
 										<ListItemText style={{ textAlign: "right", padding: "0px" }} secondary={(
-											<span> {gameData[0].downloadTurns + " Lượt tải"}<br />
+											<span> {gameData.downloadTurns + " Lượt tải"}<br />
 												<span onClick={this.openRatingDialog}>
 													<Rating
-															point={gameData[0].pointReview}>
+															point={gameData.pointReview}>
 													</Rating>
 													<span style={{
 															float:"right",
@@ -299,17 +299,17 @@ class GameDetailComponent extends React.Component {
 															border: "1px solid #23c9b6",
 															padding:"1px 2px",
 															borderRadius: "20px"}}>
-															<label style={{color:"#23c9b6"}}>{this.getTheLoai(gameData[0])}</label>
+															<label style={{color:"#23c9b6"}}>{this.getTheLoai(gameData)}</label>
 													</span>
 												</span>
 											</span>)} primary={(
-															<span style={{ color: primary.main }}><b>{gameData[0].name}</b></span>)} 
+															<span style={{ color: primary.main }}><b>{gameData.name}</b></span>)} 
 										/>
 									</Hidden>
 									<Hidden xsDown>
 										<div style={{ textAlign: "center", display: "grid", paddingTop:15 }}>
 											<a className="game-button-wrap" target="_blank"
-												href={(deviceType === "ios") ? gameData[0].urlDownloadIos : gameData[0].urlDownloadAndroid}>
+												href={(deviceType === "ios") ? gameData.urlDownloadIos : gameData.urlDownloadAndroid}>
 												<Button
 													variant="raised"
 													style={{
@@ -323,7 +323,7 @@ class GameDetailComponent extends React.Component {
 														clear: "both"
 													}}
 												>Chơi</Button></a>
-											<a className="game-button-wrap" href={gameData[0].fanpageFB} style={{ clear: "both", marginTop:5 }}>
+											<a className="game-button-wrap" href={gameData.fanpageFB} style={{ clear: "both", marginTop:5 }}>
 												<Button style={{ color: "#fe8731", borderRadius:"5px" }}>Fanpage</Button>
 											</a>
 										</div>
@@ -334,7 +334,7 @@ class GameDetailComponent extends React.Component {
 								<Hidden smUp>
 									<div style={{ textAlign: "center", display: "grid" }}>
 										<a className="game-button-wrap" target="_blank"
-											href={(deviceType === "ios") ? gameData[0].urlDownloadIos : gameData[0].urlDownloadAndroid}><Button
+											href={(deviceType === "ios") ? gameData.urlDownloadIos : gameData.urlDownloadAndroid}><Button
 												variant="raised" style={{
 													borderRadius: "5px",
 													background: "#33cbcc",
@@ -346,7 +346,7 @@ class GameDetailComponent extends React.Component {
 													width: "100%",
 													margin: "auto"
 												}}>Chơi</Button></a>
-										<a className="game-button-wrap" href={gameData[0].fanpageFB}>
+										<a className="game-button-wrap" href={gameData.fanpageFB}>
 											<Button style={{ color: "#fe8731", borderRadius:"5px" }}>Fanpage</Button>
 										</a>
 									</div>
@@ -390,11 +390,11 @@ class GameDetailComponent extends React.Component {
 							<Grid item xs={12}>
 								{(showMore) ? (
 									<div style={{ padding: "10px" }}
-										dangerouslySetInnerHTML={{ __html: gameData[0].description }}>
+										dangerouslySetInnerHTML={{ __html: gameData.description }}>
 									</div>
 								) : (<div style={{ position: "relative", padding: "10px" }}>
 									<HTMLEllipsis
-										unsafeHTML={gameData[0].description}
+										unsafeHTML={gameData.description}
 										maxLine='5'
 										ellipsis='...'
 										basedOn='letters'
@@ -471,9 +471,9 @@ class GameDetailComponent extends React.Component {
 								<span style={{ fontSize: "1.2em" }}>Phân loại</span>
 							</Grid>
 							<Grid item xs={12} style={{marginTop:15}}>
-								{gameData[0].tagsList.map((obj, key) => {
+								{gameData.tagsList.map((obj, key) => {
 									return (
-											<div style={{
+											<div key={key} style={{
 												border: "solid 1px #6b6b6b",
 												display: "inline-block",
 												padding: "2px 3px",
@@ -486,7 +486,7 @@ class GameDetailComponent extends React.Component {
 								})}
 							</Grid>
 						</Grid>
-						<Grid container style={{
+						{/* <Grid container style={{
 							width: "100%",
 							backgroundColor: "#232b36",
 							borderRadius: "5px",
@@ -529,7 +529,7 @@ class GameDetailComponent extends React.Component {
 										))}
 									</Grid>
 								</Grid>) : (<div></div>)}
-						</Grid>
+						</Grid> */}
 						<Notification message={message} variant={snackVariant} openSnack={openSnack} closeSnackHandle={this.handleCloseSnack} ></Notification>
 						<LoginRequired open={dialogLoginOpen}></LoginRequired>
 						<Dialog
