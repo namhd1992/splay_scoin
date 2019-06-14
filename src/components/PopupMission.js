@@ -58,18 +58,23 @@ class PopupMission extends React.Component {
 								<span style={{ color: "#666666", fontSize:16 }}>{dataMission.description}</span>
 							</div>
 								<div>
-									<div style={{background:"#ecf4fe", marginTop:"15px", marginBottom:"15px", height:"50px"}}>
-										
-										{(dataMission.missionProgress === dataMission.missionSatisfying) ? (
-										<div style={{padding:"15px"}}>
-											<img style={{background:"#47ac2c", marginRight:"15px"}} src="../check.png"
-													alt="just alt"/>
-											<span>{dataMission.missionProgress}/{dataMission.missionSatisfying}</span>
-										</div>):(
-										<div style={{padding:"15px"}}>
-											<div style={{width:"18px", height:"18px", border:"1px solid #779796", float:"left", marginRight:"15px"}}></div>
-											<span style={{ color: "#666666", fontSize:16 }}>{dataMission.missionProgress}/{dataMission.missionSatisfying}</span>
-										</div>)}
+									<div style={{background:"#ecf4fe", marginTop:"15px", marginBottom:"15px", paddingBottom:15}}>
+										{dataMission.missionProgress.map((obj, key) => {
+											return (
+												<div key={key}>
+													{(obj.isFinish) ? (
+														<div style={{padding:"15px 0px 0px 15px"}}>
+															<img style={{background:"#47ac2c", marginRight:"15px"}} src="../check.png"alt="just alt"/>
+															{/* <span>{dataMission.missionProgress}/{dataMission.missionSatisfying}</span> */}
+														</div>):(
+														<div style={{padding:"15px 0px 0px 15px"}}>
+															<img style={{marginRight:"15px", width:"18px", height:"18px"}} src="../unchecked.png"alt="just alt"/>
+															{/* <div style={{width:"18px", height:"18px", border:"1px solid #779796", float:"left", marginRight:"15px"}}></div> */}
+															{/* <span style={{ color: "#666666", fontSize:16 }}>{dataMission.missionProgress}/{dataMission.missionSatisfying}</span> */}
+														</div>)}
+												</div>
+											)
+										})}
 									</div>
 									<div>
 										<div style={{float:"left", paddingRight:"15px", color: "#666666", fontSize:16}}>Phần thưởng: </div>

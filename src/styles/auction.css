@@ -79,3 +79,13 @@ marquee p {
     0% { left: 0; }
     100% { left: -100%; }
 } */
+.div_btn_history{
+    margin-top: 30px;
+    margin-bottom: 10px;
+	border: 1px solid #cccccc;
+	border-radius: 5px;
+	padding: 10px 10px 30px 10px;
+	padding-left: calc(50% - 75px);
+	width: 100%;
+	cursor: pointer;
+}

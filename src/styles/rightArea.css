@@ -44,6 +44,6 @@ button.moreGame{
 	border-radius: 20px;
 }
 button:hover{
-	background:#3c434c;
+	background:#fff;
 	cursor: pointer;
 }

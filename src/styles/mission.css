@@ -109,6 +109,9 @@ button.buttonGhost{
 	padding: 8px 10px;
 	cursor: pointer;
 }
+.btn_close_popup:hover{
+	background: #e7f1fd;
+}
 .mission_container{
 	width:100%;
 }

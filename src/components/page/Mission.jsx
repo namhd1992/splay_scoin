@@ -128,7 +128,7 @@ class MissionComponent extends React.Component {
 										<ListItem className="mission-item" key={key} style={{ backgroundColor: "#fff", border:"1px solid #cccccc", borderRadius: "5px", marginBottom: "10px", paddingRight: 2 }}>
 											{/* {(obj.award === "Thịt") ? ( */}
 											<div>
-												<img style={{width:40, height:40}} src={this.getSrcImage(obj,key)}
+												<img style={{width:40, height:40, cursor:'pointer'}} src={this.getSrcImage(obj,key)}
 													id={key}
 													onClick={() => this.showDetail(obj.description,"Chi tiết nhiệm vụ")} />
 											</div>
@@ -138,7 +138,7 @@ class MissionComponent extends React.Component {
 													<span className="global-thit" style={{ color: "#fe8731" }}><img alt="just alt"
 														src="../Xu.png" /> <span style={{ color: "#ff9933", fontSize:16, fontWeight:'bold' }}>+{obj.valueAward}</span> </span>)} />
 											<div className="mission_action" style={{paddingLeft:this.state.paddingL}}>
-												<img style={{width:30, height:30, float:'left', marginRight:5}} src='../icon_question.png'
+												<img style={{width:30, height:30, float:'left', marginRight:5, cursor:'pointer'}} src='../icon_question.png'
 													onClick={() => this.openPopupMission(obj)} />
 												{(obj.finish && !obj.received && obj.awardAvailable !==0 && obj.missionStatus ==="active") ? (<div>
 													<button onClick={() => this.reward(obj.missionId)} className="buttonMissionReceive" variant="raised">Nhận</button>
@@ -216,7 +216,7 @@ class MissionComponent extends React.Component {
 				reward={this.reward}
 				doMission={this.doMission}
 			/>
-			<LoginRequired open={dialogLoginOpen} ></LoginRequired>
+			{/* <LoginRequired open={dialogLoginOpen} ></LoginRequired> */}
 		</div>
 		)
 	}

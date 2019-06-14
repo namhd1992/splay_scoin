@@ -29,11 +29,12 @@ class Lucky_Item extends React.Component {
 		var _this = this;
 		var user = JSON.parse(localStorage.getItem("user"));
 		var idLucky= localStorage.getItem("idLucky");
-		if (user !== null) {
-			this.props.getDetailData(user.access_token, idLucky);
-		} else {
-			_this.setState({ dialogLoginOpen: true });
-		}
+		// if (user !== null) {
+		// 	this.props.getDetailData(user.access_token, idLucky);
+		// } else {
+		// 	_this.setState({ dialogLoginOpen: true });
+		// }
+		this.props.getDetailData(idLucky);
 	}
 
 	handleCloseSnack = () => {

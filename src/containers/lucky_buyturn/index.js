@@ -65,7 +65,7 @@ class Lucky_BuyTurn extends React.Component {
 		// });
 
 		this.props.buyTurn(idLucky, turn, spin_name).then(function () {
-			if (_this.props.dataTurn.statusCode === "T") {
+			if (_this.props.dataTurn.status === "01") {
 				_this.setState({ openSnack: true, message: "Mua lượt thành công", snackVariant: "success" });
 			} else {
 				_this.setState({ openSnack: true, message: "Số thịt không đủ", snackVariant: "error" });

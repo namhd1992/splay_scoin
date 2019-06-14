@@ -112,7 +112,7 @@ const styles = theme => ({
   },
 });
 
-class HistoryComponent extends React.Component {
+class HistoryBonusComponent extends React.Component {
 
 	constructor(props){
 		super(props);
@@ -144,51 +144,56 @@ class HistoryComponent extends React.Component {
 			emptyRows = rowsPerPage - Math.min(rowsPerPage, length - page * rowsPerPage);
 		}
 		return (
-			<div>
-							<Table className={classes.table}>
-							<TableHead>
-								<TableRow>
-									<TableCell>Thời gian</TableCell>
-									<TableCell>Loại</TableCell>
-									<TableCell>Tên</TableCell>
-									<TableCell>Giá</TableCell>
-									<TableCell>Ảnh</TableCell>
+			<Grid container spacing={12}>
+				<Grid item xs={12} md={12} style={{marginTop:5, marginBottom:40}}>
+					<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_latthe.png" alt="icon"/></div><span style={{float:'left', fontWeight:'bold', color:"#6a6a6a"}}>Lịch sử trúng thưởng</span>
+				</Grid>
+				<Grid item xs={12} md={12} style={{marginTop:5, marginBottom:40}}>
+					<div>
+						<Table className={classes.table}>
+						<TableHead>
+							<TableRow>
+								<TableCell>Thời gian</TableCell>
+								<TableCell>Loại</TableCell>
+								<TableCell>Tên</TableCell>
+								<TableCell>SĐT</TableCell>
+							</TableRow>
+						</TableHead>
+							<TableBody>
+							{rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
+								return (
+								<TableRow key={row.id}>
+									<TableCell>{row.itemName}</TableCell>
+									<TableCell>{row.eventName}</TableCell>
+									<TableCell>{row.userName}</TableCell>
+									<TableCell>{row.receiveTime}</TableCell>
 								</TableRow>
-							</TableHead>
-								<TableBody>
-								{rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
-									return (
-									<TableRow key={row.id}>
-										<TableCell>{row.itemName}</TableCell>
-										<TableCell>{row.eventName}</TableCell>
-										<TableCell>{row.userName}</TableCell>
-										<TableCell>{row.receiveTime}</TableCell>
-										<TableCell>{row.receiveTime}</TableCell>
-									</TableRow>
-									);
-								})}
-								{emptyRows > 0 && (
-									<TableRow style={{ height: 48 * emptyRows }}>
-										<TableCell colSpan={6} />
-									</TableRow>
-								)}
-								</TableBody>
-								<TableFooter>
-									<TableRow>
-										<TablePagination
-											colSpan={3}
-											count={rows.length}
-											rowsPerPage={rowsPerPage}
-											page={page}
-											rowsPerPageOptions={rowsPerPageOptions}
-											onChangePage={this.handleChangePage}
-											onChangeRowsPerPage={this.handleChangeRowsPerPage}
-											ActionsComponent={TablePaginationActionsWrapped}
-										/>
-									</TableRow>
-								</TableFooter>
-							</Table>
-			</div>
+								);
+							})}
+							{emptyRows > 0 && (
+								<TableRow style={{ height: 48 * emptyRows }}>
+									<TableCell colSpan={6} />
+								</TableRow>
+							)}
+							</TableBody>
+							<TableFooter>
+								<TableRow>
+									<TablePagination
+										colSpan={3}
+										count={rows.length}
+										rowsPerPage={rowsPerPage}
+										page={page}
+										rowsPerPageOptions={rowsPerPageOptions}
+										onChangePage={this.handleChangePage}
+										onChangeRowsPerPage={this.handleChangeRowsPerPage}
+										ActionsComponent={TablePaginationActionsWrapped}
+									/>
+								</TableRow>
+							</TableFooter>
+						</Table>
+					</div>
+				</Grid>
+			</Grid>
 		);
 	}
 }

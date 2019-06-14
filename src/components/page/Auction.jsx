@@ -190,7 +190,7 @@ class AuctionComponent extends React.Component {
 									style={{ boxShadow: "none", borderBottom:'1px solid #d1d1d1'}}
 									position="static">
 									<Toolbar style={{ display: "block", minHeight: "auto", padding: "5px", margin: "0px"}}>
-										<Tabs indicatorColor='primary' value={value} onChange={this.handleChange}>
+										<Tabs value={value} onChange={this.handleChange}>
 											<Tab style={{width:'33%'}} label="Tất cả" />
 											<Tab style={{width:'33%'}} label="Code" />
 											<Tab style={{width:'33%'}} label="Đấu giá" />
@@ -326,18 +326,19 @@ class AuctionComponent extends React.Component {
 												src="../baotri.png" />)}
 											</div>
 										</Grid>) : (totalRecords > loadedRecords) ? (
-											<Grid item xs={12}>
-												<div className="global-loadmore">
-													<a onClick={this.loadMoreAction}>Xem thêm</a>
+											
+												<div item xs={12} className="div_more_lucky" onClick={this.loadMoreAction}>
+													<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_add.png" alt="icon"/></div><span style={{float:'left', color:'black'}}>Xem Thêm</span>
 												</div>
-											</Grid>
 										) : (<div></div>)}
 									</Grid>
 								</TabContainer>}
 							</Grid>
-							<div item xs={12} className="div_more_lucky" onClick={this.loadMoreAction}>
-								<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_add.png" alt="icon"/></div><span style={{float:'left'}}>Lịch sử mua sắm</span>
-							</div>
+							<Link to="/history" style={{width:"100%", color: '#31cbcb'}}>
+								<div item xs={12} className="div_btn_history" onClick={this.loadMoreAction}>
+									<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../history-clock-button.png" alt="icon"/></div><span style={{float:'left'}}>Lịch sử mua sắm</span>
+								</div>
+							</Link>
 						</Grid>
 						<Grid item xs={12} style={{borderTop:'1px solid #d1d1d1', paddingTop:15, marginTop:15}}>
 								<div style={{textAlign:'center', marginTop:20, marginBottom:25, fontSize:14}}>

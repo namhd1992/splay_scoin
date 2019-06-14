@@ -35,23 +35,29 @@ class Mission extends React.Component {
 	}
 
 	componentDidMount() {
-		var user = JSON.parse(localStorage.getItem("user"));
+		// var user = JSON.parse(localStorage.getItem("user"));
 		var _this = this;
-		if (user !== null) {
-			this.props.getData(this.state.limit, this.state.offset, user.access_token).then(function () {
-				_this.props.changeTitle("NHIỆM VỤ");
-				_this.setState({ loadedRecords: _this.state.limit + _this.state.offset });
-			});
-		} else {
-			_this.setState({ dialogLoginOpen: true });
-		}
+		// if (user !== null) {
+		// 	this.props.getData(this.state.limit, this.state.offset, user.access_token).then(function () {
+		// 		_this.props.changeTitle("NHIỆM VỤ");
+		// 		_this.setState({ loadedRecords: _this.state.limit + _this.state.offset });
+		// 	});
+		// } else {
+		// 	_this.setState({ dialogLoginOpen: true });
+		// }
+
+		this.props.getData(this.state.limit, this.state.offset).then(function () {
+			// _this.props.changeTitle("NHIỆM VỤ");
+			_this.setState({ loadedRecords: _this.state.limit + _this.state.offset });
+		});
 	}
 
 	loadMoreAction = () => {
 		var _this = this;
 		var user = JSON.parse(localStorage.getItem("user"));
 		var newOffset = this.state.limit + this.state.offset;
-		this.props.getMoreData(this.state.limit, newOffset, user.access_token);
+		// this.props.getMoreData(this.state.limit, newOffset, user.access_token);
+		this.props.getMoreData(this.state.limit, newOffset);
 		this.setState({
 			loadedRecords: _this.state.limit + newOffset,
 			offset: newOffset
