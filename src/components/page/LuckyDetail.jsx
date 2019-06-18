@@ -72,6 +72,12 @@ class LuckyDetailComponent extends React.Component {
 			`${window.location.protocol}//${window.location.host}/luckybuyturn`,
 		);
 	}
+
+	showHistory=()=>{
+		window.location.replace(
+			`${window.location.protocol}//${window.location.host}/luckyhistory`,
+		);
+	}
 	
 	handleCloseDialogItem=()=>{
 		this.props.handleCloseDialogItem();
@@ -149,6 +155,16 @@ class LuckyDetailComponent extends React.Component {
 	convettoLocaleString(value){
 		return value.toLocaleString();
 	}
+	getStringBonus=(obj)=> {
+		var output = document.getElementById("bonus");
+		var bonus="";
+		for (let i = 0; i < obj.length; i++) {
+			bonus+='<span style="color:black"><span style="color:#00bf98">'+ obj[i].userName+'</span>'+' nhận thưởng '+ '<span style="color:#ff9d42">'+ obj[i].itemName+'</span>'+'</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+		}
+		if(output!==null){
+			output.insertAdjacentHTML('beforeend',bonus)
+		}
+	}
 
 	render() {
 		const {dataDetail, dataProfile,message,cardWidth,cardHeight,flippedArr,collapse,cardArr,
@@ -161,13 +177,21 @@ class LuckyDetailComponent extends React.Component {
 		if(splayPoint !== undefined){
 			splayPoint=this.convettoLocaleString(splayPoint);
 		}
+		if(dataDetail!==undefined){
+			this.getStringBonus(dataDetail.luckySpinHistory)
+		}
 		return (dataDetail) ? (
 			<div className="lucky-detail-root">
 				<Grid container spacing={12}>
 					<Grid item xs={12} md={12}>
 						<Grid container className="lucky-detail-root" spacing={8}>
 							<Grid container xs={12} md={12} style={{background:'#fff', border:'1px solid #d0d0d1', padding:10}}>
-								<Grid item xs={12} md={12} style={{marginTop:5, marginBottom:40}}>
+								<Grid item xs={12} md={12} style={{marginTop:5, marginBottom:10}}>
+									<div className="marquee">
+										<marquee id="bonus" behavior="scroll" scrollamount={this.state.speed} direction="left"></marquee>
+									</div>
+								</Grid>
+								<Grid item xs={12} md={12} style={{marginTop:5, marginBottom:20}}>
 									<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_latthe.png" alt="icon"/></div><span style={{float:'left', fontWeight:'bold', color:"#6a6a6a"}}>Chi tiết lật thẻ</span>
 								</Grid>
 								<Grid item xs={12} sm={12}>
@@ -245,6 +269,9 @@ class LuckyDetailComponent extends React.Component {
 										</div>
 										<div item xs={12} className="btn_buy_latthe" onClick={this.showBuyTurn}>
 											<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_add.png" alt="icon"/></div><span style={{float:'left', color:'#33cccc'}}>Mua Lượt</span>
+										</div>
+										<div item xs={12} className="btn_history_latthe" onClick={this.showHistory}>
+											<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../history-clock-button.png" alt="icon"/></div><span style={{float:'left', color:'#33cccc'}}>Lịch sử trúng thưởng</span>
 										</div>
 									</div>
 								</Grid>

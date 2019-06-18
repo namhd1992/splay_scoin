@@ -4,6 +4,7 @@ import Dialog, {
 	DialogContent,
 	DialogTitle,
 } from 'material-ui/Dialog'
+import Grid from 'material-ui/Grid'
 import Button from 'material-ui/Button';
 import Table, {
 	TableBody,

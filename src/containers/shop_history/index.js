@@ -11,7 +11,7 @@ import {
 import {
 	changeTitle
 } from '../../modules/global'
-import HistoryComponent from '../../components/page/History'
+import HistoryComponent from '../../components/page/HistoryShop'
 
 class Shop_history extends React.Component {
 

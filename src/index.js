@@ -14,7 +14,7 @@ import grey from 'material-ui/colors/grey'
 const theme = createMuiTheme({
 	palette: {
     type: 'dark',
-    background: {default:"#fff"},
+    // background: {default:"#fff"},
 		primary: { main: "#fff" },
 		secondary: { main: "#23c9b6" },
 		error: { main: red[500] },

@@ -5,6 +5,7 @@ import Dialog, {
 	DialogTitle,
 } from 'material-ui/Dialog'
 import Button from 'material-ui/Button';
+import Grid from 'material-ui/Grid'
 import Table, {
 	TableBody,
 	TableCell,
@@ -105,7 +106,7 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3,
   },
   table: {
-    minWidth: 500,
+	minWidth: 500,
   },
   tableWrapper: {
     overflowX: 'auto',
@@ -124,79 +125,68 @@ class HistoryBonusComponent extends React.Component {
 		};
 	}
 	handleChangePage = (event, page) => {
-    this.setState({ page });
-  };
+		this.setState({ page });
+	};
 
-  handleChangeRowsPerPage = event => {
-    this.setState({ rowsPerPage: event.target.value });
-  };
+	handleChangeRowsPerPage = event => {
+		this.setState({ rowsPerPage: event.target.value });
+	};
 	render() {
 		var rows;
 		var length;
 		var emptyRows;
 		const { classes } = this.props;
 		const {rowsPerPage, page, rowsPerPageOptions, value } = this.state; 
-		if(this.props.dataAutionAndLucky !==undefined && this.props.dataAutionAndLucky!==null){
-			if(value===0){
-				rows=this.props.dataAutionAndLucky.filter(obj => obj.typeEvent===1).sort((a, b) => (a.receiveTime < b.receiveTime ? -1 : 1));
-			}
+		if(this.props.dataDetail !==undefined && this.props.dataDetail!==null){
+			
+			rows=this.props.dataDetail.luckySpinHistory;
 			length=rows.length;
 			emptyRows = rowsPerPage - Math.min(rowsPerPage, length - page * rowsPerPage);
 		}
-		return (
-			<Grid container spacing={12}>
-				<Grid item xs={12} md={12} style={{marginTop:5, marginBottom:40}}>
-					<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_latthe.png" alt="icon"/></div><span style={{float:'left', fontWeight:'bold', color:"#6a6a6a"}}>Lịch sử trúng thưởng</span>
-				</Grid>
-				<Grid item xs={12} md={12} style={{marginTop:5, marginBottom:40}}>
-					<div>
-						<Table className={classes.table}>
-						<TableHead>
-							<TableRow>
-								<TableCell>Thời gian</TableCell>
-								<TableCell>Loại</TableCell>
-								<TableCell>Tên</TableCell>
-								<TableCell>SĐT</TableCell>
-							</TableRow>
-						</TableHead>
-							<TableBody>
-							{rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
-								return (
-								<TableRow key={row.id}>
-									<TableCell>{row.itemName}</TableCell>
-									<TableCell>{row.eventName}</TableCell>
-									<TableCell>{row.userName}</TableCell>
-									<TableCell>{row.receiveTime}</TableCell>
-								</TableRow>
-								);
-							})}
-							{emptyRows > 0 && (
-								<TableRow style={{ height: 48 * emptyRows }}>
-									<TableCell colSpan={6} />
-								</TableRow>
-							)}
-							</TableBody>
-							<TableFooter>
-								<TableRow>
-									<TablePagination
-										colSpan={3}
-										count={rows.length}
-										rowsPerPage={rowsPerPage}
-										page={page}
-										rowsPerPageOptions={rowsPerPageOptions}
-										onChangePage={this.handleChangePage}
-										onChangeRowsPerPage={this.handleChangeRowsPerPage}
-										ActionsComponent={TablePaginationActionsWrapped}
-									/>
-								</TableRow>
-							</TableFooter>
-						</Table>
-					</div>
-				</Grid>
+		return (this.props.dataDetail !==undefined && this.props.dataDetail!==null)?(<Grid container spacing={12}>
+			<Grid item xs={12} md={12} style={{marginTop:5, marginBottom:40}}>
+				<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_latthe.png" alt="icon"/></div><span style={{float:'left', fontWeight:'bold', color:"#6a6a6a"}}>Lịch sử trúng thưởng</span>
 			</Grid>
-		);
+			<Grid item xs={12} md={12} style={{marginTop:5, marginBottom:40}}>
+				<div>
+					<Table className={classes.table}>
+						<TableBody>
+						{rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
+							return (
+							<TableRow key={row.id}>
+								<TableCell style={{color:'black'}}>{row.date}</TableCell>
+								<TableCell style={{color:'black'}}>{row.itemName}</TableCell>
+								<TableCell style={{color:'black'}}>{row.userName}</TableCell>
+								<TableCell style={{color:'black'}}>{row.phone}</TableCell>
+							</TableRow>
+							);
+						})}
+						{emptyRows > 0 && (
+							<TableRow style={{ height: 48 * emptyRows }}>
+								<TableCell colSpan={6} />
+							</TableRow>
+						)}
+						</TableBody>
+						<TableFooter>
+							<TableRow>
+								<TablePagination
+									colSpan={3}
+									count={rows.length}
+									rowsPerPage={rowsPerPage}
+									page={page}
+									rowsPerPageOptions={rowsPerPageOptions}
+									onChangePage={this.handleChangePage}
+									onChangeRowsPerPage={this.handleChangeRowsPerPage}
+									ActionsComponent={TablePaginationActionsWrapped}
+								/>
+							</TableRow>
+						</TableFooter>
+					</Table>
+				</div>
+			</Grid>
+		</Grid>):(<div></div>)
 	}
 }
 
 
-export default withStyles(styles)(HistoryComponent)
+export default withStyles(styles)(HistoryBonusComponent)
