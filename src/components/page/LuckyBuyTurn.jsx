@@ -18,8 +18,8 @@ class LuckyBuyTurnComponent extends React.Component {
 	constructor(){
 		super();
 		this.state = {
-			intValue:0,
-			whenSelect:"",
+			intValue:1,
+			whenSelect:"#cdfffe",
 			btnPlay: false,
 		};
 	}

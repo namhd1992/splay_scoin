@@ -71,7 +71,7 @@ class Lucky_detail extends React.Component {
 				// _this.props.changeTitle(_this.props.dataDetail.luckyspin.name);
 				var new_arr = [];
 				_this.props.dataDetail.itemOfSpin.forEach(function (item, key) {
-					console.log(_this.props.dataDetail)
+					// console.log(_this.props.dataDetail)
 					new_arr.push({ id: item.item.id, status: true });
 				});
 				_this.setState({ cardArr: _this.props.dataDetail.itemOfSpin, flippedArr: new_arr });

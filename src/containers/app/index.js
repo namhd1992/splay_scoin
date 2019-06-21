@@ -6,6 +6,7 @@ import Lucky_detail from '../lucky_detail';
 import Lucky_Item from '../lucky_item';
 import Lucky_BuyTurn from '../lucky_buyturn';
 import Lucky_History from '../lucky_history';
+import Lucky_Live from '../lucky_live';
 import Checkin from '../checkin';
 import Mission from '../mission';
 import MenuAppBar from '../../components/MenuAppBar';
@@ -62,6 +63,7 @@ class App extends React.Component {
 						<Route exact path="/luckyitembonus" component={Lucky_Item} />
 						<Route exact path="/luckyhistory" component={Lucky_History} />
 						<Route exact path="/luckybuyturn" component={Lucky_BuyTurn} />
+						<Route exact path="/luckylive" component={Lucky_Live} />
 						{/* <Route exact path="/giftcodeplugin" component={Giftcode_plugin} />
 						<Route exact path="/giftcodepluginlogin" component={Giftcode_plugin_login} />
 						<Route exact path="/phonecard" component={Phone_card} />

@@ -49,7 +49,7 @@ class PopupMission extends React.Component {
 					open={openPopupMission}
 					aria-labelledby="responsive-dialog-title"
 				>	
-				<div style={{background:"#cfe3fc"}}>
+				<div style={{background:"#fff"}}>
 					<DialogTitle id="responsive-dialog-title"><span style={{ color: "#666666", fontWeight:'bold', fontSize:18 }}>Chi tiết nhiệm vụ</span></DialogTitle>
 					<DialogContent style={{ color: "#fff" }}>
 					{(dataMission !==undefined) ? (

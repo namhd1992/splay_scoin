@@ -1,10 +1,9 @@
 import React from 'react'
 import Grid from 'material-ui/Grid'
 import '../../styles/luckyHistory.css'
-import { withRouter } from 'react-router-dom'
 
 
-class HistoryBonusComponent extends React.Component {
+class LiveStreamComponent extends React.Component {
 
 	constructor(props){
 		super(props);
@@ -13,16 +12,14 @@ class HistoryBonusComponent extends React.Component {
 		};
 	}
 
-	componentDidUpdate(){
-		console.log('AAAAAAAAAA')
-		window.onpopstate  = (e) => {
-			
-			var idLucky= localStorage.getItem("idLucky");
-			window.location.replace(
-				`${window.location.protocol}//${window.location.host}/luckydetail/`+idLucky,
-			);
-		}
-	}
+	// componentDidUpdate(){
+	// 	window.onpopstate  = (e) => {
+	// 		var idLucky= localStorage.getItem("idLucky");
+	// 		window.location.replace(
+	// 			`${window.location.protocol}//${window.location.host}/luckydetail/`+idLucky,
+	// 		);
+	// 	}
+	// }
 
 	loadMoreAction=()=>{
 		this.setState({numberShow: this.state.numberShow+15})
@@ -70,4 +67,4 @@ class HistoryBonusComponent extends React.Component {
 }
 
 
-export default withRouter(HistoryBonusComponent)
+export default (LiveStreamComponent)

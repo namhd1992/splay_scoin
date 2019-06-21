@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { CircularProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import { GridListTile, GridListTileBar } from 'material-ui/GridList'
+import Help from 'material-ui-icons/Help';
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 import { withStyles } from 'material-ui/styles'
@@ -57,6 +58,9 @@ class LuckyComponent extends React.Component {
 		localStorage.setItem("idLucky", id);
 		return id;
 	}
+	detailBonus=()=>{
+		console.log('ABV')
+	}
 
 	render() {
 		const {data, waiting, totalRecords, loadedRecords, server}=this.props;
@@ -85,28 +89,31 @@ class LuckyComponent extends React.Component {
 									time_text = "Còn " + minutes + " phút";
 								}
 								return (
-									<Grid key={key} item xs={12} md={12}>
+									<Grid key={key} item xs={12} md={12} style={{marginBottom:20}}>
 										<div className={classes.gridItem}>
-											<Link to={"/luckydetail/" + this.setIdLucky(obj.id)}>
+											
 												<GridListTile style={{ listStyleType: "none", backgroundColor: "#fff" }}>
-													<div style={{
-														backgroundImage: "url(" + obj.image + ")",
-														backgroundSize: "cover",
-														width: "100%",
-														paddingBottom: "30%",
-														backgroundRepeat: "no-repeat",
-														backgroundPosition: "center"
-													}} />
+													<Link to={"/luckydetail/" + obj.id} onClick={() => this.setIdLucky(obj.id)}>
+														<div style={{
+															backgroundImage: "url(" + obj.image + ")",
+															backgroundSize: "cover",
+															width: "100%",
+															paddingBottom: "30%",
+															backgroundRepeat: "no-repeat",
+															backgroundPosition: "center"
+														}} />
+													</Link>
 													<GridListTileBar
-														style={{backgroundColor:'rgba(45, 124, 125, 0.8)', width:this.state.width, height:this.state.height, borderRadius:5}}
+														style={{backgroundColor:'rgba(45, 124, 125, 0.6)', height:this.state.height, borderRadius:5}}
 														title={time_text}
-														// actionIcon={
-														// 	<IconButton>
-														// 	</IconButton>
-														// }
+														actionIcon={
+															<IconButton aria-label={`info about`} className={classes.icon} onClick={this.detailBonus}>
+															  <Help></Help>
+															</IconButton>
+														  }
 													/>
 												</GridListTile>
-											</Link>
+											
 										</div>
 									</Grid>
 								)

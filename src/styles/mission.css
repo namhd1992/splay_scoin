@@ -81,7 +81,7 @@ button.buttonFull{
 	border-radius: 5px;
 	font-size:16px;
 	border: none;
-	background: #34cccb;
+	background: #fff;
 	min-width:88px;
 	color: #fff;
 	padding: 8px;
@@ -92,7 +92,7 @@ button.buttonFull{
 button.buttonGhost{
 	font-size:16px;
 	border-radius: 5px;
-	background:#cfe3fc;
+	background:#fff;
 	min-width:88px;
 	color: #00948d;
 	border: 1px solid #00948d;
@@ -104,13 +104,10 @@ button.buttonGhost{
 .btn_close_popup{
 	color:#666666;
 	border-radius: 5px;
-	background:#cfe3fc;
+	background:#fff;
 	border: 1px solid #666666;
 	padding: 8px 10px;
 	cursor: pointer;
-}
-.btn_close_popup:hover{
-	background: #e7f1fd;
 }
 .mission_container{
 	width:100%;

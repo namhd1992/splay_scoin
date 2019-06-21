@@ -23,7 +23,7 @@ import '../../styles/imageServerError.css'
 
 const styles = {
 	paper: {
-		background: "#cfe3fc",
+		background: "#fff",
 	},
 };
 

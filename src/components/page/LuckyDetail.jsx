@@ -16,6 +16,7 @@ import PropTypes from 'prop-types';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import Notification from '../../components/Notification';
 import LoginRequired from '../../components/LoginRequired';
+import { Link } from 'react-router-dom'
 import '../../styles/imageServerError.css';
 import '../../styles/luckyDetail.css';
 
@@ -259,20 +260,26 @@ class LuckyDetailComponent extends React.Component {
 								<Grid container spacing={8}>
 									<div className="actionPlay">
 										<Grid item xs={12} style={{paddingBottom:"5px"}}>
-											{(this.state.btnPlay)?(<button className="buttonGreen">LẬT BẤT KỲ</button>):(
+											{(this.state.btnPlay)?(<button className="buttonGreen" onClick={() => this.pick(cardArr[0].item.id)}>LẬT BẤT KỲ</button>):(
 												<button className="buttonGreen" onClick={this.start}>CHƠI ({dataDetail.userTurnSpin.turnsBuy + dataDetail.userTurnSpin.turnsFree})</button>
 											)}
 											
 										</Grid>
-										<div item xs={12} className="btn_bonus_latthe" onClick={this.showItem}>
-											<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_bonus_active.png" alt="icon"/></div><span style={{float:'left', color:'#33cccc'}}>Phần Thưởng</span>
-										</div>
-										<div item xs={12} className="btn_buy_latthe" onClick={this.showBuyTurn}>
-											<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_add.png" alt="icon"/></div><span style={{float:'left', color:'#33cccc'}}>Mua Lượt</span>
-										</div>
-										<div item xs={12} className="btn_history_latthe" onClick={this.showHistory}>
-											<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../history-clock-button.png" alt="icon"/></div><span style={{float:'left', color:'#33cccc'}}>Lịch sử trúng thưởng</span>
-										</div>
+										<Link to={"/luckyitembonus/"}>
+											<div item xs={12} className="btn_bonus_latthe">
+												<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_bonus_active.png" alt="icon"/></div><span style={{float:'left', color:'#33cccc'}}>Phần Thưởng</span>
+											</div>
+										</Link>
+										<Link to={"/luckybuyturn/"}>
+											<div item xs={12} className="btn_buy_latthe">
+												<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_add.png" alt="icon"/></div><span style={{float:'left', color:'#33cccc'}}>Mua Lượt</span>
+											</div>
+										</Link>
+										<Link to={"/luckyhistory/"}>
+											<div item xs={12} className="btn_history_latthe">
+												<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../history-clock-button.png" alt="icon"/></div><span style={{float:'left', color:'#33cccc'}}>Lịch sử trúng thưởng</span>
+											</div>
+										</Link>
 									</div>
 								</Grid>
 							</Grid>
