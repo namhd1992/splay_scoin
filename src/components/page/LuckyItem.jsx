@@ -45,7 +45,7 @@ class LuckyItemComponent extends React.Component {
 					))}
 
 					<div item xs={12} className="btn_buy_latthe" onClick={this.backLucky}>
-						<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_back.png" alt="icon"/></div><span style={{float:'left', color:'#33cccc'}}>Quay Lại</span>
+						<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_back.png" alt="icon"/></div><span style={{float:'left', color:'#009999'}}>Quay Lại</span>
 					</div>
 				</Grid>
 

@@ -56,7 +56,7 @@ class LuckyBuyTurnComponent extends React.Component {
 						<div style={{width:"100%"}}>
 							<div className="infoTitle">
 								<div className="valueUserBuyTurn">
-									<span className="global-thit" style={{color:"black"}}>Còn <span style={{marginLeft:'50px'}}><img alt="just alt"src="../thit.png" /> <span style={{ color: "black" }} >{this.convettoLocaleString(dataDetail.userTurnSpin.rewardPoint) }</span></span><span style={{float:'right'}}> {dataDetail.userTurnSpin.turnsBuy + dataDetail.userTurnSpin.turnsFree} lượt lật thẻ</span></span>
+									<span className="global-thit" style={{color:"black"}}><span style={{float:'right'}}> Còn: &nbsp;&nbsp;&nbsp;<img alt="just alt"src="../thit.png" />&nbsp; {this.convettoLocaleString(dataDetail.userTurnSpin.rewardPoint) } &nbsp;&nbsp;&nbsp;&nbsp; {dataDetail.userTurnSpin.turnsBuy + dataDetail.userTurnSpin.turnsFree} lượt lật thẻ</span></span>
 								</div>	
 							</div>
 							<Grid item xs={12} style={{margin:15}}>
@@ -77,7 +77,7 @@ class LuckyBuyTurnComponent extends React.Component {
 								MUA
 							</button>
 							<div item xs={12} className="btn_back" onClick={this.backLucky}>
-								<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_back.png" alt="icon"/></div><span style={{float:'left', color:'#33cccc'}}>Quay Lại</span>
+								<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_back.png" alt="icon"/></div><span style={{float:'left', color:'#009999'}}>Quay Lại</span>
 							</div>
 						</div>
 					</Grid>

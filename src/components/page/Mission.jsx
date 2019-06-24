@@ -132,11 +132,17 @@ class MissionComponent extends React.Component {
 													id={key}
 													onClick={() => this.showDetail(obj.description,"Chi tiết nhiệm vụ")} />
 											</div>
+											{(obj.award === "XU") ? (
 											<ListItemText style={{width:"60%", padding:"0 7px"}} disableTypography={true}
 												primary={(<div className="mission_title">{obj.missionName}</div>)}
 												secondary={(
 													<span className="global-thit" style={{ color: "#fe8731" }}><img alt="just alt"
-														src="../Xu.png" /> <span style={{ color: "#ff9933", fontSize:16, fontWeight:'bold' }}>+{obj.valueAward}</span> </span>)} />
+														src="../Xu.png" /> <span style={{ color: "#ff9933", fontSize:16, fontWeight:'bold' }}>+{obj.valueAward}</span> </span>)} />) : (<div></div>)}
+											{(obj.award === "TURN_SPIN") ? (
+											<ListItemText style={{width:"60%", padding:"0 7px"}} disableTypography={true}
+												primary={(<div className="mission_title">{obj.missionName}</div>)}
+												secondary={(
+													<span className="global-thit" style={{ color: "#fe8731" }}><span style={{ color: "#ff9933", fontSize:16, fontWeight:'bold' }}>+{obj.valueAward} lượt lật thẻ</span> </span>)} />) : (<div></div>)}
 											<div className="mission_action" style={{paddingLeft:this.state.paddingL}}>
 												<img style={{width:30, height:30, float:'left', marginRight:5, cursor:'pointer'}} src='../icon_question.png'
 													onClick={() => this.openPopupMission(obj)} />

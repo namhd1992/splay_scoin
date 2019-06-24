@@ -92,7 +92,7 @@
     margin-bottom: 10px;
     text-align: center;
 	padding: 10px;
-	padding-left: calc(50% - 50px);
+	padding-left: calc(50% - 60px);
 	width: 100%;
 	cursor: pointer;
 }
@@ -102,7 +102,7 @@
     margin-bottom: 10px;
     text-align: center;
 	padding: 10px;
-	padding-left: calc(50% - 35px);
+	padding-left: calc(50% - 45px);
 	width: 100%;
 	cursor: pointer;
 }
@@ -112,7 +112,7 @@
     margin-bottom: 10px;
     text-align: center;
 	padding: 10px;
-	padding-left: calc(50% - 70px);
+	padding-left: calc(50% - 85px);
 	width: 100%;
 	cursor: pointer;
 }

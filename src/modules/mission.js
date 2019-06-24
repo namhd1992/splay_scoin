@@ -81,19 +81,19 @@ export const getData = (limit, offset) => {
   }
 }
 
-export const finishData = (id, scoin, token) => {
+export const finishData = (id) => {
   var header = {
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "bearer " + token,
+      // "Authorization": "bearer " + token,
     }
   }
   return dispatch => {
     dispatch({
       type: MISSION_REQUEST
     })
-    var url = Ultilities.base_url() + "mission/finish?missionId=" + id;
-    return axios.post(url, {scoinToken: scoin}, header).then(function (response) {
+    var url = Ultilities.base_url() + "mission/finish?mission_id=" + id;
+    return axios.post(url, header).then(function (response) {
       dispatch({
         type: MISSION_FINISH,
         data: response,

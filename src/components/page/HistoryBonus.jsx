@@ -13,17 +13,6 @@ class HistoryBonusComponent extends React.Component {
 		};
 	}
 
-	componentDidUpdate(){
-		console.log('AAAAAAAAAA')
-		window.onpopstate  = (e) => {
-			
-			var idLucky= localStorage.getItem("idLucky");
-			window.location.replace(
-				`${window.location.protocol}//${window.location.host}/luckydetail/`+idLucky,
-			);
-		}
-	}
-
 	loadMoreAction=()=>{
 		this.setState({numberShow: this.state.numberShow+15})
 	}
@@ -44,11 +33,11 @@ class HistoryBonusComponent extends React.Component {
 			<Grid item xs={12} md={12} style={{marginBottom:20}}>
 				<div>
 					{data.map((obj, key) => (
-						<div key={key} style={{borderBottom:'1px solid #a6a6a6', marginBottom:20, paddingBottom:15}}>
-							<span>{obj.date}</span>
-							<span>{obj.itemName}</span>
-							<span>{obj.userName}</span>
-							<span>{obj.phone}</span>
+						<div key={key} style={{borderBottom:'1px solid #a6a6a6', marginBottom:20, paddingBottom:15, display:'flex'}}>
+							<div style={{flex:1, float:'left'}}>{obj.date}</div>
+							<div style={{flex:1, float:'left'}}>{obj.itemName}</div>
+							<div style={{flex:1, float:'left'}}>{obj.userName}</div>
+							<div style={{flex:1}}>{obj.phone}</div>
 						</div>
 					))}	
 				</div>

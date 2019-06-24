@@ -59,18 +59,18 @@ export const getData = (token) => {
 	}
 }
 
-export const checkin = (token) => {
+export const checkin = () => {
 	var header = {
 		headers: {
 			"Content-Type": "application/json",
-			"Authorization": "bearer " + token,
+			// "Authorization": "bearer " + token,
 		}
 	}
 	return dispatch => {
 		dispatch({
 			type: CHECKIN_REQUEST
 		})
-		var url = Ultilities.base_url() + "checkinAction";
+		var url = Ultilities.base_url() + "checkin";
 		return axios.post(url, {}, header).then(function (response) {
 			dispatch({
 				type: CHECKIN_ACTION,

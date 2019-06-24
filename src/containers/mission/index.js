@@ -6,6 +6,10 @@ import {
 	getMoreData,
 	finishData
 } from '../../modules/mission'
+
+import {
+	checkin
+} from '../../modules/checkin'
 import {
 	changeTitle
 } from '../../modules/global'
@@ -64,13 +68,21 @@ class Mission extends React.Component {
 		});
 	}
 
+	checkin=()=>{
+		// var user = JSON.parse(localStorage.getItem("user"));
+		var _this=this;
+		this.props.checkin().then(function () {
+			_this.props.getData(_this.state.limit, _this.state.offset);
+		});
+	}
+
 	doMission = (action, id, value, scoinGameId) => {
 		switch (+action) {
 			case 1:
 				window.location.href = '/lucky';
 				break;
 			case 2:
-				window.location.href = '/checkin';
+				this.checkin();
 				break;
 			case 3:
 				window.location.href = '/auctiondetail/' + id;
@@ -98,9 +110,9 @@ class Mission extends React.Component {
 
 	reward = (id) => {
 		var _this = this;
-		var user = JSON.parse(localStorage.getItem("user"));
-		this.props.finishData(id, user.scoinAccessToken, user.access_token).then(function (response) {
-			_this.props.getData(_this.state.limit, _this.state.offset, user.access_token);
+		// var user = JSON.parse(localStorage.getItem("user"));
+		this.props.finishData(id).then(function (response) {
+			_this.props.getData(_this.state.limit, _this.state.offset);
 			if(_this.props.status==="03"){
 				_this.setState({ dialogDetailOpen: true, dialogContent: _this.props.message_server, title_dialog:"Error"});
 			}
@@ -165,6 +177,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
 	getData,
 	finishData,
+	checkin,
 	getMoreData,
 	changeTitle
 }, dispatch)

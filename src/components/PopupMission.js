@@ -79,16 +79,15 @@ class PopupMission extends React.Component {
 									<div>
 										<div style={{float:"left", paddingRight:"15px", color: "#666666", fontSize:16}}>Phần thưởng: </div>
 										<div>
-											{(dataMission.award === "Thịt") ? (
+											{(dataMission.award === "XU") ? (
 											<ListItemText style={{width:"100%", padding:"0 7px"}} disableTypography={true}
 												secondary={(
 													<span className="global-thit" style={{ color: "#ff9933" }}><img alt="just alt"
 														src="../icon_xu.png" /> <span className="valueBonus">+{dataMission.valueAward}</span></span>)} />) : (<div></div>)}
-											{(dataMission.award === "XO") ? (
+											{(dataMission.award === "TURN_SPIN") ? (
 											<ListItemText style={{width:"100%", padding:"0 7px"}} disableTypography={true}
 												secondary={(
-													<span className="global-thit" style={{ color: "#ff9933" }}><img alt="just alt"
-														src="../XO.png" /> <span className="valueBonus">+{dataMission.valueAward}</span></span>)} />) : (<div></div>)}
+													<span className="global-thit" style={{ color: "#ff9933" }}><span className="valueBonus">+{dataMission.valueAward} lượt lật thẻ</span></span>)} />) : (<div></div>)}
 										</div>
 									</div>
 								</div>

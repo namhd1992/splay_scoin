@@ -115,6 +115,9 @@ class LuckyComponent extends React.Component {
 												</GridListTile>
 											
 										</div>
+										<div style={{border:'1px solid #ff0000', borderRadius:3, padding:10}}>
+											<span>Đang diễn ra livestream quay số</span><span>Xem</span>
+										</div>
 									</Grid>
 								)
 							}

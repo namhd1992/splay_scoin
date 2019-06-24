@@ -193,7 +193,7 @@ class LuckyDetailComponent extends React.Component {
 									</div>
 								</Grid>
 								<Grid item xs={12} md={12} style={{marginTop:5, marginBottom:20}}>
-									<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_latthe.png" alt="icon"/></div><span style={{float:'left', fontWeight:'bold', color:"#6a6a6a"}}>Chi tiết lật thẻ</span>
+									<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_latthe.png" alt="icon"/></div><span style={{float:'left', fontWeight:'bold', color:"#6a6a6a"}}>{dataDetail.luckySpin.name}</span>
 								</Grid>
 								<Grid item xs={12} sm={12}>
 									<div className="lucky-wrap"
@@ -267,17 +267,17 @@ class LuckyDetailComponent extends React.Component {
 										</Grid>
 										<Link to={"/luckyitembonus/"}>
 											<div item xs={12} className="btn_bonus_latthe">
-												<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_bonus_active.png" alt="icon"/></div><span style={{float:'left', color:'#33cccc'}}>Phần Thưởng</span>
+												<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_bonus_active.png" alt="icon"/></div><span style={{float:'left', color:'#009999'}}>Phần Thưởng</span>
 											</div>
 										</Link>
 										<Link to={"/luckybuyturn/"}>
 											<div item xs={12} className="btn_buy_latthe">
-												<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_add.png" alt="icon"/></div><span style={{float:'left', color:'#33cccc'}}>Mua Lượt</span>
+												<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_add.png" alt="icon"/></div><span style={{float:'left', color:'#009999'}}>Mua Lượt</span>
 											</div>
 										</Link>
 										<Link to={"/luckyhistory/"}>
 											<div item xs={12} className="btn_history_latthe">
-												<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../history-clock-button.png" alt="icon"/></div><span style={{float:'left', color:'#33cccc'}}>Lịch sử trúng thưởng</span>
+												<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../history-clock-button.png" alt="icon"/></div><span style={{float:'left', color:'#009999'}}>Lịch sử trúng thưởng</span>
 											</div>
 										</Link>
 									</div>
