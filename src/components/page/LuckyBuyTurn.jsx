@@ -59,8 +59,8 @@ class LuckyBuyTurnComponent extends React.Component {
 									<span className="global-thit" style={{color:"black"}}><span style={{float:'right'}}> Còn: &nbsp;&nbsp;&nbsp;<img alt="just alt"src="../thit.png" />&nbsp; {this.convettoLocaleString(dataDetail.userTurnSpin.rewardPoint) } &nbsp;&nbsp;&nbsp;&nbsp; {dataDetail.userTurnSpin.turnsBuy + dataDetail.userTurnSpin.turnsFree} lượt lật thẻ</span></span>
 								</div>	
 							</div>
-							<Grid item xs={12} style={{margin:15}}>
-									<div style={{marginBottom:20}}>
+							<Grid item xs={12} style={{margin:10}}>
+									<div style={{marginBottom:10}}>
 										<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_add_inactive.png" alt="icon"/></div><span style={{float:'left', fontWeight:'bold', color:'#666666'}}>Mua thêm lượt</span>
 									</div>
 							</Grid>

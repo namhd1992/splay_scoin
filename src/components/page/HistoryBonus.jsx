@@ -27,25 +27,27 @@ class HistoryBonusComponent extends React.Component {
 		}
 
 		return (dataDetail !==undefined && dataDetail!==null)?(<Grid container spacing={12}>
-			<Grid item xs={12} md={12} style={{marginTop:5, marginBottom:30}}>
-				<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_latthe.png" alt="icon"/></div><span style={{float:'left', fontWeight:'bold', color:"#6a6a6a"}}>Lịch sử trúng thưởng</span>
-			</Grid>
-			<Grid item xs={12} md={12} style={{marginBottom:20}}>
-				<div>
-					{data.map((obj, key) => (
-						<div key={key} style={{borderBottom:'1px solid #a6a6a6', marginBottom:20, paddingBottom:15, display:'flex'}}>
-							<div style={{flex:1, float:'left'}}>{obj.date}</div>
-							<div style={{flex:1, float:'left'}}>{obj.itemName}</div>
-							<div style={{flex:1, float:'left'}}>{obj.userName}</div>
-							<div style={{flex:1}}>{obj.phone}</div>
-						</div>
-					))}	
-				</div>
-			</Grid>
-			<Grid item xs={12}>
-				{(totalRecords>this.state.numberShow)?(<div item xs={12} className="div_more_history" onClick={this.loadMoreAction}>
-					<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_add.png" alt="icon"/></div><span style={{float:'left'}}>Xem Thêm</span>
-				</div>):(<div></div>)}
+			<Grid container spacing={12} style={{backgroundColor:'#fff', padding:10}}>
+				<Grid item xs={12} md={12} style={{marginTop:5, marginBottom:10}}>
+					<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_latthe.png" alt="icon"/></div><span style={{float:'left', fontWeight:'bold', color:"#6a6a6a"}}>Lịch sử trúng thưởng</span>
+				</Grid>
+				<Grid item xs={12} md={12} style={{marginBottom:20}}>
+					<div>
+						{data.map((obj, key) => (
+							<div key={key} style={{borderBottom:'1px solid #a6a6a6', marginBottom:20, paddingBottom:15, display:'flex'}}>
+								<div style={{flex:1, float:'left', color:"#6a6a6a"}}>{obj.date}</div>
+								<div style={{flex:1, float:'left', color:"#6a6a6a"}}>{obj.itemName}</div>
+								<div style={{flex:1, float:'left', color:"#6a6a6a"}}>{obj.userName}</div>
+								<div style={{flex:1, color:"#6a6a6a"}}>{obj.phone}</div>
+							</div>
+						))}	
+					</div>
+				</Grid>
+				<Grid item xs={12}>
+					{(totalRecords>this.state.numberShow)?(<div item xs={12} className="div_more_history" onClick={this.loadMoreAction}>
+						<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_add.png" alt="icon"/></div><span style={{float:'left'}}>Xem Thêm</span>
+					</div>):(<div></div>)}
+				</Grid>
 			</Grid>
 			<Grid item xs={12}>
 				<div style={{textAlign:'center', marginBottom:25, fontSize:14}}>

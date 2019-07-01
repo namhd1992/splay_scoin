@@ -30,19 +30,22 @@ class LuckyItemComponent extends React.Component {
 			<div>
 				<Grid container xs={12} md={12} style={{background:'#fff', border:'1px solid #d0d0d1', padding:10}}>
 					<Grid item xs={12}>
-						<div style={{height:"50px", padding:15, borderBottom:'1px solid #999999'}}>
+						<div style={{height:"50px", paddingTop:5, borderBottom:'1px solid #999999'}}>
 							<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_bonus.png" alt="icon"/></div><span style={{float:'left'}}>Phần thưởng</span>
 						</div>
 								
 					</Grid>
-					{dataDetail.itemOfSpin.map((obj, key) => (
+					{/* {dataDetail.itemOfSpin.map((obj, key) => (
 						<ListItem key={key} style={{ minWidth: "120px", color:'black', borderBottom:'1px solid #999999' }}>
 							<div>
 								<img alt="just alt" className="lucky-item-img" src={obj.item.urlImage} />
 							</div>&nbsp;&nbsp;&nbsp;&nbsp;
 							<span>{obj.item.name}</span>
 						</ListItem>
-					))}
+					))} */}
+					<div className={"article_content"}
+						 dangerouslySetInnerHTML={{ __html: dataDetail.luckySpin.description }}>
+					</div>
 
 					<div item xs={12} className="btn_buy_latthe" onClick={this.backLucky}>
 						<div style={{float:'left'}}><img style={{width:20, height:20, marginRight:5}} src="../icon_back.png" alt="icon"/></div><span style={{float:'left', color:'#009999'}}>Quay Lại</span>

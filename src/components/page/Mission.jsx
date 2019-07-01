@@ -118,11 +118,11 @@ class MissionComponent extends React.Component {
 			<Grid container style={{ width: "100%", margin: "0px" }}>
 				<Grid item xs={12} md={12} >
 					<Grid container>
-						<Grid container xs={12} md={12} style={{background:'#fff', border:'1px solid #d0d0d1', padding:10}}>
-							<Grid item xs={12} md={12} style={{marginTop:5, marginBottom:40}}>
+						<Grid container xs={12} md={12} style={{background:'#fff', border:'1px solid #d0d0d1', padding: 10}}>
+							<Grid item xs={12} md={12} style={{marginTop:5}}>
 								<div style={{float:'left'}}><img style={{width:24, height:24, marginRight:10}} src="../icon_nhiemvu.png" alt="icon"/></div><span style={{float:'left', fontWeight:'bold', color:"#6a6a6a", fontSize:18}}>Nhiệm vụ</span>
 							</Grid>
-							<Grid item xs={12} md={12}>
+							{(data!==null)?(<Grid item xs={12} md={12}>
 								<List className="mission-list-root" >
 									{data.map((obj, key) => (
 										<ListItem className="mission-item" key={key} style={{ backgroundColor: "#fff", border:"1px solid #cccccc", borderRadius: "5px", marginBottom: "10px", paddingRight: 2 }}>
@@ -144,7 +144,7 @@ class MissionComponent extends React.Component {
 												secondary={(
 													<span className="global-thit" style={{ color: "#fe8731" }}><span style={{ color: "#ff9933", fontSize:16, fontWeight:'bold' }}>+{obj.valueAward} lượt lật thẻ</span> </span>)} />) : (<div></div>)}
 											<div className="mission_action" style={{paddingLeft:this.state.paddingL}}>
-												<img style={{width:30, height:30, float:'left', marginRight:5, cursor:'pointer'}} src='../icon_question.png'
+												<img style={{width:30, height:30, float:'left', marginRight:5, marginTop:2, cursor:'pointer'}} src='../icon_question.png'
 													onClick={() => this.openPopupMission(obj)} />
 												{(obj.finish && !obj.received && obj.awardAvailable !==0 && obj.missionStatus ==="active") ? (<div>
 													<button onClick={() => this.reward(obj.missionId)} className="buttonMissionReceive" variant="raised">Nhận</button>
@@ -171,7 +171,7 @@ class MissionComponent extends React.Component {
 										</ListItem>
 									))}
 								</List>
-							</Grid>
+							</Grid>):(<div></div>)}
 							
 							{(waiting) ? (<Grid item xs={12} style={{ textAlign: "center" }}>
 							{(server !== true) ? (												

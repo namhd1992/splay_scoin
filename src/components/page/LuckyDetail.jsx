@@ -215,9 +215,9 @@ class LuckyDetailComponent extends React.Component {
 													left: left,
 													top: top
 												}}>
-												<ReactCardFlip style={{ height: '100%' }} isFlipped={flippedArr.find(x => x.id === obj.item.id).status}>
+												<ReactCardFlip style={{ height: '100%' }} isFlipped={flippedArr.find(x => x.id === obj.id).status}>
 													<div key={this.state.div1} style={{
-														opacity: (highLightCard === null || highLightCard === obj.item.id) ? "1" : "0.5",
+														opacity: (highLightCard === null || highLightCard === obj.id) ? "1" : "0.5",
 														backgroundSize: "contain",
 														backgroundRepeat: "no-repeat",
 														backgroundPosition: "center",
@@ -230,7 +230,7 @@ class LuckyDetailComponent extends React.Component {
 															src={obj.item.urlImage} /></div>
 														<div style={{ fontSize: fontSize }}>{obj.item.name}</div>
 													</div>
-													<div key={this.state.div2} onClick={() => this.pick(obj.item.id)} style={{
+													<div key={this.state.div2} onClick={() => this.pick(obj.id)} style={{
 														backgroundSize: "contain",
 														backgroundRepeat: "no-repeat",
 														backgroundPosition: "center",
@@ -260,7 +260,7 @@ class LuckyDetailComponent extends React.Component {
 								<Grid container spacing={8}>
 									<div className="actionPlay">
 										<Grid item xs={12} style={{paddingBottom:"5px"}}>
-											{(this.state.btnPlay)?(<button className="buttonGreen" onClick={() => this.pick(cardArr[0].item.id)}>LẬT BẤT KỲ</button>):(
+											{(this.state.btnPlay)?(<button className="buttonGreen" onClick={() => this.pick(cardArr[0].id)}>LẬT BẤT KỲ</button>):(
 												<button className="buttonGreen" onClick={this.start}>CHƠI ({dataDetail.userTurnSpin.turnsBuy + dataDetail.userTurnSpin.turnsFree})</button>
 											)}
 											

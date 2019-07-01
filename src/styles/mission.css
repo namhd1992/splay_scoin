@@ -42,7 +42,7 @@
 button.buttonCircleMission{
 	background:#fff;
 	color: #ec961f;
-	border: 1px solid #ec961f;
+	border: 2px solid #ec961f;
 	padding: 9px 14px;
 	font-size: 0.8em;
 	white-space: nowrap;
@@ -95,19 +95,25 @@ button.buttonGhost{
 	background:#fff;
 	min-width:88px;
 	color: #00948d;
-	border: 1px solid #00948d;
+	border: 2px solid #e6e6e6;
 	padding: 8px;
 	font-size: 0.8em;
 	white-space: nowrap;
 	cursor: pointer;
 }
+.buttonGhost:hover{
+	background:#e6e6e6;
+}
 .btn_close_popup{
 	color:#666666;
 	border-radius: 5px;
 	background:#fff;
-	border: 1px solid #666666;
+	border: 2px solid #e6e6e6;
 	padding: 8px 10px;
 	cursor: pointer;
+}
+.btn_close_popup:hover{
+	background:#e6e6e6;
 }
 .mission_container{
 	width:100%;
@@ -193,7 +199,7 @@ button.buttonGhostMission{
 	background:#fff;
 	min-width:88px;
 	color: #33cccc;
-	border: 1px solid #e5e5e5;
+	border: 2px solid #e5e5e5;
 	padding: 8px;
 	font-size: 0.8em;
 	white-space: nowrap;
@@ -205,7 +211,7 @@ button.buttonGhostMission:hover{
 .div_more_mission{
 	margin-top: 30px;
     margin-bottom: 10px;
-	border: 1px solid #cccccc;
+	border: 2px solid #cccccc;
 	border-radius: 5px;
 	padding: 10px;
 	padding-left: calc(50% - 50px);

@@ -72,7 +72,7 @@ class Lucky_detail extends React.Component {
 				var new_arr = [];
 				_this.props.dataDetail.itemOfSpin.forEach(function (item, key) {
 					// console.log(_this.props.dataDetail)
-					new_arr.push({ id: item.item.id, status: true });
+					new_arr.push({ id: item.id, status: true });
 				});
 				_this.setState({ cardArr: _this.props.dataDetail.itemOfSpin, flippedArr: new_arr });
 			}
@@ -137,8 +137,8 @@ class Lucky_detail extends React.Component {
 		var key1 = 0;
 		var key2 = 0;
 		this.state.cardArr.forEach(function (item, key) {
-			if (item.item.id === id1) key1 = key;
-			if (item.item.id === id2) key2 = key;
+			if (item.id === id1) key1 = key;
+			if (item.id === id2) key2 = key;
 		});
 		newCardArr[key1] = newCardArr.splice(key2, 1, newCardArr[key1])[0];
 		this.setState({ cardArr: newCardArr });
@@ -199,8 +199,8 @@ class Lucky_detail extends React.Component {
 				if (_this.props.dataPick === null) {
 					_this.setState({ openSnack: true, message: "Bạn đã hết lượt quay", snackVariant: "error" });
 				} else {
-					_this.swap(key, _this.props.dataPick.item.id);
-					_this.openCard(_this.props.dataPick.item.id);
+					_this.swap(key, _this.props.dataPick.id);
+					_this.openCard(_this.props.dataPick.id);
 					_this.setState({ openSnack: true, message: "Thành công, vào hộp thư để xem vật phẩm trúng thưởng", snackVariant: "success" });
 				}
 				_this.props.getDetailData(_this.props.match.params.id);

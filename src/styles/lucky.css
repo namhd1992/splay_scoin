@@ -64,3 +64,9 @@
 	width: 100%;
 	cursor: pointer;
 }
+
+.article_content img {
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
