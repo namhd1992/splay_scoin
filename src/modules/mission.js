@@ -93,7 +93,7 @@ export const finishData = (id) => {
       type: MISSION_REQUEST
     })
     var url = Ultilities.base_url() + "mission/finish?mission_id=" + id;
-    return axios.post(url, header).then(function (response) {
+    return axios.get(url, header).then(function (response) {
       dispatch({
         type: MISSION_FINISH,
         data: response,

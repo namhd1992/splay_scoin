@@ -65,12 +65,12 @@ class PopupMission extends React.Component {
 													{(obj.isFinish) ? (
 														<div style={{padding:"15px 0px 0px 15px"}}>
 															<img style={{background:"#47ac2c", marginRight:"15px"}} src="../check.png"alt="just alt"/>
-															{/* <span>{dataMission.missionProgress}/{dataMission.missionSatisfying}</span> */}
+															<span style={{ color: "#666666", fontSize:16 }}>1/1</span>
 														</div>):(
 														<div style={{padding:"15px 0px 0px 15px"}}>
-															<img style={{marginRight:"15px", width:"18px", height:"18px"}} src="../unchecked.png"alt="just alt"/>
-															{/* <div style={{width:"18px", height:"18px", border:"1px solid #779796", float:"left", marginRight:"15px"}}></div> */}
-															{/* <span style={{ color: "#666666", fontSize:16 }}>{dataMission.missionProgress}/{dataMission.missionSatisfying}</span> */}
+															
+															<div style={{width:"18px", height:"18px", border:"1px solid #779796", float:"left", marginRight:"15px"}}></div>
+															<span style={{ color: "#666666", fontSize:16 }}>0/1</span>
 														</div>)}
 												</div>
 											)

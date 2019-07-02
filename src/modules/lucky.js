@@ -7,6 +7,7 @@ export const LUCKY_DETAIL_RESPONSE = 'lucky/LUCKY_DETAIL_RESPONSE'
 export const LUCKY_RESPONSE_MORE = 'lucky/LUCKY_RESPONSE_MORE'
 export const LUCKY_PICK_RESPONSE = 'lucky/LUCKY_PICK_RESPONSE'
 export const LUCKY_TURN_RESPONSE = 'lucky/LUCKY_TURN_RESPONSE'
+export const LUCKY_HISTORY_RESPONSE='lucky/LUCKY_HISTORY_RESPONSE'
 
 const initialState = {
 	data: [],
@@ -50,6 +51,12 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				dataTurn: action.data,
+				waiting: false
+			}
+		case LUCKY_HISTORY_RESPONSE:
+			return {
+				...state,
+				dataHistory: action.data,
 				waiting: false
 			}
 		default:
@@ -183,4 +190,33 @@ export const buyTurn = (id, turn, spin_name) => {
 		})
 	}
 }
+
+
+export const history = (id, type) => {
+	var header = {
+		headers: {
+			"Content-Type": "application/json",
+			// "Authorization": "bearer " + token,
+		}
+	}
+
+	return dispatch => {
+		dispatch({
+			type: LUCKY_REQUEST
+		})
+		var url = Ultilities.base_url() + "lucky-spin-history?lucky_spin_id="+id+'&type_gift='+type;
+		return axios.get(url, header).then(function (response) {
+			console.log(response.data)
+			dispatch({
+				type: LUCKY_HISTORY_RESPONSE,
+				data: response.data.data
+			})
+		}).catch(function (error) {
+			dispatch({
+				type: SERVER_ERROR
+			})
+		})
+	}
+}
+
 

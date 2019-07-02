@@ -120,8 +120,8 @@
 .btn_close_lucky{
     color:#666666;
 	border-radius: 5px;
-	background:#cfe3fc;
-	border: 1px solid #666666;
+	background:#fff;
+	border: 2px solid #e6e6e6;
 	padding: 8px 10px;
 	cursor: pointer;
 }
@@ -139,7 +139,7 @@
 	cursor: pointer;
 }
 .btn_close_lucky:hover{
-    background:#e7f1fd;
+    background:#e6e6e6;
 }
 .btn_buy_lucky:hover{
     background: #5cd6d6;

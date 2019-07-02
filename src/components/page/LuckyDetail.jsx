@@ -22,7 +22,7 @@ import '../../styles/luckyDetail.css';
 
 const styles = {
 	paper: {
-		background: "#cfe3fc"
+		background: "#fff"
 	},
 	buttonOrange:{
 		borderRadius: "20px",
@@ -159,9 +159,12 @@ class LuckyDetailComponent extends React.Component {
 	getStringBonus=(obj)=> {
 		var output = document.getElementById("bonus");
 		var bonus="";
-		for (let i = 0; i < obj.length; i++) {
-			bonus+='<span style="color:black"><span style="color:#00bf98">'+ obj[i].userName+'</span>'+' nhận thưởng '+ '<span style="color:#ff9d42">'+ obj[i].itemName+'</span>'+'</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+		if(obj!=undefined){
+			for (let i = 0; i < obj.length; i++) {
+				bonus+='<span style="color:black"><span style="color:#00bf98">'+ obj[i].userName+'</span>'+' nhận thưởng '+ '<span style="color:#ff9d42">'+ obj[i].itemName+'</span>'+'</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+			}
 		}
+	
 		if(output!==null){
 			output.insertAdjacentHTML('beforeend',bonus)
 		}
@@ -302,10 +305,10 @@ class LuckyDetailComponent extends React.Component {
 					aria-labelledby="responsive-dialog-title"
 					classes={{ paper: classes.paper }}
 				>
-					<DialogTitle id="responsive-dialog-title"><span style={{ color: '#666666', fontSize:18 }} >Bạn đã hết lượt quay</span></DialogTitle>
+					<DialogTitle id="responsive-dialog-title"><span style={{ color: '#666666', fontSize:18 }} >Bạn đã hết lượt lật thẻ</span></DialogTitle>
 					<DialogContent>
 						<div style={{ color: "#666666" }}>
-							Mua thêm lượt quay để tiếp tục
+							Làm nhiệm vụ hoặc mua thêm lượt để tiếp tục
 						</div>
 					</DialogContent>
 					<DialogActions>
@@ -317,7 +320,7 @@ class LuckyDetailComponent extends React.Component {
 				</Dialog>
 				
 				<LoginRequired open={dialogLoginOpen}></LoginRequired>
-				<Dialog
+				{/* <Dialog
 					open={dialogItemOpen}
 					onClose={this.handleCloseDialogItem}
 					aria-labelledby="responsive-dialog-title"
@@ -341,7 +344,7 @@ class LuckyDetailComponent extends React.Component {
 							<Button onClick={this.handleCloseDialogItem} style={{ color: "#888787", borderRadius:"20px" }}>Đóng</Button>
 						</div>
 					</DialogActions>
-				</Dialog>
+				</Dialog> */}
 				<Notification message={message} variant={snackVariant} openSnack={openSnack} closeSnackHandle={this.handleCloseSnack} ></Notification>
 			</div>
 		) : (<div className="global-loading">

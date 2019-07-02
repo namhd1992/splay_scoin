@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import '../../styles/lucky.css'
 import {
-	getDetailData,
+	history,
 } from '../../modules/lucky'
 
 import HistoryBonusComponent from '../../components/page/HistoryBonus'
@@ -30,7 +30,7 @@ class Lucky_History extends React.Component {
 		// } else {
 		// 	_this.setState({ dialogLoginOpen: true });
 		// }
-		this.props.getDetailData(idLucky);
+		this.props.history(idLucky, 'ALL');
 	}
 
 	backLucky=()=>{
@@ -47,7 +47,7 @@ class Lucky_History extends React.Component {
 				<HistoryBonusComponent
 					notSelectOption={this.notSelectOption}
 					handleCloseDialogLogin={this.handleCloseDialogLogin}
-					dataDetail={this.props.dataDetail}
+					dataHistory={this.props.dataHistory}
 					backLucky={this.backLucky}
 					server={this.props.server}
 					waiting={this.props.waiting}
@@ -60,14 +60,13 @@ class Lucky_History extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	dataDetail: state.lucky.dataDetail,
-	dataTurn: state.lucky.dataTurn,
+	dataHistory: state.lucky.dataHistory,
 	server:state.server.serverError,
 	waiting: state.lucky.waiting,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-	getDetailData,
+	history,
 }, dispatch)
 
 
