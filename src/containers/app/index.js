@@ -14,6 +14,7 @@ import Game_detail from '../game_detail';
 import Auction from '../auction';
 import Auction_detail from '../auction_detail';
 import History from '../shop_history';
+import Lucky_Rotation from '../lucky_rotation'
 
 class App extends React.Component {
 
@@ -46,6 +47,7 @@ class App extends React.Component {
 						<Route exact path="/giftcode" component={Giftcode} />
 						<Route exact path="/giftcodedetail/:id" component={Giftcode_detail} /> */}
 						<Route exact path="/" component={Lucky} />
+						<Route exact path="/luckyrotation" component={Lucky_Rotation} />
 						<Route exact path="/auction" component={Auction} />
 						<Route exact path="/history" component={History} />
 						<Route exact path="/lucky" component={Lucky} />
