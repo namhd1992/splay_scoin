@@ -14,6 +14,7 @@ class LuckyRotationComponent extends React.Component {
 			isAll:true,
 			wheelPower:0,
 			wheelSpinning:false,
+			stop:true,
 			theWheel:null,
 		};
 	}
@@ -35,6 +36,7 @@ class LuckyRotationComponent extends React.Component {
 			'textFontFamily'    : 'monospace',
 			'textStrokeStyle'   : 'black',
 			'textLineWidth'     : 2,
+			'responsive'   : true,
 			'textFillStyle'     : 'white',
 			'segments'     :                // Define segments.
 			[
@@ -46,8 +48,8 @@ class LuckyRotationComponent extends React.Component {
 			'animation' :                   // Specify the animation to use.
 			{
 				'type'     : 'spinToStop',
-				'duration' : 5,     // Duration in seconds.
-				'spins'    : 8,     // Number of complete spins.
+				'duration' : 10,     // Duration in seconds.
+				'spins'    : 20,     // Number of complete spins.
 				'callbackFinished' : this.alertPrize
 			}
 		});
@@ -68,6 +70,7 @@ class LuckyRotationComponent extends React.Component {
 		const {wheelSpinning, wheelPower, theWheel}=this.state;
 		// Ensure that spinning can't be clicked again while already running.
 		if (wheelSpinning == false) {
+			
 			// Based on the power level selected adjust the number of spins for the wheel, the more times is has
 			// to rotate with the duration of the animation the quicker the wheel spins.
 			// theWheel.animation.spins = 2;
@@ -79,19 +82,28 @@ class LuckyRotationComponent extends React.Component {
 
 			// Set to true so that power can't be changed and spin button re-enabled during
 			// the current animation. The user will have to reset before spinning again.
-			this.setState({wheelSpinning: true});
+			this.setState({wheelSpinning: true, stop:false});
 		}
 	}
 	
 	stopSpin=()=>{
-		const {wheelSpinning, wheelPower, theWheel}=this.state;
-		theWheel.stopAnimation(false);
-		this.setState({wheelSpinning: false});
+		const {wheelSpinning, wheelPower, theWheel, stop}=this.state;
+		if (stop == false) {
+
+			theWheel.stopAnimation(false);
+			theWheel.animation.spins = 1;
+			theWheel.rotationAngle = 0;
+			theWheel.draw(); 
+			theWheel.startAnimation();
+			// theWheel.stopAnimation(false);
+			this.setState({wheelSpinning: true, stop:true});
+		}
 	}
 
 	resetWheel=()=>{
 		const {wheelSpinning, wheelPower, theWheel}=this.state;
-		theWheel.stopAnimation(false);  // Stop the animation, false as param so does not call callback function.
+		theWheel.stopAnimation(false);
+		theWheel.animation.spins = 20;  // Stop the animation, false as param so does not call callback function.
 		theWheel.rotationAngle = 0;     // Re-set the wheel angle to 0 degrees.
 		theWheel.draw();                // Call draw to render changes to the wheel.
 
@@ -118,7 +130,7 @@ class LuckyRotationComponent extends React.Component {
 								<button onClick={this.resetWheel}>Play Again</button>
 							</div>
 						</td>
-						<td className='the_wheel' style={{width:500, height:500, alignContent:'center', verticalAlign:'center'}}>
+						<td className='the_wheel' style={{width:500, height:500, alignContent:'center', verticalAlign:'center', dataResponsiveMinWidth:180, dataResponsiveScaleHeight:"true"}}>
 							<canvas id="canvas" width="450" height="450">
 								<p style={{color: '#fff', textAlign:'center'}} >Sorry, your browser doesn't support canvas. Please try another.</p>
 							</canvas>
