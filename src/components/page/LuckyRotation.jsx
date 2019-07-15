@@ -1,6 +1,7 @@
 import React from 'react'
 import Grid from 'material-ui/Grid';
-import Wheel from '../Winwheel'
+import LoginRequired from '../LoginRequired';
+import Wheel from '../../containers/lucky_rotation/Winwheel'
 import '../../styles/luckyHistory.css'
 import { withRouter } from 'react-router-dom'
 
@@ -115,7 +116,7 @@ class LuckyRotationComponent extends React.Component {
 		alert("The wheel stopped on " + indicatedSegment.text);
 	}
 	render() {
-		const { dataHistory } = this.props;
+		const { dialogLoginOpen } = this.props;
 
 		return (<Grid container>
 			<Grid item xs={12} style={{ padding:10}}>
@@ -137,6 +138,7 @@ class LuckyRotationComponent extends React.Component {
 						</td>
 					</tr>
 				</table>
+				<div></div>
 			</Grid>
 			<Grid item xs={12}>
 				<div style={{textAlign:'center', marginBottom:25, fontSize:14}}>
@@ -145,6 +147,7 @@ class LuckyRotationComponent extends React.Component {
 					<div><span style={{color:'#59d0c4'}}>Hotline 1900 1104</span></div>
 				</div>
 			</Grid>
+			<LoginRequired open={dialogLoginOpen}></LoginRequired>
 		</Grid>)
 	}
 }

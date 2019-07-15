@@ -52,7 +52,7 @@ export const getData = (token, scoinToken) => {
 		dispatch({
 			type: PROFILE_REQUEST
 		})
-		var url = Ultilities.base_url() + "getProfile?scoinToken=" + scoinToken;
+		var url = Ultilities.base_url() + "profile?scoin_access_token=" + scoinToken;
 		return axios.get(url, header).then(function (response) {
 			dispatch({
 				type: PROFILE_RESPONSE,

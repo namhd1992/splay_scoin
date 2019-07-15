@@ -155,7 +155,8 @@ class MenuAppBar extends React.Component {
 			var currentPath=localStorage.getItem("currentPath");
 			if (code != null) {
 				if (fb_mess === null) {
-					var url = Ultilities.base_url() + "/anonymous/loginScoin";
+					console.log('AAAAAAAAA')
+					var url = Ultilities.base_url() + "signin";
 					var redirect = `http://graph.vtcmobile.vn/oauth/authorize?client_id=707fece431a0948c498d43e881acd2c5&redirect_uri=${window.location.protocol}//${window.location.host}`;
 					var params = {
 						"code": code,
@@ -178,7 +179,7 @@ class MenuAppBar extends React.Component {
 						_this.setState({ auth: false });
 					})
 				} else {
-					var url = Ultilities.base_url() + "/anonymous/loginScoin";
+					var url = Ultilities.base_url() + "signin";
 					var redirect = `http://graph.vtcmobile.vn/oauth/authorize?client_id=707fece431a0948c498d43e881acd2c5&redirect_uri=${window.location.protocol}//${window.location.host}/loginwidget`;
 					var params = {
 						"code": code,
