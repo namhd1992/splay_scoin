@@ -150,11 +150,11 @@ export const getDetailData = (id) => {
 
 
 
-export const pickCard = (id) => {
+export const pickCard = (token, id) => {
 	var header = {
 		headers: {
 			"Content-Type": "application/json",
-			// "Authorization": "bearer " + token,
+			"Authorization": "bearer " + token,
 		}
 	}
 	return dispatch => {
@@ -162,7 +162,7 @@ export const pickCard = (id) => {
 			type: LUCKY_REQUEST
 		})
 		// var url = Ultilities.base_url() + "/awardSpin?spinId=" + id + "&scoinToken=" + scoinToken;
-		var url = Ultilities.base_url() + "lucky-spin/award-spin?lucky_sprin_id=" + id;
+		var url = Ultilities.base_url() + "lucky-spin/award-spin?lucky_spin_id=" + id;
 		return axios.get(url, header).then(function (response) {
 			dispatch({
 				type: LUCKY_PICK_RESPONSE,

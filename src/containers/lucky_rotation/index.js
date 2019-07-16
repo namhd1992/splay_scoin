@@ -22,7 +22,8 @@ import Wheel from './Winwheel'
 import {
 	getData
 } from '../../modules/profile'
-import LuckyRotationComponent from '../../components/page/LuckyRotation'
+import rotaion from './muivongquay.png'
+import bg_rotaion from './khungvongquay.png'
 
 class Lucky_Rotation extends React.Component {
 
@@ -46,14 +47,13 @@ class Lucky_Rotation extends React.Component {
 
 	componentDidMount(){
 		var user = JSON.parse(localStorage.getItem("user"));
-		var idLucky= localStorage.getItem("idLucky");
 		if (user !== null) {
-			this.props.getRotationDetailDataUser(user.access_token, idLucky).then(()=>{
+			this.props.getRotationDetailDataUser(user.access_token, 0).then(()=>{
 				var data=this.props.dataRotationWithUser;
 				console.log(data)
 			});
 		} else {
-			this.props.getRotationDetailData(idLucky).then(()=>{
+			this.props.getRotationDetailData(0).then(()=>{
 				var data=this.props.dataRotation;
 				console.log(data)
 			});
@@ -73,13 +73,7 @@ class Lucky_Rotation extends React.Component {
 			'textLineWidth'     : 2,
 			'responsive'   : true,
 			'textFillStyle'     : 'white',
-			'segments'     :                // Define segments.
-			[
-			   {'text' : 'T-55 Vampire'},
-			   {'text' : 'P-40 Kittyhawk'},
-			   {'text' : 'North American Harvard'},
-			   {'text' : 'L-39C Albatross'}
-			],
+			
 			'animation' :                   // Specify the animation to use.
 			{
 				'type'     : 'spinToStop',
@@ -97,7 +91,9 @@ class Lucky_Rotation extends React.Component {
 		}
 
 		// Set the image source, once complete this will trigger the onLoad callback (above).
-		loadedImg.src = "https://i.postimg.cc/zf4HqPNC/lucky-rotaion.png";
+		// loadedImg.width=400;
+		// loadedImg.height=400;
+		loadedImg.src = rotaion;
 		this.setState({theWheel:theWheel})
 	}
 
@@ -106,9 +102,15 @@ class Lucky_Rotation extends React.Component {
 		var user = JSON.parse(localStorage.getItem("user"));
 		if (user !== null) {
 			// this.props.getDetailData(user.access_token, idLucky);
-			this.props.getData(user.access_token, user.scoinAccessToken).then(()=>{
-				console.log(this.props.dataProfile)
-			});
+			// this.props.getData(user.access_token, user.scoinAccessToken).then(()=>{
+			// 	console.log(this.props.dataProfile)
+			// });
+
+			this.props.pickCard(user.access_token, 119).then(()=>{
+				if(_this.props.dataPick !==undefined){
+					console.log(_this.props.dataPick)
+				}
+			})
 			this.startSpin();
 		} else {
 			_this.setState({ dialogLoginOpen: true });
@@ -173,26 +175,15 @@ class Lucky_Rotation extends React.Component {
 		return (
 			<Grid container>
 			<Grid item xs={12} style={{ padding:10}}>
-				<table cellPadding="0" cellSpacing="0" border="0">
-					<tr>
-						<td className='the_wheel' style={{width:500, height:500, alignContent:'center', verticalAlign:'center', dataResponsiveMinWidth:180, dataResponsiveScaleHeight:"true"}}>
-							<canvas id="canvas" width="450" height="450">
-								<p style={{color: '#fff', textAlign:'center'}} >Sorry, your browser doesn't support canvas. Please try another.</p>
-							</canvas>
-						</td>
-					</tr>
-				</table>
+				<div className='the_wheel' style={{backgroundImage:"url(" + bg_rotaion + ")", width:684, height:804, alignContent:'center', verticalAlign:'center', dataResponsiveMinWidth:180, dataResponsiveScaleHeight:"true"}}>
+					<canvas id="canvas" width="684" height="804">
+						<p style={{color: '#fff', textAlign:'center'}} >Sorry, your browser doesn't support canvas. Please try another.</p>
+					</canvas>
+				</div>
 				<div>
 					<div>
 						<span>Tự động quay</span>
-						<Checkbox
-							checked={auto}
-							onChange={this.handleChange}
-							color="primary"
-							inputProps={{
-								'aria-label': 'primary checkbox',
-							}}
-						/>
+						<input type="checkbox" style={{width:25, height:25}} onChange={this.handleChange}/>
 					</div>
 					<div>
 						<button onClick={this.start}>Start</button>
@@ -237,6 +228,7 @@ const mapStateToProps = state => ({
 	dataProfile: state.profile.data,
 	dataRotation:state.lucky.dataRotation,
 	dataRotationWithUser:state.lucky.dataRotationWithUser,
+	dataPick: state.lucky.dataPick,
 	dataDetail: state.lucky.dataDetail,
 	dataTurn: state.lucky.dataTurn,
 	server:state.server.serverError,
