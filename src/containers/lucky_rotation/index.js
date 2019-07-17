@@ -9,6 +9,7 @@ import Dialog, {
 	DialogTitle,
 	withMobileDialog,
 } from 'material-ui/Dialog';
+import { withStyles } from "material-ui/styles/index"
 import { connect } from 'react-redux'
 import '../../styles/lucky.css'
 import {
@@ -24,6 +25,14 @@ import {
 } from '../../modules/profile'
 import rotaion from './muivongquay.png'
 import bg_rotaion from './khungvongquay.png'
+import muiten from './muiten.png'
+
+
+const styles = {
+	paper: {
+		background: "#fff",
+	},
+};
 
 class Lucky_Rotation extends React.Component {
 
@@ -39,6 +48,9 @@ class Lucky_Rotation extends React.Component {
 			dialogLoginOpen: false,
 			dialogBonus:false,
 			auto: false,
+			userTurnSpin:{},
+			itemOfSpin:[],
+			luckySpin:{},
 		};
 	}
 	componentWillMount(){
@@ -50,7 +62,9 @@ class Lucky_Rotation extends React.Component {
 		if (user !== null) {
 			this.props.getRotationDetailDataUser(user.access_token, 0).then(()=>{
 				var data=this.props.dataRotationWithUser;
-				console.log(data)
+				if(data!==undefined){
+					this.setState({userTurnSpin:data.userTurnSpin, itemOfSpin:data.itemOfSpin, luckySpin:data.luckySpin})
+				}
 			});
 		} else {
 			this.props.getRotationDetailData(0).then(()=>{
@@ -59,7 +73,7 @@ class Lucky_Rotation extends React.Component {
 			});
 		}
 		let theWheel = new Wheel({
-			'numSegments'       : 4,         // Specify number of segments.
+			'numSegments'       : 10,         // Specify number of segments.
 			'outerRadius'       : 150,       // Set outer radius so wheel fits inside the background.
 			'drawMode'          : 'image',   // drawMode must be set to image.
 			'drawText'          : true,      // Need to set this true if want code-drawn text on image wheels.
@@ -74,152 +88,165 @@ class Lucky_Rotation extends React.Component {
 			'responsive'   : true,
 			'textFillStyle'     : 'white',
 			
-			'animation' :                   // Specify the animation to use.
+			'animation' :                 
 			{
 				'type'     : 'spinToStop',
-				'duration' : 5,     // Duration in seconds.
-				'spins'    : 10,     // Number of complete spins.
-				'callbackFinished' : this.alertPrize
+				'duration' : 5,    
+				'spins'    : 10,    
+				'callbackFinished' : this.completeRotation
 			}
 		});
 
 		let loadedImg = new Image();
 		loadedImg.onload = function()
 		{
-			theWheel.wheelImage = loadedImg;    // Make wheelImage equal the loaded image object.
-			theWheel.draw();                    // Also call draw function to render the wheel.
+			theWheel.wheelImage = loadedImg;   
+			theWheel.draw();                    
 		}
-
-		// Set the image source, once complete this will trigger the onLoad callback (above).
-		// loadedImg.width=400;
-		// loadedImg.height=400;
 		loadedImg.src = rotaion;
 		this.setState({theWheel:theWheel})
 	}
 
 	start=()=>{
+		const {userTurnSpin, auto, itemOfSpin}=this.state;
 		var _this = this;
 		var user = JSON.parse(localStorage.getItem("user"));
 		if (user !== null) {
-			// this.props.getDetailData(user.access_token, idLucky);
-			// this.props.getData(user.access_token, user.scoinAccessToken).then(()=>{
-			// 	console.log(this.props.dataProfile)
-			// });
-
-			this.props.pickCard(user.access_token, 119).then(()=>{
-				if(_this.props.dataPick !==undefined){
-					console.log(_this.props.dataPick)
+			if(userTurnSpin.turnsFree>0){
+				if(auto){
+					this.autoRotation();
 				}
-			})
-			this.startSpin();
+				this.props.pickCard(user.access_token, 119).then(()=>{
+					if(_this.props.dataPick !==undefined){
+						var id=_this.props.dataPick.id;
+						var pos = itemOfSpin.map(function(e) { return e.id; }).indexOf(id);
+						this.startSpin(pos+1);
+					}
+				})
+				
+			}else{
+				this.setState({dialogBonus:true})
+			}
 		} else {
 			_this.setState({ dialogLoginOpen: true });
 		}
 	}
 
-	startSpin=()=>{
+	startSpin=(segmentNumber)=>{
 		const {wheelSpinning, wheelPower, theWheel}=this.state;
-		// Ensure that spinning can't be clicked again while already running.
 		if (wheelSpinning == false) {
-			
-			// Based on the power level selected adjust the number of spins for the wheel, the more times is has
-			// to rotate with the duration of the animation the quicker the wheel spins.
-			// theWheel.animation.spins = 2;
-
-			// Disable the spin button so can't click again while wheel is spinning.
-
-			// Begin the spin animation by calling startAnimation on the wheel object.
+			let stopAt = theWheel.getRandomForSegment(segmentNumber);
+			theWheel.animation.stopAngle = stopAt;
 			theWheel.startAnimation();
-
-			// Set to true so that power can't be changed and spin button re-enabled during
-			// the current animation. The user will have to reset before spinning again.
 			this.setState({wheelSpinning: true, stop:false});
 		}
 	}
 	
-	stopSpin=()=>{
-		const {wheelSpinning, wheelPower, theWheel, stop}=this.state;
-		if (stop == false) {
+	// stopSpin=()=>{
+	// 	const {wheelSpinning, wheelPower, theWheel, stop}=this.state;
+	// 	if (stop == false) {
 
-			theWheel.stopAnimation(false);
-			theWheel.animation.spins = 1;
-			theWheel.rotationAngle = 0;
-			theWheel.draw(); 
-			theWheel.startAnimation();
-			// theWheel.stopAnimation(false);
-			this.setState({wheelSpinning: true, stop:true});
-		}
-	}
+	// 		theWheel.stopAnimation(false);
+	// 		theWheel.animation.spins = 1;
+	// 		theWheel.rotationAngle = 0;
+	// 		theWheel.draw(); 
+	// 		theWheel.startAnimation();
+	// 		// theWheel.stopAnimation(false);
+	// 		this.setState({wheelSpinning: true, stop:true});
+	// 	}
+	// }
 
 	resetWheel=()=>{
 		const {wheelSpinning, wheelPower, theWheel}=this.state;
 		theWheel.stopAnimation(false);
-		theWheel.animation.spins = 20;  // Stop the animation, false as param so does not call callback function.
-		theWheel.rotationAngle = 0;     // Re-set the wheel angle to 0 degrees.
-		theWheel.draw();                // Call draw to render changes to the wheel.
-
-		this.setState({wheelSpinning: false});          // Reset to false to power buttons and spin can be clicked again.
+		theWheel.animation.spins = 20; 
+		theWheel.rotationAngle = 0;   
+		theWheel.draw();              
+		this.setState({wheelSpinning: false});    
 	}
 
-	alertPrize=(indicatedSegment)=>{
-		// Do basic alert of the segment text. You would probably want to do something more interesting with this information.
-		alert("The wheel stopped on " + indicatedSegment.text);
+	completeRotation=()=>{
+		var user = JSON.parse(localStorage.getItem("user"));
+		this.props.getRotationDetailDataUser(user.access_token, 0).then(()=>{
+			var data=this.props.dataRotationWithUser;
+			if(data!==undefined){
+				this.setState({userTurnSpin:data.userTurnSpin})
+			}
+		});
 	}
 
 	handleChange = () => {
 		this.setState({ auto : !this.state.auto});
 	};
 
+	autoRotation=()=>{
+		setTimeout(()=>{
+			console.log('AAAAAAAAAAA')
+			// var user = JSON.parse(localStorage.getItem("user"));
+			// this.props.pickCard(user.access_token, 119);
+		},200);
+	}
+
+	handleCloseWarning=()=>{
+		this.setState({dialogBonus:false})
+	}
+
 	render() {
-		const {dialogLoginOpen, dialogBonus, auto}=this.state
-		return (
-			<Grid container>
-			<Grid item xs={12} style={{ padding:10}}>
-				<div className='the_wheel' style={{backgroundImage:"url(" + bg_rotaion + ")", width:684, height:804, alignContent:'center', verticalAlign:'center', dataResponsiveMinWidth:180, dataResponsiveScaleHeight:"true"}}>
-					<canvas id="canvas" width="684" height="804">
-						<p style={{color: '#fff', textAlign:'center'}} >Sorry, your browser doesn't support canvas. Please try another.</p>
-					</canvas>
-				</div>
-				<div>
-					<div>
-						<span>Tự động quay</span>
-						<input type="checkbox" style={{width:25, height:25}} onChange={this.handleChange}/>
-					</div>
-					<div>
-						<button onClick={this.start}>Start</button>
-						<button onClick={this.stopSpin}>Stop</button>
-						<button onClick={this.resetWheel}>Play Again</button>
-					</div>
-				</div>
-			</Grid>
-			<Grid item xs={12}>
-				<div style={{textAlign:'center', marginBottom:25, fontSize:14}}>
-					<div><span style={{color:'#747c89'}}>Hệ thống phát hành game VTC Mobile</span></div>
-					<div><span style={{color:'#747c89'}}>Copyright 2017 VTC Mobile. All rights reverved</span></div>
-					<div><span style={{color:'#59d0c4'}}>Hotline 1900 1104</span></div>
-				</div>
+		const {dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning}=this.state;
+		const { classes } = this.props;
+		return (<div>
+			<Grid container style={{ width: "100%", margin: "0px" }}>
+				<Grid item xs={12} md={12} >
+					<Grid container>
+						<Grid item xs={12} style={{ padding:10}} style={{textAlign:'center', justifyContent:'center', alignItems:'center'}}>
+							<div style={{backgroundImage:"url(" + bg_rotaion + ")",backgroundPosition:'center', backgroundRepeat:'none', width:684, height:804, alignContent:'center', dataResponsiveMinWidth:180, verticalAlign:'center', dataResponsiveScaleHeight:"true"}}>
+								<canvas id="canvas" width="684" height="804">
+									<p style={{color: '#fff', textAlign:'center'}} >Sorry, your browser doesn't support canvas. Please try another.</p>
+								</canvas>
+							</div>
+							<div>
+								<div>
+									<span>Tự động quay</span>
+									<input type="checkbox" style={{width:25, height:25}} onChange={this.handleChange}/>
+								</div>
+								<div>
+									<button onClick={this.start}>Start</button>
+									<button onClick={this.stopSpin}>Stop</button>
+									<button onClick={this.resetWheel}>Play Again</button>
+								</div>
+							</div>
+						</Grid>
+						<Grid item xs={12}>
+							<div style={{textAlign:'center', marginTop:40, marginBottom:25, fontSize:14}}>
+								<div><span style={{color:'#747c89'}}>Hệ thống phát hành game VTC Mobile</span></div>
+								<div><span style={{color:'#747c89'}}>Copyright 2017 VTC Mobile. All rights reverved</span></div>
+								<div><span style={{color:'#59d0c4'}}>Hotline 1900 1104</span></div>
+							</div>
+						</Grid>
+					</Grid>
+				</Grid>
 			</Grid>
 			<Dialog
-					fullScreen={false}
-					open={dialogBonus}
-					onClose={this.handleCloseMoreTurnDialog}
-					aria-labelledby="responsive-dialog-title"
-					style={{ background: "#fff" }}
-				>
-					<DialogTitle id="responsive-dialog-title"><span style={{ color: '#666666', fontSize:18 }} >Bạn đã hết lượt lật thẻ</span></DialogTitle>
-					<DialogContent>
-						<div style={{ color: "#666666" }}>
-							Làm nhiệm vụ hoặc mua thêm lượt để tiếp tục
-						</div>
-					</DialogContent>
-					<DialogActions>
-						<div>
-							<button onClick={this.handleCloseMoreTurnDialog} className="btn_close_lucky">Xác nhận</button>
-						</div>
-					</DialogActions>
-				</Dialog>
-			<LoginRequired open={dialogLoginOpen}></LoginRequired>
-		</Grid>
+			fullScreen={false}
+			open={dialogBonus}
+			onClose={this.handleCloseWarning}
+			aria-labelledby="responsive-dialog-title"
+			classes={{ paper: classes.paper }}
+		>
+			<DialogTitle id="responsive-dialog-title"><span style={{ color: '#666666', fontSize:18 }} >Bạn đã hết lượt quay</span></DialogTitle>
+			<DialogContent>
+				<div style={{ color: "#666666" }}>
+					Làm nhiệm vụ hoặc mua thêm lượt để tiếp tục
+				</div>
+			</DialogContent>
+			<DialogActions>
+				<div>
+					<button onClick={this.handleCloseWarning} className="btn_close_lucky">OK</button>
+				</div>
+			</DialogActions>
+		</Dialog>
+		<LoginRequired open={dialogLoginOpen}></LoginRequired>
+		</div>
 		)
 	}
 }
@@ -248,4 +275,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Lucky_Rotation)
+)(withStyles(styles)(Lucky_Rotation))

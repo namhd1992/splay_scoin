@@ -276,7 +276,7 @@ export const getRotationDetailDataUser = (token, id) => {
 		var url = Ultilities.base_url() + "lucky-spin/detail?lucky_spin_id=" + id;
 		return axios.get(url, header).then(function (response) {
 			dispatch({
-				type: LUCKY_DETAIL_RESPONSE,
+				type: LUCKY_ROTATION_DETAIL_RESPONSE_USER,
 				data: response.data.data
 			})
 		}).catch(function (error) {
