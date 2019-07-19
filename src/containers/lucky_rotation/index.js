@@ -51,6 +51,7 @@ class Lucky_Rotation extends React.Component {
 			userTurnSpin:{},
 			itemOfSpin:[],
 			luckySpin:{},
+			turnsFree:0,
 		};
 	}
 	componentWillMount(){
@@ -63,13 +64,13 @@ class Lucky_Rotation extends React.Component {
 			this.props.getRotationDetailDataUser(user.access_token, 0).then(()=>{
 				var data=this.props.dataRotationWithUser;
 				if(data!==undefined){
-					this.setState({userTurnSpin:data.userTurnSpin, itemOfSpin:data.itemOfSpin, luckySpin:data.luckySpin})
+					console.log(data)
+					this.setState({userTurnSpin:data.userTurnSpin, itemOfSpin:data.itemOfSpin, luckySpin:data.luckySpin, turnsFree:(data.userTurnSpin.turnsFree+data.userTurnSpin.turnsBuy)})
 				}
 			});
 		} else {
 			this.props.getRotationDetailData(0).then(()=>{
 				var data=this.props.dataRotation;
-				console.log(data)
 			});
 		}
 		let theWheel = new Wheel({
@@ -107,22 +108,24 @@ class Lucky_Rotation extends React.Component {
 		this.setState({theWheel:theWheel})
 	}
 
+	componentWillUnmount() {
+		clearInterval(this.state.intervalId);
+	}
+
 	start=()=>{
-		const {userTurnSpin, auto, itemOfSpin}=this.state;
+		const {turnsFree, itemOfSpin}=this.state;
 		var _this = this;
 		var user = JSON.parse(localStorage.getItem("user"));
 		if (user !== null) {
-			if(userTurnSpin.turnsFree>0){
-				if(auto){
-					this.autoRotation();
-				}
-				this.props.pickCard(user.access_token, 119).then(()=>{
-					if(_this.props.dataPick !==undefined){
-						var id=_this.props.dataPick.id;
-						var pos = itemOfSpin.map(function(e) { return e.id; }).indexOf(id);
-						this.startSpin(pos+1);
-					}
-				})
+			if(turnsFree>0){
+				// this.props.pickCard(user.access_token, 119).then(()=>{
+				// 	if(_this.props.dataPick !==undefined){
+				// 		var id=_this.props.dataPick.id;
+				// 		var pos = itemOfSpin.map(function(e) { return e.id; }).indexOf(id);
+				// 		this.startSpin(pos+1);
+				// 	}
+				// })
+				this.startSpin(4)
 				
 			}else{
 				this.setState({dialogBonus:true})
@@ -166,25 +169,36 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	completeRotation=()=>{
+		const {auto, turnsFree}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
-		this.props.getRotationDetailDataUser(user.access_token, 0).then(()=>{
-			var data=this.props.dataRotationWithUser;
-			if(data!==undefined){
-				this.setState({userTurnSpin:data.userTurnSpin})
+		if(auto){
+			if(turnsFree>0){
+				var intervalId = setInterval(this.autoRotation, 1000);
+   				this.setState({intervalId: intervalId});
 			}
-		});
+		}
 	}
 
 	handleChange = () => {
+		clearInterval(this.state.intervalId);
 		this.setState({ auto : !this.state.auto});
 	};
 
 	autoRotation=()=>{
-		setTimeout(()=>{
+		const {turnsFree}=this.state;
+		if(turnsFree>0){
 			console.log('AAAAAAAAAAA')
-			// var user = JSON.parse(localStorage.getItem("user"));
-			// this.props.pickCard(user.access_token, 119);
-		},200);
+			var user = JSON.parse(localStorage.getItem("user"));
+			this.props.pickCard(user.access_token, 119);
+			this.props.getRotationDetailDataUser(user.access_token, 0).then(()=>{
+				var data=this.props.dataRotationWithUser;
+				if(data!==undefined){
+					this.setState({turnsFree:(data.userTurnSpin.turnsFree+data.userTurnSpin.turnsBuy)})
+				}
+			});
+		}else{
+			clearInterval(this.state.intervalId);
+		}
 	}
 
 	handleCloseWarning=()=>{
@@ -197,32 +211,30 @@ class Lucky_Rotation extends React.Component {
 		return (<div>
 			<Grid container style={{ width: "100%", margin: "0px" }}>
 				<Grid item xs={12} md={12} >
-					<Grid container>
-						<Grid item xs={12} style={{ padding:10}} style={{textAlign:'center', justifyContent:'center', alignItems:'center'}}>
-							<div style={{backgroundImage:"url(" + bg_rotaion + ")",backgroundPosition:'center', backgroundRepeat:'none', width:684, height:804, alignContent:'center', dataResponsiveMinWidth:180, verticalAlign:'center', dataResponsiveScaleHeight:"true"}}>
-								<canvas id="canvas" width="684" height="804">
-									<p style={{color: '#fff', textAlign:'center'}} >Sorry, your browser doesn't support canvas. Please try another.</p>
-								</canvas>
+					<Grid item xs={12} md={12} style={{textAlign:'center', justifyContent:'center', alignItems:'center'}}>
+						<div style={{backgroundImage:"url(" + bg_rotaion + ")",backgroundPosition:'center', backgroundRepeat:'none', width:684, height:804, alignContent:'center', dataResponsiveMinWidth:180, verticalAlign:'center', dataResponsiveScaleHeight:"true"}}>
+							<canvas id="canvas" width="684" height="804">
+								<p style={{color: '#fff', textAlign:'center'}} >Sorry, your browser doesn't support canvas. Please try another.</p>
+							</canvas>
+						</div>
+						<div>
+							<div>
+								<span>Tự động quay</span>
+								<input type="checkbox" style={{width:25, height:25}} onChange={this.handleChange}/>
 							</div>
 							<div>
-								<div>
-									<span>Tự động quay</span>
-									<input type="checkbox" style={{width:25, height:25}} onChange={this.handleChange}/>
-								</div>
-								<div>
-									<button onClick={this.start}>Start</button>
-									<button onClick={this.stopSpin}>Stop</button>
-									<button onClick={this.resetWheel}>Play Again</button>
-								</div>
+								<button onClick={this.start}>Start</button>
+								<button onClick={this.stopSpin}>Stop</button>
+								<button onClick={this.resetWheel}>Play Again</button>
 							</div>
-						</Grid>
-						<Grid item xs={12}>
-							<div style={{textAlign:'center', marginTop:40, marginBottom:25, fontSize:14}}>
-								<div><span style={{color:'#747c89'}}>Hệ thống phát hành game VTC Mobile</span></div>
-								<div><span style={{color:'#747c89'}}>Copyright 2017 VTC Mobile. All rights reverved</span></div>
-								<div><span style={{color:'#59d0c4'}}>Hotline 1900 1104</span></div>
-							</div>
-						</Grid>
+						</div>
+					</Grid>
+					<Grid item xs={12}>
+						<div style={{textAlign:'center', marginTop:40, marginBottom:25, fontSize:14}}>
+							<div><span style={{color:'#747c89'}}>Hệ thống phát hành game VTC Mobile</span></div>
+							<div><span style={{color:'#747c89'}}>Copyright 2017 VTC Mobile. All rights reverved</span></div>
+							<div><span style={{color:'#59d0c4'}}>Hotline 1900 1104</span></div>
+						</div>
 					</Grid>
 				</Grid>
 			</Grid>
