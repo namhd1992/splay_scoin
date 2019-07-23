@@ -1,14 +1,15 @@
-import React from 'react'
-import { render } from 'react-dom'
-import { Provider } from 'react-redux'
-import { ConnectedRouter } from 'react-router-redux'
-import store, { history } from './store'
-import App from './containers/app'
-import './index.css'
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
-import green from 'material-ui/colors/green'
-import red from 'material-ui/colors/red'
-import grey from 'material-ui/colors/grey'
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'react-router-redux';
+import store, { history } from './store';
+import App from './containers/app';
+import './index.css';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import green from 'material-ui/colors/green';
+import red from 'material-ui/colors/red';
+import grey from 'material-ui/colors/grey';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const theme = createMuiTheme({
