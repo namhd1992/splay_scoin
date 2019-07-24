@@ -156,7 +156,7 @@ span.numberBonus{
 	margin-left: 5px;
 }
 button:hover{
-	background:#3c434c;
+	/* background:#3c434c; */
 }
 button.buttonFull:hover{
 	background: linear-gradient(90deg,#51e1d1,#7aebb1);

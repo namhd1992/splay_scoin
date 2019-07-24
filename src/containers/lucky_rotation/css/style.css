@@ -17,7 +17,7 @@ font-style:normal;
 .cell-timer-p1 {background:url(../images/bg-time.png) 4px center no-repeat; width: 64px; height:64px; vertical-align:middle !important; line-height:0 !important; padding-left: 2px;}
 .display-5 {font-size: 2.6rem;}
 .btn-thamgiangay {position: absolute; bottom: 100px; display: block; left: 50%; transform: translate(-50%, 0);}
-.position-absolute-p1 {position:fixed; left:0; top: 15%; background:url(../images/bg-btn-float-right.png) no-repeat; width: 84px; height: 420px; z-index: 9999}
+.position-absolute-p1 {position:fixed; left:0; top: 15%; background:url(../images/bg-btn-float-right.png) no-repeat; width: 84px; height: 420px; z-index: 999}
 .menu-left-p1 li {width: 60px; margin: 0 auto; display: block; text-align: center}
 .menu-left-p1 li a {color:#FFFFFF; font-size: 20px; line-height:0; padding-top:20px;}
 .pt-6 {padding-top: 4rem !important}
@@ -27,6 +27,7 @@ font-style:normal;
 .content-inner-p2 {height: 1100px; width: 100%; position: relative !important; background-image:url(../images/bg2-p2.png); background-position: 14% 57%; background-repeat: no-repeat;}
 .logo-p2 {position: absolute; top: 11%; left: 5%; z-index: 99}
 .vqmm {position: absolute; top: 23%; left: 10%; width: 800px}
+.bg_vqmm {background-image:url(../images/vqmm-p2.png); background-repeat: no-repeat; background-repeat:'none'; z-index: 999;}
 .btn-logout{position: absolute; top: 11%; right: 9%; font-size:1.25rem; color:#282652;}
 .btn-logout h5 {background-image:url(../images/btn-dangxuat-p2.png); background-repeat: no-repeat; background-size: 100%; width: 150px; height: 55px;}
 .btn-logout h5 a {line-height: 50px; color:#282652;}
@@ -37,7 +38,7 @@ font-style:normal;
 .custom-control-label:after {width: 1.2rem; height: 1.2rem;}
 .menu-right {position: absolute; right: 1%; bottom: 20%; background:url(../images/menu-right-p2.png) no-repeat; width: 90px; height: 264px;}
 .menu-right li {width: 60px; margin: 10px auto; display: block; text-align: center}
-.menu-right li a {color:#FFFFFF; font-size: 20px; line-height:0; padding-top:20px;}
+/* .menu-right li a {color:#FFFFFF; font-size: 20px; line-height:0; padding-top:20px;} */
 .container.jumbotron {background-color:#fff;}
 .btn-ketqua {background:url(../images/btn-ketquaquayso.png) center no-repeat; width: 495px; height: 93px; margin: 0 auto; font-size:60px; color:#FFFFFF; line-height: 93px;}
 .btn-ketqua img {margin:10px 0 0 15px ;float: left; width: 80px}

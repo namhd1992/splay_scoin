@@ -10,6 +10,9 @@ export const LUCKY_RESPONSE_MORE = 'lucky/LUCKY_RESPONSE_MORE'
 export const LUCKY_PICK_RESPONSE = 'lucky/LUCKY_PICK_RESPONSE'
 export const LUCKY_TURN_RESPONSE = 'lucky/LUCKY_TURN_RESPONSE'
 export const LUCKY_HISTORY_RESPONSE='lucky/LUCKY_HISTORY_RESPONSE'
+export const LUCKY_TU_DO='lucky/LUCKY_TU_DO';
+export const LUCKY_VINH_DANH='lucky/LUCKY_VINH_DANH';
+export const LUCKY_CODE_BONUS='lucky/LUCKY_CODE_BONUS';
 
 const initialState = {
 	data: [], 
@@ -71,6 +74,24 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				dataRotationWithUser: action.data,
+				waiting: false
+			}
+		case LUCKY_TU_DO:
+			return {
+				...state,
+				dataTuDo: action.data,
+				waiting: false
+			}
+		case LUCKY_VINH_DANH:
+			return {
+				...state,
+				dataVinhDanh: action.data,
+				waiting: false
+			}
+		case LUCKY_CODE_BONUS:
+			return {
+				...state,
+				dataCodeBonus: action.data,
 				waiting: false
 			}
 		default:
@@ -277,6 +298,81 @@ export const getRotationDetailDataUser = (token, id) => {
 		return axios.get(url, header).then(function (response) {
 			dispatch({
 				type: LUCKY_ROTATION_DETAIL_RESPONSE_USER,
+				data: response.data.data
+			})
+		}).catch(function (error) {
+			dispatch({
+				type: SERVER_ERROR
+			})
+		})
+	}
+}
+
+export const getTuDo = (token, id) => {
+	var header = {
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": "bearer " + token,
+		}
+	}
+	return dispatch => {
+		dispatch({
+			type: LUCKY_REQUEST
+		})
+		var url = Ultilities.base_url() + "lucky-spin-history/tudo?lucky_spin_id=" + id;
+		return axios.get(url, header).then(function (response) {
+			dispatch({
+				type: LUCKY_TU_DO,
+				data: response.data.data
+			})
+		}).catch(function (error) {
+			dispatch({
+				type: SERVER_ERROR
+			})
+		})
+	}
+}
+
+export const getVinhDanh = (id) => {
+	var header = {
+		headers: {
+			"Content-Type": "application/json",
+			// "Authorization": "bearer " + token,
+		}
+	}
+	return dispatch => {
+		dispatch({
+			type: LUCKY_REQUEST
+		})
+		var url = Ultilities.base_url() + "anonymous/lucky-spin-history?lucky_spin_id=" + id;
+		return axios.get(url, header).then(function (response) {
+			dispatch({
+				type: LUCKY_VINH_DANH,
+				data: response.data.data
+			})
+		}).catch(function (error) {
+			dispatch({
+				type: SERVER_ERROR
+			})
+		})
+	}
+}
+
+export const getCodeBonus = (token, id, type) => {
+	var header = {
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": "bearer " + token,
+		}
+	}
+	return dispatch => {
+		dispatch({
+			type: LUCKY_REQUEST
+		})
+		var url = Ultilities.base_url() + "lucky-spin-history?lucky_spin_id=" + id + '&type_gift='+type;
+		return axios.get(url, header).then(function (response) {
+			dispatch({
+				type: LUCKY_CODE_BONUS,
 				data: response.data.data
 			})
 		}).catch(function (error) {

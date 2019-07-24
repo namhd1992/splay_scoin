@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import Grid from 'material-ui/Grid';
 import Checkbox from 'material-ui/Checkbox';
 import LoginRequired from '../../components/LoginRequired';
+import Pagination from "react-js-pagination";
 import Dialog, {
 	DialogActions,
 	DialogContent,
@@ -17,13 +18,16 @@ import {
 	getRotationDetailData,
 	getRotationDetailDataUser,
 	pickCard,
-	buyTurn
+	buyTurn,
+	getTuDo,
+	getCodeBonus,
+	getVinhDanh,
 } from '../../modules/lucky'
 import Wheel from './Winwheel'
 import {
 	getData
 } from '../../modules/profile'
-import rotaion from './muivongquay.png'
+import rotaion from './images/muivongquay.png'
 import bg_rotaion from './khungvongquay.png'
 import muiten from './muiten.png'
 
@@ -48,6 +52,7 @@ import img_card500k from './images/img-card500k.png';
 import img_thele from './images/img-thele.png';
 import img_tudo from './images/img-tudo.png';
 import img_maduthuong from './images/img-maduthuong.png';
+import img_thongbao from './images/img-thongbao.png';
 import $ from 'jquery';
 import 'bootstrap';
 
@@ -72,7 +77,27 @@ class Lucky_Rotation extends React.Component {
 			userTurnSpin:{},
 			itemOfSpin:[],
 			luckySpin:{},
+			userTurnSpin:{},
 			turnsFree:0,
+			isLogin:false,
+			day:'00',
+			hour:'00', 
+			minute:'00', 
+			second:'00',
+			itemBonus:{},
+			numberItemInpage:5,
+			activeCodeBonus:1,
+			activeVinhDanh:1,
+			activeTuDo:1,
+			countVinhDanh:0,
+			countTuDo:0,
+			countCodeBonus:0,
+			dataVinhDanh:[],
+			dataTuDo:[],
+			dataCodeBonus:[],
+			listVinhDanh:[],
+			listTuDo:[],
+			listCodeBonus:[],
 		};
 	}
 	componentWillMount(){
@@ -80,79 +105,106 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	componentDidMount(){
-		// var user = JSON.parse(localStorage.getItem("user"));
-		// if (user !== null) {
-		// 	this.props.getRotationDetailDataUser(user.access_token, 0).then(()=>{
-		// 		var data=this.props.dataRotationWithUser;
-		// 		if(data!==undefined){
-		// 			console.log(data)
-		// 			this.setState({userTurnSpin:data.userTurnSpin, itemOfSpin:data.itemOfSpin, luckySpin:data.luckySpin, turnsFree:(data.userTurnSpin.turnsFree+data.userTurnSpin.turnsBuy)})
-		// 		}
-		// 	});
-		// } else {
-		// 	this.props.getRotationDetailData(0).then(()=>{
-		// 		var data=this.props.dataRotation;
-		// 	});
-		// }
-		// let theWheel = new Wheel({
-		// 	'numSegments'       : 10,         // Specify number of segments.
-		// 	'outerRadius'       : 150,       // Set outer radius so wheel fits inside the background.
-		// 	'drawMode'          : 'image',   // drawMode must be set to image.
-		// 	'drawText'          : true,      // Need to set this true if want code-drawn text on image wheels.
-		// 	'textFontSize'      : 12,        // Set text options as desired.
-		// 	'textOrientation'   : 'curved',
-		// 	'textDirection'     : 'reversed',
-		// 	'textAlignment'     : 'outer',
-		// 	'textMargin'        : 5,
-		// 	'textFontFamily'    : 'monospace',
-		// 	'textStrokeStyle'   : 'black',
-		// 	'textLineWidth'     : 2,
-		// 	'responsive'   : true,
-		// 	'textFillStyle'     : 'white',
+		var user = JSON.parse(localStorage.getItem("user"));
+		if (user !== null) {
+			this.props.getRotationDetailDataUser(user.access_token, 0).then(()=>{
+				var data=this.props.dataRotationWithUser;
+				if(data!==undefined){
+					this.timeRemain(data.luckySpin.endDate)
+					this.setState({userTurnSpin:data.userTurnSpin, itemOfSpin:data.itemOfSpin, luckySpin:data.luckySpin, turnsFree:(data.userTurnSpin.turnsFree+data.userTurnSpin.turnsBuy), isLogin:true})
+				}
+			});
+		} else {
+			this.props.getRotationDetailData(0).then(()=>{
+				var data=this.props.dataRotation;
+				if(data!==undefined){
+					this.timeRemain(data.luckySpin.endDate)
+					this.setState({userTurnSpin:data.userTurnSpin, itemOfSpin:data.itemOfSpin, luckySpin:data.luckySpin, turnsFree:(data.userTurnSpin.turnsFree+data.userTurnSpin.turnsBuy), isLogin:false})
+				}
+			});
+		}
+		this.props.getVinhDanh(0).then(()=>{
+			var data=this.props.dataVinhDanh;
+			if(data!==undefined){	
+				this.setState({dataVinhDanh:data, countVinhDanh:data.length, listVinhDanh:data.slice(0, 10)})
+			}
+		});
+		let theWheel = new Wheel({
+			'numSegments'       : 10,         // Specify number of segments.
+			'outerRadius'       : 150,       // Set outer radius so wheel fits inside the background.
+			'drawMode'          : 'image',   // drawMode must be set to image.
+			'drawText'          : true,      // Need to set this true if want code-drawn text on image wheels.
+			'textFontSize'      : 12,        // Set text options as desired.
+			'textOrientation'   : 'curved',
+			'textDirection'     : 'reversed',
+			'textAlignment'     : 'outer',
+			'textMargin'        : 5,
+			'textFontFamily'    : 'monospace',
+			'textStrokeStyle'   : 'black',
+			'textLineWidth'     : 2,
+			'responsive'   : true,
+			'textFillStyle'     : 'white',
 			
-		// 	'animation' :                 
-		// 	{
-		// 		'type'     : 'spinToStop',
-		// 		'duration' : 5,    
-		// 		'spins'    : 10,    
-		// 		'callbackFinished' : this.completeRotation
-		// 	}
-		// });
+			'animation' :                 
+			{
+				'type'     : 'spinToStop',
+				'duration' : 5,    
+				'spins'    : 10,    
+				'callbackFinished' : this.completeRotation
+			}
+		});
 
-		// let loadedImg = new Image();
-		// loadedImg.onload = function()
-		// {
-		// 	theWheel.wheelImage = loadedImg;   
-		// 	theWheel.draw();                    
-		// }
-		// loadedImg.src = rotaion;
-		// this.setState({theWheel:theWheel})
+		let loadedImg = new Image();
+		loadedImg.onload = function()
+		{
+			theWheel.wheelImage = loadedImg;   
+			theWheel.draw();                    
+		}
+		loadedImg.src = rotaion;
+		this.setState({theWheel:theWheel})
 	}
 
 	componentWillUnmount() {
 		clearInterval(this.state.intervalId);
 	}
 
+	loginAction = () => {
+		if (typeof(Storage) !== "undefined") {
+			var currentPath = window.location.pathname;
+			localStorage.setItem("currentPath", currentPath);
+		} else {
+			console.log("Trình duyệt không hỗ trợ localStorage");
+		}
+		window.location.replace(`http://graph.vtcmobile.vn/oauth/authorize?client_id=707fece431a0948c498d43e881acd2c5&redirect_uri=${window.location.protocol}//${window.location.host}/login&agencyid=0`)
+	}
+	logoutAction = () => {
+		localStorage.removeItem("user");
+		window.location.replace(
+			`https://graph.vtcmobile.vn/oauth/authorize?client_id=707fece431a0948c498d43e881acd2c5&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
+		);
+	}
+
 	start=()=>{
-		const {turnsFree, itemOfSpin}=this.state;
+		const {turnsFree, itemOfSpin, luckySpin}=this.state;
 		var _this = this;
 		var user = JSON.parse(localStorage.getItem("user"));
 		if (user !== null) {
 			if(turnsFree>0){
-				// this.props.pickCard(user.access_token, 119).then(()=>{
-				// 	if(_this.props.dataPick !==undefined){
-				// 		var id=_this.props.dataPick.id;
-				// 		var pos = itemOfSpin.map(function(e) { return e.id; }).indexOf(id);
-				// 		this.startSpin(pos+1);
-				// 	}
-				// })
-				this.startSpin(4)
+				this.props.pickCard(user.access_token, luckySpin.id).then(()=>{
+					if(_this.props.dataPick !==undefined){
+						console.log('vv', _this.props.dataPick)
+						this.setState({itemBonus: _this.props.dataPick.item})
+						var id=_this.props.dataPick.id;
+						var pos = itemOfSpin.map(function(e) { return e.id; }).indexOf(id);
+						this.startSpin(pos+1);
+					}
+				})
 				
 			}else{
-				this.setState({dialogBonus:true})
+				$('#myModal6').modal('show');
 			}
 		} else {
-			_this.setState({ dialogLoginOpen: true });
+			$('#myModal5').modal('show');
 		}
 	}
 
@@ -181,23 +233,26 @@ class Lucky_Rotation extends React.Component {
 	// }
 
 	resetWheel=()=>{
-		const {wheelSpinning, wheelPower, theWheel}=this.state;
+		const { theWheel}=this.state;
 		theWheel.stopAnimation(false);
-		theWheel.animation.spins = 20; 
+		theWheel.animation.spins = 10; 
 		theWheel.rotationAngle = 0;   
 		theWheel.draw();              
 		this.setState({wheelSpinning: false});    
 	}
 
 	completeRotation=()=>{
-		const {auto, turnsFree}=this.state;
+		const {auto, turnsFree, theWheel}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 		if(auto){
 			if(turnsFree>0){
 				var intervalId = setInterval(this.autoRotation, 1000);
    				this.setState({intervalId: intervalId});
 			}
+		}else{
+			this.resetWheel()
 		}
+		$('#myModal4').modal('show');
 	}
 
 	handleChange = () => {
@@ -208,7 +263,6 @@ class Lucky_Rotation extends React.Component {
 	autoRotation=()=>{
 		const {turnsFree}=this.state;
 		if(turnsFree>0){
-			console.log('AAAAAAAAAAA')
 			var user = JSON.parse(localStorage.getItem("user"));
 			this.props.pickCard(user.access_token, 119);
 			this.props.getRotationDetailDataUser(user.access_token, 0).then(()=>{
@@ -220,6 +274,19 @@ class Lucky_Rotation extends React.Component {
 		}else{
 			clearInterval(this.state.intervalId);
 		}
+	}
+
+	timeRemain=(toDate)=>{
+		var _this=this;
+		setInterval(()=>{
+			var time=(toDate-Date.now())/1000;
+			var day=Math.floor(time/86400) > 9 ? Math.floor(time/86400) : `0${Math.floor(time/86400)}`;
+			var hour=Math.floor((time%86400)/3600) > 9 ? Math.floor((time%86400)/3600) : `0${Math.floor((time%86400)/3600)}`;
+			var minute=Math.floor(((time%86400)%3600)/60) > 9 ? Math.floor(((time%86400)%3600)/60) : `0${Math.floor(((time%86400)%3600)/60)}`;
+			var second=Math.ceil(((time%86400)%3600)%60) > 9 ? Math.ceil(((time%86400)%3600)%60) : `0${Math.ceil(((time%86400)%3600)%60)}`;
+			_this.setState({day:day, hour: hour, minute: minute, second:second})
+			// console.log('TIME:',time,"DAY:",day,"HOUR:",hour,"MINUTE:",minute,"SECOND:", second)
+		}, 1000);
 	}
 
 
@@ -248,7 +315,20 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	showModalTuDo=()=>{
-		$('#myModal2').modal('show');
+		const {luckySpin}=this.state;
+		var user = JSON.parse(localStorage.getItem("user"));
+		if (user !== null) {
+			this.props.getTuDo(user.access_token, luckySpin.id).then(()=>{
+				var data=this.props.dataTuDo;
+				if(data!==undefined){
+					this.setState({dataTuDo:data, countTuDo:data.length, listTuDo: data.slice(0,5)})
+				}
+			});
+			$('#myModal4').modal('hide');
+			$('#myModal2').modal('show');
+		}else {
+			$('#myModal5').modal('show');
+		}
 	}
 
 	hideModalTuDo=()=>{
@@ -256,7 +336,19 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	showModalCodeBonus=()=>{
-		$('#myModal3').modal('show');
+		const {luckySpin}=this.state;
+		var user = JSON.parse(localStorage.getItem("user"));
+		if(user !== null){
+			this.props.getCodeBonus(user.access_token, luckySpin.id, 'LUCKY_NUMBER').then(()=>{
+				var data=this.props.dataCodeBonus;
+				if(data!==undefined){
+					this.setState({dataCodeBonus:data, countCodeBonus:data.length, listCodeBonus: data.slice(0,5)})
+				}
+			});
+			$('#myModal3').modal('show');
+		}else {
+			$('#myModal5').modal('show');
+		}
 	}
 
 	hideModalCodeBonus=()=>{
@@ -271,8 +363,27 @@ class Lucky_Rotation extends React.Component {
 		$('#myModal4').modal('hide');
 	}
 
+	handlePageChangeTuDo=(pageNumber)=> {
+		const {dataTuDo}=this.state;
+		var newPosition=(pageNumber-1)*5
+		this.setState({activeTuDo: pageNumber, listTuDo: dataTuDo.slice(newPosition, newPosition+5)});
+	}
+
+	handlePageChangeCodeBonus=(pageNumber)=> {
+		const {dataCodeBonus}=this.state;
+		var newPosition=(pageNumber-1)*5
+		this.setState({activeCodeBonus: pageNumber, listCodeBonus: dataCodeBonus.slice(newPosition, newPosition+5)});
+	}
+
+	handlePageChangeVinhDanh=(pageNumber)=> {
+		const {dataVinhDanh}=this.state;
+		var newPosition=(pageNumber-1)*10
+		this.setState({activeVinhDanh: pageNumber, listVinhDanh: dataVinhDanh.slice(newPosition, newPosition+10)});
+	}
+
 	render() {
-		const {dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning}=this.state;
+		const {dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second,
+			 activeTuDo, activeCodeBonus, activeVinhDanh, numberItemInpage, countCodeBonus, countTuDo, countVinhDanh, listCodeBonus, listTuDo, listVinhDanh,itemBonus}=this.state;
 		const { classes } = this.props;
 		return (<div>
 			<a href="#logo" id="button"><img src={backtotop} alt="Back to Top" width="16" /></a>
@@ -285,10 +396,10 @@ class Lucky_Rotation extends React.Component {
 							<div className="table-responsive">
 							<table className="table table-borderless">
 								<tr>
-									<td className="cell-timer-p1 text-white display-3 text-center">0</td>
-									<td className="cell-timer-p1 text-white display-3 text-center">0</td>
-									<td className="cell-timer-p1 text-white display-5 text-center">09</td>
-									<td className="cell-timer-p1 text-white display-3 text-center">0</td>
+									<td className="cell-timer-p1 text-white display-5 text-center">{day}</td>
+									<td className="cell-timer-p1 text-white display-5 text-center">{hour}</td>
+									<td className="cell-timer-p1 text-white display-5 text-center">{minute}</td>
+									<td className="cell-timer-p1 text-white display-5 text-center">{second}</td>
 								</tr>
 								<tr>
 									<td align="center" className="p-0 h6">Ngày</td>
@@ -317,25 +428,31 @@ class Lucky_Rotation extends React.Component {
 				<div className="container content-inner-p2">
 					<h1 className="logo-p2"><img src={logo_p2} alt="Logo" width="600" className="img-fluid" /></h1>
 					<div className="vqmm">
-						<img src={vqmm_p2} alt="Vòng quay may mắn" className="img-fluid"/>    
+						<div className="bg_vqmm">
+							<canvas id="canvas" width="685" height="860">
+								<p style={{color: '#fff', textAlign:'center'}} >Sorry, your browser doesn't support canvas. Please try another.</p>
+							</canvas>
+						</div>
+						{/* <img src={vqmm_p2} alt="Vòng quay may mắn" className="img-fluid"/>     */}
 					</div>
 					<div className="btn-logout">
-						<p className="p-0 m-0 text-center">Xin chào Huyền My</p>
-						<h5 className="text-center"><a href="#" title="Đăng xuất">Đăng xuất</a></h5>
+						{(isLogin)?(<div><p className="p-0 m-0 text-center">Xin chào {userTurnSpin.currName}</p>
+						<h5 className="text-center"><a style={{cursor:'pointer'}} title="Đăng xuất" onClick={this.logoutAction}>Đăng xuất</a></h5></div>):(<h5 className="text-center"><a style={{cursor:'pointer'}} title="Đăng nhập" onClick={this.loginAction}>Đăng nhập</a></h5>)}
+						
 					</div>
 					<div className="btn-quay">
-						<a href="#" title="Quay" onClick={this.showModalDetailBonus}><img src={btn_quay_p2} alt="" className="img-fluid" /></a>
+						<a style={{cursor:'pointer'}} onClick={this.start}><img src={btn_quay_p2} alt="" className="img-fluid" /></a>
 						<div className="custom-control custom-checkbox">
 							<input type="checkbox" className="custom-control-input" id="customCheck" name="autospin" />
-							<label className="custom-control-label" for="customCheck">Chọn quay tự động</label>
+							<label className="custom-control-label" for="customCheck" onClick={this.handleChange}>Chọn quay tự động</label>
 						</div>
 					</div>   
 				</div>
 				
 				<div className="menu-right">
 					<ul className="nav flex-column">
-						<li className="pt-6"><a href="#" title="Tủ đồ" onClick={this.showModalTuDo}>Tủ đồ</a></li>
-						<li className="pt-5a"><a href="#" title="Mã dự thưởng" onClick={this.showModalCodeBonus}>Mã dự thưởng</a></li>
+						<li className="pt-6"><label style={{color:"#fff", cursor:'pointer'}} title="Tủ đồ" onClick={this.showModalTuDo}>Tủ đồ</label></li>
+						<li className="pt-5a"><label style={{color:"#fff", cursor:'pointer'}} title="Mã dự thưởng" onClick={this.showModalCodeBonus}>Mã dự thưởng</label></li>
 					</ul>
 				</div>
 			</div>
@@ -354,6 +471,7 @@ class Lucky_Rotation extends React.Component {
 							<img src={honda} alt="Xe máy" className="img-fluid" />
 						</div>
 						<h5 className="card-title">Mã số trúng thưởng</h5>
+						<h5 className="card-title" style={{color:'red'}}>Chưa có</h5>
 						</div>
 					</div>
 					<div className="card">
@@ -364,6 +482,7 @@ class Lucky_Rotation extends React.Component {
 							<img src={iphone_xs} alt="Iphone" width="322" className="img-fluid" />
 						</div>
 						<h5 className="card-title">Mã số trúng thưởng</h5>
+						<h5 className="card-title" style={{color:'red'}}>Chưa có</h5>
 						</div>
 					</div>      
 				</div>
@@ -381,101 +500,53 @@ class Lucky_Rotation extends React.Component {
 						<tbody className="top-12">
 						<tr>
 							<td></td>
-							<td>Ngọc Trinh</td>
+							<td>Chưa có</td>
 							<td>Xe máy Honda Airblade 2019</td>
-							<td>16h40’13s ngày 20.07.2019</td>
+							<td>Chưa có</td>
 						</tr>
 						<tr>
 							<td></td>
-							<td>Mai Phương Thúy</td>
+							<td>Chưa có</td>
 							<td>iPhone XS Max 64GB</td>
-							<td>19h40’10s ngày 19.07.2019</td>
+							<td>Chưa có</td>
 						</tr>              
 						</tbody>
 					</table>
 					<table className="table table-bordered tbl-bvd mx-auto text-center">            
 						<tbody className="top100">
-							<tr>
-								<td className="border-right-0"></td>
-								<td className="border-left-0 border-right-0">Ngọc Trinh</td>
-								<td className="border-left-0 border-right-0">Xe máy Honda Airblade 2019</td>
-								<td className="border-left-0">16h40’13s ngày 20.07.2019</td>
-							</tr>
-							<tr>
-								<td className="border-right-0"></td>
-								<td className="border-left-0 border-right-0">Mai Phương Thúy</td>
-								<td className="border-left-0 border-right-0">iPhone XS Max 64GB</td>
-								<td className="border-left-0">19h40’10s ngày 19.07.2019</td>
-							</tr>
-							<tr>
-								<td className="border-right-0"></td>
-								<td className="border-left-0 border-right-0">Ngọc Trinh</td>
-								<td className="border-left-0 border-right-0">Xe máy Honda Airblade 2019</td>
-								<td className="border-left-0">16h40’13s ngày 20.07.2019</td>
-							</tr>
-							<tr>
-								<td className="border-right-0"></td>
-								<td className="border-left-0 border-right-0">Mai Phương Thúy</td>
-								<td className="border-left-0 border-right-0">iPhone XS Max 64GB</td>
-								<td className="border-left-0">19h40’10s ngày 19.07.2019</td>
-							</tr>
-							<tr>
-								<td className="border-right-0"></td>
-								<td className="border-left-0 border-right-0">Ngọc Trinh</td>
-								<td className="border-left-0 border-right-0">Xe máy Honda Airblade 2019</td>
-								<td className="border-left-0">16h40’13s ngày 20.07.2019</td>
-							</tr>
-							<tr>
-								<td className="border-right-0"></td>
-								<td className="border-left-0 border-right-0">Mai Phương Thúy</td>
-								<td className="border-left-0 border-right-0">iPhone XS Max 64GB</td>
-								<td className="border-left-0">19h40’10s ngày 19.07.2019</td>
-							</tr> 
-							<tr>
-								<td className="border-right-0"></td>
-								<td className="border-left-0 border-right-0">Ngọc Trinh</td>
-								<td className="border-left-0 border-right-0">Xe máy Honda Airblade 2019</td>
-								<td className="border-left-0">16h40’13s ngày 20.07.2019</td>
-							</tr>
-							<tr>
-								<td className="border-right-0"></td>
-								<td className="border-left-0 border-right-0">Mai Phương Thúy</td>
-								<td className="border-left-0 border-right-0">iPhone XS Max 64GB</td>
-								<td className="border-left-0">19h40’10s ngày 19.07.2019</td>
-							</tr> 
-							<tr>
-								<td className="border-right-0"></td>
-								<td className="border-left-0 border-right-0">Ngọc Trinh</td>
-								<td className="border-left-0 border-right-0">Xe máy Honda Airblade 2019</td>
-								<td className="border-left-0">16h40’13s ngày 20.07.2019</td>
-							</tr>
-							<tr>
-								<td className="border-right-0"></td>
-								<td className="border-left-0 border-right-0">Mai Phương Thúy</td>
-								<td className="border-left-0 border-right-0">iPhone XS Max 64GB</td>
-								<td className="border-left-0">19h40’10s ngày 19.07.2019</td>
-							</tr> 
+							{listVinhDanh.map((obj, key) => (
+								<tr key={key}>
+									<td className="border-right-0">{obj.userName}</td>
+									<td className="border-left-0 border-right-0">{obj.itemName}</td>
+									<td className="border-left-0">{obj.date}</td>
+								</tr>
+							))}
 						</tbody>
 					</table>
-					<ul className="pagination justify-content-center pag-custom">
-						<li className="page-item"><a className="page-link page-be" href="#">Trang đầu</a></li>
-						<li className="page-item"><a className="page-link" href="#">1</a></li>
-						<li className="page-item active"><a className="page-link" href="#">2</a></li>
-						<li className="page-item"><a className="page-link" href="#">3</a></li>
-						<li className="page-item"><a className="page-link" href="#">...</a></li>
-						<li className="page-item"><a className="page-link page-be" href="#">Trang cuối</a></li>
-					</ul> 
+					<div className="pagination justify-content-center pag-custom">
+						<Pagination
+							activePage={activeVinhDanh}
+							itemsCountPerPage={10}
+							totalItemsCount={countVinhDanh}
+							pageRangeDisplayed={3}
+							lastPageText={'Trang cuối'}
+							firstPageText={'Trang đầu'}
+							itemClass={"page-item"}
+							linkClass={"page-link"}
+							onChange={(v) => this.handlePageChangeVinhDanh(v)}
+						/>
+					</div> 
 				</div>
 				<div className="w-100 justify-content-center text-center pt-5">
 					<ul className="nav nav-pills nav-justified">
 						<li className="nav-item">
-						<a className="nav-link btn-dv text-uppercase text-nowrap" href="#" title="Hướng dẫn mua thẻ scoin" target="_blank">Hướng dẫn mua thẻ scoin</a>
+						<a className="nav-link btn-dv text-uppercase text-nowrap" href="https://daily.scoin.vn/huong-dan-mua-the/" title="Hướng dẫn mua thẻ scoin" target="_blank">Hướng dẫn mua thẻ scoin</a>
 						</li>
 						<li className="nav-item">
-						<a className="nav-link btn-dv text-uppercase text-nowrap" href="#" title="Nhận thông báo sk" target="_blank">Nhận thông báo sk</a>
+						<a className="nav-link btn-dv text-uppercase text-nowrap" href="https://www.facebook.com/scoinvtcmobile/" title="Nhận thông báo sk" target="_blank">Nhận thông báo sk</a>
 						</li>
 						<li className="nav-item">
-						<a className="nav-link btn-dv text-uppercase text-nowrap" href="#" title="Nạp scoin" target="_blank">Nạp scoin</a>
+						<a className="nav-link btn-dv text-uppercase text-nowrap" href="https://scoin.vn/nap-game" title="Nạp scoin" target="_blank">Nạp scoin</a>
 						</li>
 						<li className="nav-item">
 						<a className="nav-link btn-dv text-uppercase text-nowrap" href="#" title="Hotline hỗ trợ" target="_blank">Hotline hỗ trợ</a>
@@ -726,31 +797,28 @@ class Lucky_Rotation extends React.Component {
 								</tr>
 								</thead>            
 								<tbody className="popup-tudo">
-								<tr>
-									<td className="border-right-0">Ngọc Trinh</td>
-									<td className="border-left-0 border-right-0">Xe máy Honda Airblade 2019</td>
-									<td className="border-left-0">16h40’13s ngày 20.07.2019</td>
-								</tr>
-								<tr>
-									<td className="border-right-0">Mai Phương Thúy</td>
-									<td className="border-left-0 border-right-0">iPhone XS Max 64GB</td>
-									<td className="border-left-0">19h40’10s ngày 19.07.2019</td>
-								</tr>
-								<tr>
-									<td className="border-right-0">Ngọc Trinh</td>
-									<td className="border-left-0 border-right-0">Xe máy Honda Airblade 2019</td>
-									<td className="border-left-0">16h40’13s ngày 20.07.2019</td>
-								</tr> 
+									{listTuDo.map((obj, key) => (
+										<tr key={key}>
+											<td className="border-right-0">{obj.itemName}</td>
+											<td className="border-left-0 border-right-0">{obj.description}</td>
+											<td className="border-left-0">{obj.date}</td>
+										</tr>
+									))}
 								</tbody>
 							</table>
-							<ul className="pagination justify-content-center pag-custom">
-								<li className="page-item"><a className="page-link page-be" href="#">Trang đầu</a></li>
-								<li className="page-item"><a className="page-link" href="#">1</a></li>
-								<li className="page-item active"><a className="page-link" href="#">2</a></li>
-								<li className="page-item"><a className="page-link" href="#">3</a></li>
-								<li className="page-item"><a className="page-link" href="#">...</a></li>
-								<li className="page-item"><a className="page-link page-be" href="#">Trang cuối</a></li>
-							</ul> 
+							<div className="pagination justify-content-center pag-custom">
+								<Pagination
+									activePage={activeTuDo}
+									itemsCountPerPage={numberItemInpage}
+									totalItemsCount={countTuDo}
+									pageRangeDisplayed={3}
+									lastPageText={'Trang cuối'}
+									firstPageText={'Trang đầu'}
+									itemClass={"page-item"}
+									linkClass={"page-link"}
+									onChange={(v) => this.handlePageChangeTuDo(v)}
+								/>
+							</div> 
 						</div>
 						
 					</div>
@@ -783,31 +851,28 @@ class Lucky_Rotation extends React.Component {
 								</tr>
 								</thead>            
 								<tbody className="popup-tudo">
-								<tr>
-									<td className="border-right-0">Ngọc Trinh</td>
-									<td className="border-left-0 border-right-0">Xe máy Honda Airblade 2019</td>
-									<td className="border-left-0">16h40’13s ngày 20.07.2019</td>
-								</tr>
-								<tr>
-									<td className="border-right-0">Mai Phương Thúy</td>
-									<td className="border-left-0 border-right-0">iPhone XS Max 64GB</td>
-									<td className="border-left-0">19h40’10s ngày 19.07.2019</td>
-								</tr>
-								<tr>
-									<td className="border-right-0">Ngọc Trinh</td>
-									<td className="border-left-0 border-right-0">Xe máy Honda Airblade 2019</td>
-									<td className="border-left-0">16h40’13s ngày 20.07.2019</td>
-								</tr> 
+								{listCodeBonus.map((obj, key) => (
+									<tr key={key}>
+										<td className="border-right-0">{obj.description}</td>
+										<td className="border-left-0 border-right-0">{obj.itemName}</td>
+										<td className="border-left-0">{obj.date}</td>
+									</tr>
+								))}
 								</tbody>
 							</table>
-							<ul className="pagination justify-content-center pag-custom">
-								<li className="page-item"><a className="page-link page-be" href="#">Trang đầu</a></li>
-								<li className="page-item"><a className="page-link" href="#">1</a></li>
-								<li className="page-item active"><a className="page-link" href="#">2</a></li>
-								<li className="page-item"><a className="page-link" href="#">3</a></li>
-								<li className="page-item"><a className="page-link" href="#">...</a></li>
-								<li className="page-item"><a className="page-link page-be" href="#">Trang cuối</a></li>
-							</ul> 
+							<div className="pagination justify-content-center pag-custom">
+								<Pagination
+									activePage={activeCodeBonus}
+									itemsCountPerPage={numberItemInpage}
+									totalItemsCount={countCodeBonus}
+									pageRangeDisplayed={3}
+									lastPageText={'Trang cuối'}
+									firstPageText={'Trang đầu'}
+									itemClass={"page-item"}
+									linkClass={"page-link"}
+									onChange={(v) => this.handlePageChangeCodeBonus(v)}
+								/>
+							</div> 
 							<p className="text-thele">Lưu ý: Tài khoản Scoin của quý khách hiện chưa được xác thực số ĐT để nhận thông báo
 				trong trường hợp trúng giải. <code><a href="#" title="Xác thực ngay" target="_blank">Xác thực ngay</a></code> </p>
 						</div>
@@ -834,13 +899,60 @@ class Lucky_Rotation extends React.Component {
 						<div className="card-body content-chucmung mx-auto">
 						<div className="text-chucmung text-center">
 							<span className="text-white">Bạn vừa quay vào ô</span>
-							<span className="pt-1 d-block"><img src={img_card500k} alt="" /></span>
+							<span className="pt-1 d-block"><img src={itemBonus.urlImage} alt="" /></span>
 						</div>
-						<p className="small pt-2 mb-2 text-center">(Phần thưởng đã được chuyển vào tủ đồ sự kiện) <br /><a href="#" title="Xem phần thưởng" className="underline pt-2 d-block" onClick={this.showModalTuDo}>Xem phần thưởng</a></p>
-						<button type="button" className="btn btn-xacnhan text-white btn-block text-center">Xác nhận</button>
+						<p className="small pt-2 mb-2 text-center">(Phần thưởng đã được chuyển vào tủ đồ sự kiện) <br /><label title="Xem phần thưởng" className="underline pt-2 d-block" style={{color:"#fff", cursor:'pointer'}} onClick={this.showModalTuDo}>Xem phần thưởng</label></p>
+						<button type="button" className="btn btn-xacnhan text-white btn-block text-center" onClick={this.hideModalDetailBonus}>Xác nhận</button>
 						</div>
 						</div>
 					</div>
+					</div>
+				</div>
+			</div>
+
+			{/* <!-- The Modal Thông báo đăng nhập--> */}
+			<div class="modal fade" id="myModal5">
+				<div class="modal-dialog">
+					<div class="modal-content popup-phanthuong">
+
+					{/* <!-- Modal Header --> */}
+					<div class="modal-header border-bottom-0">
+						<h4 class="modal-title w-100 text-center"><img src={img_thongbao} alt="" /></h4>
+						<button type="button" class="close" data-dismiss="modal"><img src={btn_close} alt="Đóng" /></button>
+					</div>
+
+					{/* <!-- Modal body --> */}
+					<div class="modal-body">
+						<div class="table-responsive mt-2">              
+							<h5 class="text-thele lead text-center">Xin vui lòng đăng nhập!</h5>
+							<button type="button" class="btn btn-xacnhan text-white btn-block text-center py-4" onClick={this.loginAction}>Đăng nhập</button>
+						</div>       
+					</div>
+
+					</div>
+				</div>
+			</div>
+
+			{/* <!-- The Modal Thông báo đăng nhập--> */}
+			<div class="modal fade" id="myModal6">
+				<div class="modal-dialog">
+					<div class="modal-content popup-phanthuong">
+
+					{/* <!-- Modal Header --> */}
+					<div class="modal-header border-bottom-0">
+						<h4 class="modal-title w-100 text-center"><img src={img_thongbao} alt="" /></h4>
+						<button type="button" class="close" data-dismiss="modal"><img src={btn_close} alt="Đóng" /></button>
+					</div>
+
+					{/* <!-- Modal body --> */}
+					<div class="modal-body">
+						<div class="table-responsive mt-2">              
+							<h5 class="text-thele lead text-center">Bạn đã hết lượt quay!</h5>
+							<p class="text-thele lead text-center">Làm nhiệm vụ hoặc mua thêm lượt để tiếp tục</p>
+							<button type="button" class="btn btn-xacnhan text-white btn-block text-center py-4" onClick={this.loginAction}>Nạp Scoin</button>
+						</div>       
+					</div>
+
 					</div>
 				</div>
 			</div>
@@ -856,6 +968,9 @@ const mapStateToProps = state => ({
 	dataPick: state.lucky.dataPick,
 	dataDetail: state.lucky.dataDetail,
 	dataTurn: state.lucky.dataTurn,
+	dataTuDo: state.lucky.dataTuDo,
+	dataVinhDanh: state.lucky.dataVinhDanh,
+	dataCodeBonus: state.lucky.dataCodeBonus,
 	server:state.server.serverError,
 	waiting: state.lucky.waiting,
 })
@@ -867,6 +982,9 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	pickCard,
 	buyTurn,
 	getData,
+	getTuDo,
+	getCodeBonus,
+	getVinhDanh,
 }, dispatch)
 
 
