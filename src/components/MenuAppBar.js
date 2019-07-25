@@ -106,12 +106,12 @@ class MenuAppBar extends React.Component {
 	logoutAction = () => {
 		this.setState({ auth: false });
 		localStorage.removeItem("user");
-		window.location.replace(
-			`https://graph.vtcmobile.vn/oauth/authorize?client_id=707fece431a0948c498d43e881acd2c5&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
-		);
 		// window.location.replace(
-		// 	`http://sandbox.graph.vtcmobile.vn/oauth/authorize?client_id=4e7549789b14693eda4e019faaa0c446&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
+		// 	`https://graph.vtcmobile.vn/oauth/authorize?client_id=707fece431a0948c498d43e881acd2c5&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
 		// );
+		window.location.replace(
+			`http://sandbox.graph.vtcmobile.vn/oauth/authorize?client_id=4e7549789b14693eda4e019faaa0c446&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
+		);
 	}
 
 	componentDidMount() {
@@ -157,7 +157,8 @@ class MenuAppBar extends React.Component {
 				if (fb_mess === null) {
 					console.log('AAAAAAAAA')
 					var url = Ultilities.base_url() + "signin";
-					var redirect = `http://graph.vtcmobile.vn/oauth/authorize?client_id=707fece431a0948c498d43e881acd2c5&redirect_uri=${window.location.protocol}//${window.location.host}`;
+					// var redirect = `http://graph.vtcmobile.vn/oauth/authorize?client_id=707fece431a0948c498d43e881acd2c5&redirect_uri=${window.location.protocol}//${window.location.host}`;
+					var redirect = `https://graph.vtcmobile.vn/oauth/authorize?client_id=4e7549789b14693eda4e019faaa0c446&redirect_uri=${window.location.protocol}//${window.location.host}&agencyid=0&imei=GEWO4536NGREGR`;
 					var params = {
 						"code": code,
 						"redirect_uri": redirect
@@ -180,7 +181,8 @@ class MenuAppBar extends React.Component {
 					})
 				} else {
 					var url = Ultilities.base_url() + "signin";
-					var redirect = `http://graph.vtcmobile.vn/oauth/authorize?client_id=707fece431a0948c498d43e881acd2c5&redirect_uri=${window.location.protocol}//${window.location.host}/loginwidget`;
+					// var redirect = `http://graph.vtcmobile.vn/oauth/authorize?client_id=707fece431a0948c498d43e881acd2c5&redirect_uri=${window.location.protocol}//${window.location.host}/loginwidget`;
+					var redirect = `https://graph.vtcmobile.vn/oauth/authorize?client_id=4e7549789b14693eda4e019faaa0c446&redirect_uri=${window.location.protocol}//${window.location.host}&agencyid=0&imei=GEWO4536NGREGR`;
 					var params = {
 						"code": code,
 						"redirect_uri": redirect
