@@ -101,8 +101,10 @@ class Lucky_Rotation extends React.Component {
 		};
 	}
 	componentWillMount(){
-		
+		window.removeEventListener('scroll', this.handleScroll);
 	}
+
+
 
 	componentDidMount(){
 		var user = JSON.parse(localStorage.getItem("user"));
@@ -162,10 +164,20 @@ class Lucky_Rotation extends React.Component {
 		}
 		loadedImg.src = rotaion;
 		this.setState({theWheel:theWheel})
+		window.addEventListener('scroll', this.handleScroll);
 	}
 
 	componentWillUnmount() {
 		clearInterval(this.state.intervalId);
+	}
+
+	handleScroll = (event) => {
+		var btn=document.getElementById("");
+		if (document.body.getBoundingClientRect().top > 300){
+			console.log('AAAAAAAAAAAAAAAAA')
+		}else{
+			console.log('BBBBBBBB')
+		}
 	}
 
 	loginAction = () => {
@@ -197,6 +209,7 @@ class Lucky_Rotation extends React.Component {
 			if(turnsFree>0){
 				this.props.pickCard(user.access_token, luckySpin.id).then(()=>{
 					if(_this.props.dataPick !==undefined){
+						console.log('AAA', _this.props.dataPick.item)
 						this.setState({itemBonus: _this.props.dataPick.item})
 						var id=_this.props.dataPick.id;
 						var pos = itemOfSpin.map(function(e) { return e.id; }).indexOf(id);
@@ -247,7 +260,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	completeRotation=()=>{
-		const {auto, turnsFree, theWheel}=this.state;
+		const {auto, turnsFree, theWheel, itemBonus}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 		if(auto){
 			if(turnsFree>0){
@@ -255,7 +268,12 @@ class Lucky_Rotation extends React.Component {
    				this.setState({intervalId: intervalId});
 			}
 		}
-		$('#myModal4').modal('show');
+		if(itemBonus.type==="LUCKY_NUMBER"){
+			$('#myModal7').modal('show');
+		}else{
+			$('#myModal4').modal('show');
+		}
+		
 	}
 
 	handleChange = () => {
@@ -348,6 +366,7 @@ class Lucky_Rotation extends React.Component {
 					this.setState({dataCodeBonus:data, countCodeBonus:data.length, listCodeBonus: data.slice(0,5)})
 				}
 			});
+			$('#myModal7').modal('hide');
 			$('#myModal3').modal('show');
 		}else {
 			$('#myModal5').modal('show');
@@ -364,6 +383,10 @@ class Lucky_Rotation extends React.Component {
 
 	hideModalDetailBonus=()=>{
 		$('#myModal4').modal('hide');
+	}
+
+	hideModalQuaySo=()=>{
+		$('#myModal8').modal('show');
 	}
 
 	handlePageChangeTuDo=(pageNumber)=> {
@@ -556,7 +579,7 @@ class Lucky_Rotation extends React.Component {
 						<a className="nav-link btn-dv text-uppercase text-nowrap" href="https://scoin.vn/nap-game" title="Nạp scoin" target="_blank">Nạp scoin</a>
 						</li>
 						<li className="nav-item">
-						<a className="nav-link btn-dv text-uppercase text-nowrap" href="#" title="Hotline hỗ trợ" target="_blank">Hotline hỗ trợ</a>
+						<a className="nav-link btn-dv text-uppercase text-nowrap" href="#" title="Hotline hỗ trợ" onClick={this.hideModalQuaySo}>Hotline hỗ trợ</a>
 						</li>
 					</ul>
 				</div>
@@ -661,7 +684,7 @@ class Lucky_Rotation extends React.Component {
 					{/* <!-- Modal body --> */}
 					<div className="modal-body">
 						<h3 className="text-purple">I. Đối tượng tham gia</h3>
-						<p className="text-thele">Khách hàng có tài khoản Scoin. Nếu chưa có, đăng ký <code><a href="#" title="Đăng ký" target="_blank">tại đây</a></code>. <br />
+						<p className="text-thele">Khách hàng có tài khoản Scoin. Nếu chưa có, đăng ký <code><a href="https://vtcmobile.vn/oauth/accounts/sso/login/" title="Đăng ký" target="_blank">tại đây</a></code>. <br />
 				Xác minh tài khoản Scoin tại đây nếu chưa thực hiện. <br />
 				Nạp thẻ Scoin bất kỳ mệnh giá trong thời gian từ 00:01 01/08 - 23:59 07/08/2019.</p>
 						<h3 className="text-purple">II. Cách thức tham gia sự kiện</h3>
@@ -674,7 +697,7 @@ class Lucky_Rotation extends React.Component {
 						<div className="col-sm col align-self-center" style={{flexGrowgrow: 0, padding: 0}}><span>></span></div>
 						<div className="col-sm col bg-orange px-0 py-2 text-center" style={{borderRadius: 4, lineHeight: 16}}>So mã dự thưởng với KQXS vào lúc 18h30' ngày 08/08/2019</div>
 						</div>
-						<p className="text-thele pt-3">Bước 1: Đăng nhập tài khoản Scoin <code><a href="#" title="Đăng ký" target="_blank">tại đây</a></code> và thực hiện nạp tiền qua kênh thẻ cào Scoin. <br />
+						<p className="text-thele pt-3">Bước 1: Đăng nhập tài khoản Scoin <code><a href="https://vtcmobile.vn/oauth/accounts/sso/login/" title="Đăng ký" target="_blank">tại đây</a></code> và thực hiện nạp tiền qua kênh thẻ cào Scoin. <br />
 				Bước 2: Nhận lượt quay miễn phí, tương ứng với thẻ Scoin nạp thành công:</p>
 						<div className="table-responsive">
 							<table className="table table-bordered text-center text-thele">
@@ -880,8 +903,7 @@ class Lucky_Rotation extends React.Component {
 									onChange={(v) => this.handlePageChangeCodeBonus(v)}
 								/>
 							</div> 
-							<p className="text-thele">Lưu ý: Tài khoản Scoin của quý khách hiện chưa được xác thực số ĐT để nhận thông báo
-				trong trường hợp trúng giải. <code><a href="#" title="Xác thực ngay" target="_blank">Xác thực ngay</a></code> </p>
+							<p className="text-thele">Lưu ý: Tài khoản Scoin của quý khách cần phải xác thực số ĐT để nhận thông báo trong trường hợp trúng giải. <code><a style={{fontSize:18}} href=" https://scoin.vn/doi-sdt" title="Xác thực ngay" target="_blank">Xác thực ngay</a></code> </p>
 						</div>
 						
 					</div>
@@ -909,6 +931,33 @@ class Lucky_Rotation extends React.Component {
 							<span className="pt-1 d-block"><img src={itemBonus.urlImage} alt="" /></span>
 						</div>
 						<p className="small pt-2 mb-2 text-center">(Phần thưởng đã được chuyển vào tủ đồ sự kiện) <br /><label title="Xem phần thưởng" className="underline pt-2 d-block" style={{color:"#fff", cursor:'pointer'}} onClick={this.showModalTuDo}>Xem phần thưởng</label></p>
+						<button type="button" className="btn btn-xacnhan text-white btn-block text-center" onClick={this.hideModalDetailBonus}>Xác nhận</button>
+						</div>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+
+			{/* The Modal Thông báo chúc mừng mã dự thưởng */}
+			<div className="modal" id="myModal7">
+				<div className="modal-dialog">
+					<div className="modal-content popup-phanthuong">
+
+					{/* <!-- Modal Header --> */}
+					<div className="modal-header border-bottom-0">
+						<button type="button" className="close" data-dismiss="modal"><img src={btn_close} alt="Đóng" /></button>
+					</div>
+
+					{/* <!-- Modal body --> */}
+					<div className="modal-body bg-chucmung justify-content-center">
+						<div className="card">
+						<div className="card-body content-chucmung mx-auto">
+						<div className="text-chucmung text-center">
+							<span className="text-white">Mã số dự thưởng Xe máy Honda Air Blade và Điện thoại iPhone XS Max đã được lưu trong Mã dự thưởng.</span>
+							<label title="Xem phần thưởng" className="underline pt-2 d-block" style={{color:"#fff", cursor:'pointer'}} onClick={this.showModalCodeBonus}>Xem Mã dự thưởng</label>
+						</div>
+						<p className="small pt-2 mb-2 text-center">So Mã số dự thưởng tại chương trình Quay Thưởng vào lúc 6h giờ ngày 08/08/20019</p>
 						<button type="button" className="btn btn-xacnhan text-white btn-block text-center" onClick={this.hideModalDetailBonus}>Xác nhận</button>
 						</div>
 						</div>
@@ -957,6 +1006,27 @@ class Lucky_Rotation extends React.Component {
 							<h5 class="text-thele lead text-center">Bạn đã hết lượt quay!</h5>
 							<p class="text-thele lead text-center">Hãy nạp Scoin để nhận thêm lượt chơi Vòng quay tháng 8.</p>
 							<button type="button" class="btn btn-xacnhan text-white btn-block text-center py-4" onClick={()=>this.openTabNapScoin('https://scoin.vn/nap-game')}>Nạp Scoin</button>
+						</div>       
+					</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="modal fade" id="myModal8">
+				<div class="modal-dialog">
+					<div class="modal-content popup-phanthuong">
+
+					{/* <!-- Modal Header --> */}
+					<div class="modal-header border-bottom-0">
+						<h4 class="modal-title w-100 text-center"><img src={img_thongbao} alt="" /></h4>
+						<button type="button" class="close" data-dismiss="modal"><img src={btn_close} alt="Đóng" /></button>
+					</div>
+
+					{/* <!-- Modal body --> */}
+					<div class="modal-body">
+						<div class="table-responsive mt-2">              
+							<h5 class="text-thele lead text-center">Quay số 19001104</h5>
 						</div>       
 					</div>
 
