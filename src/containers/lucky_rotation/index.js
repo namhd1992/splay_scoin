@@ -955,7 +955,7 @@ class Lucky_Rotation extends React.Component {
 					<div class="modal-body">
 						<div class="table-responsive mt-2">              
 							<h5 class="text-thele lead text-center">Bạn đã hết lượt quay!</h5>
-							<p class="text-thele lead text-center">Làm nhiệm vụ hoặc mua thêm lượt để tiếp tục</p>
+							<p class="text-thele lead text-center">Hãy nạp Scoin để nhận thêm lượt chơi Vòng quay tháng 8.</p>
 							<button type="button" class="btn btn-xacnhan text-white btn-block text-center py-4" onClick={()=>this.openTabNapScoin('https://scoin.vn/nap-game')}>Nạp Scoin</button>
 						</div>       
 					</div>
