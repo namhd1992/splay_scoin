@@ -22,6 +22,7 @@ font-style:normal;
 .menu-left-p1 li a {color:#FFFFFF; font-size: 20px; line-height:0; padding-top:20px;}
 .pt-6 {padding-top: 4rem !important}
 .pt-5a {padding-top: 2.5rem !important}
+.pt-5b {padding-top: 3rem !important}
 
 .page2 {background-image:url(../images/bg-p2.png); background-size: cover; background-position: center center; background-repeat: no-repeat; position: relative;}
 .content-inner-p2 {height: 1100px; width: 100%; position: relative !important; background-image:url(../images/bg2-p2.png); background-position: 14% 57%; background-repeat: no-repeat;}
@@ -38,13 +39,13 @@ font-style:normal;
 .custom-control-label:after {width: 1.2rem; height: 1.2rem;}
 .menu-right {position: absolute; right: 1%; bottom: 20%; background:url(../images/menu-right-p2.png) no-repeat; width: 90px; height: 264px;}
 .menu-right li {width: 60px; margin: 10px auto; display: block; text-align: center}
-/* .menu-right li a {color:#FFFFFF; font-size: 20px; line-height:0; padding-top:20px;} */
+.menu-right li a {color:#FFFFFF; font-size: 20px; line-height:0; padding-top:20px;}
 .container.jumbotron {background-color:#fff;}
 .btn-ketqua {background:url(../images/btn-ketquaquayso.png) center no-repeat; width: 495px; height: 93px; margin: 0 auto; font-size:60px; color:#FFFFFF; line-height: 93px;}
 .btn-ketqua img {margin:10px 0 0 15px ;float: left; width: 80px}
 .title-giaidacbiet {color: #e70000; margin-bottom: 0; font-size:26px}
 .bg-giaithuong {background-image:url(../images/bg-giaidacbiet.png); background-repeat: no-repeat; background-position: center; width: 441px; height: 529px; vertical-align:middle}
-.card {border: none}
+.card {border: none !important}
 .tbl-bvd {width: 901px; height: 190px;}
 .title-bvd {font-size: 26px; color:#282652}
 .top-12 {background-image:url(../images/bg-bangvinhdanh.png); background-position: center; background-repeat: no-repeat;}
@@ -60,7 +61,7 @@ a.btn-dv:hover {color: #ffd102;}
 .popup-phanthuong h4 {text-align: center; margin-top: -30px; width: 180px;}
 .popup-phanthuong .close {position: absolute; top: -10px; right: -10px; opacity: 1;}
 .popup-phanthuong .close:not(:disabled):not(.disabled):hover {opacity: 1;}
-.modal-dialog {max-width: 768px}
+.modal-dialog {max-width: 768px !important}
 .popup-phanthuong .bg-giaithuong {background-image:url(../images/bg-giaidacbiet.png); background-repeat: no-repeat; background-position: center center; height: 400px; vertical-align:middle; background-size: 100%;}
 .item-giaikhac {padding: 0;}
 .text-giaikhac {line-height: 20px; padding:0 18px 0 23px; font-size: 16px;}
@@ -103,8 +104,8 @@ a.btn-dv:hover {color: #ffd102;}
 	.menu-left-p1 li a {color:#FFFFFF; font-size: 11px;}
 	.pt-6 {padding-top: 1.7rem !important}
 	.pt-5a {padding-top: 1.3rem !important}
-	.pt-5 {padding-top: 1.5rem !important}
-	body {line-height: 0.7;}
+	.pt-5b {padding-top: 1.5rem !important}
+	body {line-height: 0.7 !important}
 	.popup-phanthuong h4 img {margin-top: 7px; width: 160px;}
 	.popup-phanthuong .close img {width: 32px}
 	.popup-phanthuong .text-thele {font-size: 16px;}

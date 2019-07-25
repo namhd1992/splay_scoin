@@ -144,7 +144,7 @@ class Lucky_Rotation extends React.Component {
 			'textLineWidth'     : 2,
 			'responsive'   : true,
 			'textFillStyle'     : 'white',
-			
+
 			'animation' :                 
 			{
 				'type'     : 'spinToStop',
@@ -175,12 +175,17 @@ class Lucky_Rotation extends React.Component {
 		} else {
 			console.log("Trình duyệt không hỗ trợ localStorage");
 		}
-		window.location.replace(`http://graph.vtcmobile.vn/oauth/authorize?client_id=707fece431a0948c498d43e881acd2c5&redirect_uri=${window.location.protocol}//${window.location.host}/login&agencyid=0`)
+		// window.location.replace(`http://graph.vtcmobile.vn/oauth/authorize?client_id=707fece431a0948c498d43e881acd2c5&redirect_uri=${window.location.protocol}//${window.location.host}/login&agencyid=0`)
+		window.location.replace(`http://sandbox.graph.vtcmobile.vn/oauth/authorize?client_id=4e7549789b14693eda4e019faaa0c446&agencyid=0&redirect_uri=${window.location.protocol}//${window.location.host}/`);
 	}
 	logoutAction = () => {
 		localStorage.removeItem("user");
+		// window.location.replace(
+		// 	`https://graph.vtcmobile.vn/oauth/authorize?client_id=707fece431a0948c498d43e881acd2c5&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
+		// );
+
 		window.location.replace(
-			`https://graph.vtcmobile.vn/oauth/authorize?client_id=707fece431a0948c498d43e881acd2c5&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
+			`http://sandbox.graph.vtcmobile.vn/oauth/authorize?client_id=4e7549789b14693eda4e019faaa0c446&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
 		);
 	}
 
@@ -192,10 +197,10 @@ class Lucky_Rotation extends React.Component {
 			if(turnsFree>0){
 				this.props.pickCard(user.access_token, luckySpin.id).then(()=>{
 					if(_this.props.dataPick !==undefined){
-						console.log('vv', _this.props.dataPick)
 						this.setState({itemBonus: _this.props.dataPick.item})
 						var id=_this.props.dataPick.id;
 						var pos = itemOfSpin.map(function(e) { return e.id; }).indexOf(id);
+						this.resetWheel();
 						this.startSpin(pos+1);
 					}
 				})
@@ -249,8 +254,6 @@ class Lucky_Rotation extends React.Component {
 				var intervalId = setInterval(this.autoRotation, 1000);
    				this.setState({intervalId: intervalId});
 			}
-		}else{
-			this.resetWheel()
 		}
 		$('#myModal4').modal('show');
 	}
@@ -381,6 +384,10 @@ class Lucky_Rotation extends React.Component {
 		this.setState({activeVinhDanh: pageNumber, listVinhDanh: dataVinhDanh.slice(newPosition, newPosition+10)});
 	}
 
+	openTabNapScoin=(url)=> {
+		window.open(url, '_blank').focus();
+	}
+
 	render() {
 		const {dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second,
 			 activeTuDo, activeCodeBonus, activeVinhDanh, numberItemInpage, countCodeBonus, countTuDo, countVinhDanh, listCodeBonus, listTuDo, listVinhDanh,itemBonus}=this.state;
@@ -415,8 +422,8 @@ class Lucky_Rotation extends React.Component {
 					<div className="position-absolute-p1">
 						<ul className="nav flex-column menu-left-p1">
 							<li className="pt-6"><a href="http://scoin.vn/" title="Nạp Scoin" target="_blank">Nạp Scoin</a></li>
-							<li className="pt-5"><a href="#" title="Thể lệ" onClick={this.showModalRules}>Thể lệ</a></li>
-							<li className="pt-5"><a href="#" title="Phần thưởng" onClick={this.showModalBonus}>Phần thưởng</a></li>
+							<li className="pt-5b"><a href="#" title="Thể lệ" onClick={this.showModalRules}>Thể lệ</a></li>
+							<li className="pt-5b"><a href="#" title="Phần thưởng" onClick={this.showModalBonus}>Phần thưởng</a></li>
 							<li className="pt-5a"><a href="#bvd" title="Vinh danh">Vinh danh</a></li>
 						</ul>
 					</div>
@@ -429,7 +436,7 @@ class Lucky_Rotation extends React.Component {
 					<h1 className="logo-p2"><img src={logo_p2} alt="Logo" width="600" className="img-fluid" /></h1>
 					<div className="vqmm">
 						<div className="bg_vqmm">
-							<canvas id="canvas" width="685" height="860">
+							<canvas id="canvas" width="685" height="860" dataResponsiveMinWidth="180"  dataResponsiveScaleHeight="true">
 								<p style={{color: '#fff', textAlign:'center'}} >Sorry, your browser doesn't support canvas. Please try another.</p>
 							</canvas>
 						</div>
@@ -451,8 +458,8 @@ class Lucky_Rotation extends React.Component {
 				
 				<div className="menu-right">
 					<ul className="nav flex-column">
-						<li className="pt-6"><label style={{color:"#fff", cursor:'pointer'}} title="Tủ đồ" onClick={this.showModalTuDo}>Tủ đồ</label></li>
-						<li className="pt-5a"><label style={{color:"#fff", cursor:'pointer'}} title="Mã dự thưởng" onClick={this.showModalCodeBonus}>Mã dự thưởng</label></li>
+						<li className="pt-6"><a style={{color:"#fff", cursor:'pointer'}} title="Tủ đồ" onClick={this.showModalTuDo}>Tủ đồ</a></li>
+						<li className="pt-5a"><a style={{color:"#fff", cursor:'pointer'}} title="Mã dự thưởng" onClick={this.showModalCodeBonus}>Mã dự thưởng</a></li>
 					</ul>
 				</div>
 			</div>
@@ -949,7 +956,7 @@ class Lucky_Rotation extends React.Component {
 						<div class="table-responsive mt-2">              
 							<h5 class="text-thele lead text-center">Bạn đã hết lượt quay!</h5>
 							<p class="text-thele lead text-center">Làm nhiệm vụ hoặc mua thêm lượt để tiếp tục</p>
-							<button type="button" class="btn btn-xacnhan text-white btn-block text-center py-4" onClick={this.loginAction}>Nạp Scoin</button>
+							<button type="button" class="btn btn-xacnhan text-white btn-block text-center py-4" onClick={()=>this.openTabNapScoin('https://scoin.vn/nap-game')}>Nạp Scoin</button>
 						</div>       
 					</div>
 
