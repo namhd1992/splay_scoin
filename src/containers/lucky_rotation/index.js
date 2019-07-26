@@ -29,7 +29,6 @@ import {
 } from '../../modules/profile'
 import rotaion from './images/muivongquay.png'
 import bg_rotaion from './khungvongquay.png'
-import muiten from './muiten.png'
 
 import backtotop from './images/backtotop.png'
 import sukiendangdienra from './images/btn-sukiendangdienra.png'
@@ -53,6 +52,7 @@ import img_thele from './images/img-thele.png';
 import img_tudo from './images/img-tudo.png';
 import img_maduthuong from './images/img-maduthuong.png';
 import img_thongbao from './images/img-thongbao.png';
+import muiten from './images/muiten.png';
 import $ from 'jquery';
 import 'bootstrap';
 
@@ -98,15 +98,35 @@ class Lucky_Rotation extends React.Component {
 			listVinhDanh:[],
 			listTuDo:[],
 			listCodeBonus:[],
+			width:0,
+			height:0,
+			img_width:0,
+			img_height:0,
 		};
 	}
 	componentWillMount(){
+		if (window.innerWidth <= 320) {
+			this.setState({ width: 300, height: 375, img_width:300, img_height:300,});
+		}
+		if (window.innerWidth > 320 && window.innerWidth <= 480) {
+			this.setState({ width: 320, height: 400, img_width:320, img_height:320});
+		}
+		if (window.innerWidth > 480 && window.innerWidth <= 768) {
+			this.setState({ width: 400, height: 500, img_width:500, img_height:500});
+		}
+		if (window.innerWidth > 768 && window.innerWidth < 1024) {
+			this.setState({ width: 475, height: 600, img_width:600, img_height:600});
+		}
+		if (window.innerWidth >= 1024) {
+			this.setState({ width: 685, height: 860, img_width:750, img_height:750});
+		}
 		window.removeEventListener('scroll', this.handleScroll);
 	}
 
 
 
 	componentDidMount(){
+		const {img_width, img_height}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 		if (user !== null) {
 			this.props.getRotationDetailDataUser(user.access_token, 0).then(()=>{
@@ -162,8 +182,17 @@ class Lucky_Rotation extends React.Component {
 			theWheel.wheelImage = loadedImg;   
 			theWheel.draw();                    
 		}
+		loadedImg.width=img_width;
+		loadedImg.height=img_height;
 		loadedImg.src = rotaion;
 		this.setState({theWheel:theWheel})
+		// var ctx=document.getElementById("new_canvas");
+		// var context = ctx.getContext('2d');
+		// var base_image = new Image();
+		// base_image.src = muiten;
+		// base_image.onload = function(){
+		// 	context.drawImage(base_image, 0, 0);
+		// }
 		window.addEventListener('scroll', this.handleScroll);
 	}
 
@@ -261,18 +290,21 @@ class Lucky_Rotation extends React.Component {
 
 	completeRotation=()=>{
 		const {auto, turnsFree, theWheel, itemBonus}=this.state;
-		var user = JSON.parse(localStorage.getItem("user"));
 		if(auto){
 			if(turnsFree>0){
-				var intervalId = setInterval(this.autoRotation, 1000);
-   				this.setState({intervalId: intervalId});
+				// var intervalId = setInterval(this.autoRotation, 2000);
+				   // this.setState({intervalId: intervalId});
+				   this.showPopup()
+			}
+			
+		}else{
+			if(itemBonus.type==="LUCKY_NUMBER"){
+				$('#myModal7').modal('show');
+			}else{
+				$('#myModal4').modal('show');
 			}
 		}
-		if(itemBonus.type==="LUCKY_NUMBER"){
-			$('#myModal7').modal('show');
-		}else{
-			$('#myModal4').modal('show');
-		}
+		
 		
 	}
 
@@ -283,9 +315,14 @@ class Lucky_Rotation extends React.Component {
 
 	autoRotation=()=>{
 		const {turnsFree}=this.state;
+		var _this=this;
 		if(turnsFree>0){
 			var user = JSON.parse(localStorage.getItem("user"));
-			this.props.pickCard(user.access_token, 119);
+			this.props.pickCard(user.access_token, 119).then(()=>{
+				if(_this.props.dataPick !==undefined){
+					this.setState({itemBonus: _this.props.dataPick.item}, ()=>{this.showPopup()})
+				}
+			});
 			this.props.getRotationDetailDataUser(user.access_token, 0).then(()=>{
 				var data=this.props.dataRotationWithUser;
 				if(data!==undefined){
@@ -294,6 +331,21 @@ class Lucky_Rotation extends React.Component {
 			});
 		}else{
 			clearInterval(this.state.intervalId);
+		}
+	}
+
+	showPopup=()=>{
+		const {itemBonus}=this.state;
+		if(itemBonus.type==="LUCKY_NUMBER"){
+			$('#myModal7').modal('show');
+			setTimeout(()=>{
+				$('#myModal7').modal('hide');
+			},1000)
+		}else{
+			setTimeout(()=>{
+				$('#myModal4').modal('hide');
+			},100)
+			$('#myModal4').modal('show');
 		}
 	}
 
@@ -412,7 +464,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	render() {
-		const {dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second,
+		const {height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second,
 			 activeTuDo, activeCodeBonus, activeVinhDanh, numberItemInpage, countCodeBonus, countTuDo, countVinhDanh, listCodeBonus, listTuDo, listVinhDanh,itemBonus}=this.state;
 		const { classes } = this.props;
 		return (<div>
@@ -458,11 +510,12 @@ class Lucky_Rotation extends React.Component {
 				<div className="container content-inner-p2">
 					<h1 className="logo-p2"><img src={logo_p2} alt="Logo" width="600" className="img-fluid" /></h1>
 					<div className="vqmm">
-						<div className="bg_vqmm">
-							<canvas id="canvas" width="685" height="860" dataResponsiveMinWidth="180"  dataResponsiveScaleHeight="true">
-								<p style={{color: '#fff', textAlign:'center'}} >Sorry, your browser doesn't support canvas. Please try another.</p>
+							<canvas style={{padding:0}} id="canvas" width={width} height={height} data-responsiveMinWidth="180"  data-responsiveScaleHeight="true">
+								
 							</canvas>
-						</div>
+							{/* <canvas style={{marginTop:-(height+15), padding:0}} id="new_canvas" width={width} height={height} data-responsiveMinWidth="180"  data-responsiveScaleHeight="true">
+								
+							</canvas> */}
 						{/* <img src={vqmm_p2} alt="Vòng quay may mắn" className="img-fluid"/>     */}
 					</div>
 					<div className="btn-logout">
@@ -954,7 +1007,7 @@ class Lucky_Rotation extends React.Component {
 						<div className="card">
 						<div className="card-body content-chucmung mx-auto">
 						<div className="text-chucmung text-center">
-							<span className="text-white">Mã số dự thưởng Xe máy Honda Air Blade và Điện thoại iPhone XS Max đã được lưu trong Mã dự thưởng.</span>
+							<span className="pt-1 d-block">Mã số dự thưởng Xe máy Honda Air Blade và Điện thoại iPhone XS Max đã được lưu trong Mã dự thưởng.</span>
 							<label title="Xem phần thưởng" className="underline pt-2 d-block" style={{color:"#fff", cursor:'pointer'}} onClick={this.showModalCodeBonus}>Xem Mã dự thưởng</label>
 						</div>
 						<p className="small pt-2 mb-2 text-center">So Mã số dự thưởng tại chương trình Quay Thưởng vào lúc 6h giờ ngày 08/08/20019</p>
