@@ -106,19 +106,22 @@ class Lucky_Rotation extends React.Component {
 	}
 	componentWillMount(){
 		if (window.innerWidth <= 320) {
-			this.setState({ width: 300, height: 375, img_width:300, img_height:300,});
+			this.setState({ width: 240, height: 375, img_width:280, img_height:280,});
 		}
 		if (window.innerWidth > 320 && window.innerWidth <= 480) {
-			this.setState({ width: 320, height: 400, img_width:320, img_height:320});
+			this.setState({ width: 260, height: 400, img_width:300, img_height:300});
 		}
-		if (window.innerWidth > 480 && window.innerWidth <= 768) {
+		if (window.innerWidth > 480 && window.innerWidth <= 600) {
 			this.setState({ width: 400, height: 500, img_width:500, img_height:500});
 		}
+		if (window.innerWidth > 600 && window.innerWidth <= 768) {
+			this.setState({ width: 485, height: 500, img_width:560, img_height:560});
+		}
 		if (window.innerWidth > 768 && window.innerWidth < 1024) {
-			this.setState({ width: 475, height: 600, img_width:600, img_height:600});
+			this.setState({ width: 650, height: 700, img_width:750, img_height:750});
 		}
 		if (window.innerWidth >= 1024) {
-			this.setState({ width: 685, height: 860, img_width:750, img_height:750});
+			this.setState({ width: 645, height: 830, img_width:752, img_height:752});
 		}
 		window.removeEventListener('scroll', this.handleScroll);
 	}
@@ -186,13 +189,6 @@ class Lucky_Rotation extends React.Component {
 		loadedImg.height=img_height;
 		loadedImg.src = rotaion;
 		this.setState({theWheel:theWheel})
-		// var ctx=document.getElementById("new_canvas");
-		// var context = ctx.getContext('2d');
-		// var base_image = new Image();
-		// base_image.src = muiten;
-		// base_image.onload = function(){
-		// 	context.drawImage(base_image, 0, 0);
-		// }
 		window.addEventListener('scroll', this.handleScroll);
 	}
 
@@ -201,11 +197,10 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	handleScroll = (event) => {
-		var btn=document.getElementById("");
-		if (document.body.getBoundingClientRect().top > 300){
-			console.log('AAAAAAAAAAAAAAAAA')
+		if (document.body.getBoundingClientRect().top < -300){
+			$("#button").show();
 		}else{
-			console.log('BBBBBBBB')
+			$("#button").hide();
 		}
 	}
 
@@ -292,8 +287,6 @@ class Lucky_Rotation extends React.Component {
 		const {auto, turnsFree, theWheel, itemBonus}=this.state;
 		if(auto){
 			if(turnsFree>0){
-				// var intervalId = setInterval(this.autoRotation, 2000);
-				   // this.setState({intervalId: intervalId});
 				   this.showPopup()
 			}
 			
@@ -304,47 +297,45 @@ class Lucky_Rotation extends React.Component {
 				$('#myModal4').modal('show');
 			}
 		}
+		this.getDetailData()
 		
 		
 	}
 
 	handleChange = () => {
-		clearInterval(this.state.intervalId);
 		this.setState({ auto : !this.state.auto});
 	};
 
-	autoRotation=()=>{
-		const {turnsFree}=this.state;
-		var _this=this;
-		if(turnsFree>0){
-			var user = JSON.parse(localStorage.getItem("user"));
-			this.props.pickCard(user.access_token, 119).then(()=>{
-				if(_this.props.dataPick !==undefined){
-					this.setState({itemBonus: _this.props.dataPick.item}, ()=>{this.showPopup()})
-				}
-			});
-			this.props.getRotationDetailDataUser(user.access_token, 0).then(()=>{
-				var data=this.props.dataRotationWithUser;
-				if(data!==undefined){
-					this.setState({turnsFree:(data.userTurnSpin.turnsFree+data.userTurnSpin.turnsBuy)})
-				}
-			});
-		}else{
-			clearInterval(this.state.intervalId);
-		}
+
+	getDetailData=()=>{
+		var user = JSON.parse(localStorage.getItem("user"));
+		this.props.getRotationDetailDataUser(user.access_token, 0).then(()=>{
+			var data=this.props.dataRotationWithUser;
+			if(data!==undefined){
+				this.setState({turnsFree:(data.userTurnSpin.turnsFree+data.userTurnSpin.turnsBuy)})
+			}
+		});
 	}
 
 	showPopup=()=>{
-		const {itemBonus}=this.state;
+		const {itemBonus, turnsFree}=this.state;
+		
 		if(itemBonus.type==="LUCKY_NUMBER"){
 			$('#myModal7').modal('show');
 			setTimeout(()=>{
 				$('#myModal7').modal('hide');
-			},1000)
+				if(turnsFree>0){
+					this.start()
+				}
+
+			},2000)
 		}else{
 			setTimeout(()=>{
 				$('#myModal4').modal('hide');
-			},100)
+				if(turnsFree>0){
+					this.start()
+				}
+			},2000)
 			$('#myModal4').modal('show');
 		}
 	}
@@ -358,18 +349,10 @@ class Lucky_Rotation extends React.Component {
 			var minute=Math.floor(((time%86400)%3600)/60) > 9 ? Math.floor(((time%86400)%3600)/60) : `0${Math.floor(((time%86400)%3600)/60)}`;
 			var second=Math.ceil(((time%86400)%3600)%60) > 9 ? Math.ceil(((time%86400)%3600)%60) : `0${Math.ceil(((time%86400)%3600)%60)}`;
 			_this.setState({day:day, hour: hour, minute: minute, second:second})
-			// console.log('TIME:',time,"DAY:",day,"HOUR:",hour,"MINUTE:",minute,"SECOND:", second)
 		}, 1000);
 	}
 
 
-	showPopupLogin=()=>{
-
-	}
-
-	hidePopupLogin=()=>{
-
-	}
 
 	showModalBonus=()=>{
 		$('#myModal').modal('show'); 
@@ -465,7 +448,7 @@ class Lucky_Rotation extends React.Component {
 
 	render() {
 		const {height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second,
-			 activeTuDo, activeCodeBonus, activeVinhDanh, numberItemInpage, countCodeBonus, countTuDo, countVinhDanh, listCodeBonus, listTuDo, listVinhDanh,itemBonus}=this.state;
+			 activeTuDo, activeCodeBonus, activeVinhDanh, numberItemInpage, countCodeBonus, countTuDo, countVinhDanh, listCodeBonus, listTuDo, listVinhDanh,itemBonus, turnsFree}=this.state;
 		const { classes } = this.props;
 		return (<div>
 			<a href="#logo" id="button"><img src={backtotop} alt="Back to Top" width="16" /></a>
@@ -510,8 +493,7 @@ class Lucky_Rotation extends React.Component {
 				<div className="container content-inner-p2">
 					<h1 className="logo-p2"><img src={logo_p2} alt="Logo" width="600" className="img-fluid" /></h1>
 					<div className="vqmm">
-							<canvas style={{padding:0}} id="canvas" width={width} height={height} data-responsiveMinWidth="180"  data-responsiveScaleHeight="true">
-								
+							<canvas style={{}} id="canvas" width={width} height={height} data-responsiveMinWidth="180"  data-responsiveScaleHeight="true">		
 							</canvas>
 							{/* <canvas style={{marginTop:-(height+15), padding:0}} id="new_canvas" width={width} height={height} data-responsiveMinWidth="180"  data-responsiveScaleHeight="true">
 								
@@ -524,6 +506,7 @@ class Lucky_Rotation extends React.Component {
 						
 					</div>
 					<div className="btn-quay">
+						<h5 className="text-center">Còn: {turnsFree} lượt</h5>
 						<a style={{cursor:'pointer'}} onClick={this.start}><img src={btn_quay_p2} alt="" className="img-fluid" /></a>
 						<div className="custom-control custom-checkbox">
 							<input type="checkbox" className="custom-control-input" id="customCheck" name="autospin" />
@@ -741,14 +724,14 @@ class Lucky_Rotation extends React.Component {
 				Xác minh tài khoản Scoin tại đây nếu chưa thực hiện. <br />
 				Nạp thẻ Scoin bất kỳ mệnh giá trong thời gian từ 00:01 01/08 - 23:59 07/08/2019.</p>
 						<h3 className="text-purple">II. Cách thức tham gia sự kiện</h3>
-						<div className="row">
-						<div className="col-sm col bg-orange px-0 py-2 text-center" style={{borderRadius: 4, lineHeight: 16}}>Đăng nhập Scoin <br />+<br /> Xác thực số điện thoại</div>
-						<div className="col-sm col align-self-center" style={{flexGrowgrow: 0, padding: 0}}><span>></span></div>
-						<div className="col-sm col bg-orange px-0 py-2 text-center" style={{borderRadius: 4, lineHeight: 16}}>Nạp ví/Nạp game (Dùng Scoin) <br />+<br /> Nhận lượt chơi</div>
-						<div className="col-sm col align-self-center" style={{flexGrowgrow: 0, padding: 0}}><span>></span></div>
-						<div className="col-sm col bg-orange px-0 py-2 text-center" style={{borderRadius: 4, lineHeight: 16}}>Chơi vòng quay <br />+<br /> Nhận mã dự thưởng</div>
-						<div className="col-sm col align-self-center" style={{flexGrowgrow: 0, padding: 0}}><span>></span></div>
-						<div className="col-sm col bg-orange px-0 py-2 text-center" style={{borderRadius: 4, lineHeight: 16}}>So mã dự thưởng với KQXS vào lúc 18h30' ngày 08/08/2019</div>
+						<div style={{display:'flex'}}>
+							<div className="bg-orange px-0 py-2 text-center" style={{borderRadius: 4, flex:1}}>Đăng nhập Scoin <br />+<br /> Xác thực số điện thoại</div>
+							<div className="align-self-center" style={{flexGrowgrow: 0, padding: 0}}><span>></span></div>
+							<div className="bg-orange px-0 py-2 text-center" style={{borderRadius: 4, flex:1}}>Nạp ví/Nạp game (Dùng Scoin) <br />+<br /> Nhận lượt chơi</div>
+							<div className="align-self-center" style={{flexGrowgrow: 0, padding: 0}}><span>></span></div>
+							<div className="bg-orange px-0 py-2 text-center" style={{borderRadius: 4, flex:1}}>Chơi vòng quay <br />+<br /> Nhận mã dự thưởng</div>
+							<div className="align-self-center" style={{flexGrowgrow: 0, padding: 0}}><span>></span></div>
+							<div className="bg-orange px-0 py-2 text-center" style={{borderRadius: 4, flex:1}}>So mã dự thưởng với KQXS vào lúc 18h30' ngày 08/08/2019</div>
 						</div>
 						<p className="text-thele pt-3">Bước 1: Đăng nhập tài khoản Scoin <code><a href="https://vtcmobile.vn/oauth/accounts/sso/login/" title="Đăng ký" target="_blank">tại đây</a></code> và thực hiện nạp tiền qua kênh thẻ cào Scoin. <br />
 				Bước 2: Nhận lượt quay miễn phí, tương ứng với thẻ Scoin nạp thành công:</p>
@@ -1011,7 +994,7 @@ class Lucky_Rotation extends React.Component {
 							<label title="Xem phần thưởng" className="underline pt-2 d-block" style={{color:"#fff", cursor:'pointer'}} onClick={this.showModalCodeBonus}>Xem Mã dự thưởng</label>
 						</div>
 						<p className="small pt-2 mb-2 text-center">So Mã số dự thưởng tại chương trình Quay Thưởng vào lúc 6h giờ ngày 08/08/20019</p>
-						<button type="button" className="btn btn-xacnhan text-white btn-block text-center" onClick={this.hideModalDetailBonus}>Xác nhận</button>
+						<button type="button" className="btn btn-xacnhan text-white btn-block text-center" onClick={this.hideModalDetail}>Xác nhận</button>
 						</div>
 						</div>
 					</div>
