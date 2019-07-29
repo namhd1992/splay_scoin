@@ -102,6 +102,7 @@ class Lucky_Rotation extends React.Component {
 			height:0,
 			img_width:0,
 			img_height:0,
+			code:true,
 		};
 	}
 	componentWillMount(){
@@ -193,7 +194,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	componentWillUnmount() {
-		clearInterval(this.state.intervalId);
+		this.setState({ auto : !this.state.auto, wheelSpinning: true});
 	}
 
 	handleScroll = (event) => {
@@ -233,7 +234,11 @@ class Lucky_Rotation extends React.Component {
 			if(turnsFree>0){
 				this.props.pickCard(user.access_token, luckySpin.id).then(()=>{
 					if(_this.props.dataPick !==undefined){
-						console.log('AAA', _this.props.dataPick.item)
+						if(_this.props.dataPick.item.type==="LUCKY_NUMBER"){
+							this.setState({code:true})
+						}else{
+							this.setState({code:false})
+						}
 						this.setState({itemBonus: _this.props.dataPick.item})
 						var id=_this.props.dataPick.id;
 						var pos = itemOfSpin.map(function(e) { return e.id; }).indexOf(id);
@@ -291,11 +296,13 @@ class Lucky_Rotation extends React.Component {
 			}
 			
 		}else{
-			if(itemBonus.type==="LUCKY_NUMBER"){
-				$('#myModal7').modal('show');
-			}else{
-				$('#myModal4').modal('show');
-			}
+			// if(itemBonus.type==="LUCKY_NUMBER"){
+			// 	$('#myModal7').modal('show');
+			// }else{
+			// 	$('#myModal4').modal('show');
+			// }
+
+			$('#myModal4').modal('show');
 		}
 		this.getDetailData()
 		
@@ -320,24 +327,32 @@ class Lucky_Rotation extends React.Component {
 	showPopup=()=>{
 		const {itemBonus, turnsFree}=this.state;
 		
-		if(itemBonus.type==="LUCKY_NUMBER"){
-			$('#myModal7').modal('show');
-			setTimeout(()=>{
-				$('#myModal7').modal('hide');
-				if(turnsFree>0){
-					this.start()
-				}
+		// if(itemBonus.type==="LUCKY_NUMBER"){
+		// 	$('#myModal7').modal('show');
+		// 	setTimeout(()=>{
+		// 		$('#myModal7').modal('hide');
+		// 		if(turnsFree>0){
+		// 			this.start()
+		// 		}
 
-			},2000)
-		}else{
-			setTimeout(()=>{
-				$('#myModal4').modal('hide');
-				if(turnsFree>0){
-					this.start()
-				}
-			},2000)
-			$('#myModal4').modal('show');
-		}
+		// 	},2000)
+		// }else{
+		// 	setTimeout(()=>{
+		// 		$('#myModal4').modal('hide');
+		// 		if(turnsFree>0){
+		// 			this.start()
+		// 		}
+		// 	},2000)
+		// 	$('#myModal4').modal('show');
+		// }
+
+		setTimeout(()=>{
+			$('#myModal4').modal('hide');
+			if(turnsFree>0){
+				this.start()
+			}
+		},2000)
+		$('#myModal4').modal('show');
 	}
 
 	timeRemain=(toDate)=>{
@@ -401,7 +416,7 @@ class Lucky_Rotation extends React.Component {
 					this.setState({dataCodeBonus:data, countCodeBonus:data.length, listCodeBonus: data.slice(0,5)})
 				}
 			});
-			$('#myModal7').modal('hide');
+			$('#myModal4').modal('hide');
 			$('#myModal3').modal('show');
 		}else {
 			$('#myModal5').modal('show');
@@ -419,6 +434,10 @@ class Lucky_Rotation extends React.Component {
 	hideModalDetailBonus=()=>{
 		$('#myModal4').modal('hide');
 	}
+
+	// hideModalCode=()=>{
+	// 	$('#myModal7').modal('hide');
+	// }
 
 	hideModalQuaySo=()=>{
 		$('#myModal8').modal('show');
@@ -447,7 +466,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	render() {
-		const {height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second,
+		const {height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second, code,
 			 activeTuDo, activeCodeBonus, activeVinhDanh, numberItemInpage, countCodeBonus, countTuDo, countVinhDanh, listCodeBonus, listTuDo, listVinhDanh,itemBonus, turnsFree}=this.state;
 		const { classes } = this.props;
 		return (<div>
@@ -954,50 +973,37 @@ class Lucky_Rotation extends React.Component {
 					<div className="modal-content popup-phanthuong">
 
 					{/* <!-- Modal Header --> */}
-					<div className="modal-header border-bottom-0">
-						<button type="button" className="close" data-dismiss="modal"><img src={btn_close} alt="Đóng" /></button>
-					</div>
+						<div className="modal-header border-bottom-0">
+							<button type="button" className="close" data-dismiss="modal"><img src={btn_close} alt="Đóng" /></button>
+						</div>
 
 					{/* <!-- Modal body --> */}
-					<div className="modal-body bg-chucmung justify-content-center">
-						<div className="card">
-						<div className="card-body content-chucmung mx-auto">
-						<div className="text-chucmung text-center">
-							<span className="text-white">Bạn vừa quay vào ô</span>
-							<span className="pt-1 d-block"><img src={itemBonus.urlImage} alt="" /></span>
+						<div className="modal-body bg-chucmung justify-content-center">
+							<div className="card">
+								<div className="card-body content-chucmung mx-auto">
+									{(code)?(
+									<div>
+										<div className="text-chucmung text-center" style={{marginTop:70}}>
+											<span className="text-white">Bạn vừa quay vào ô</span>
+											<span className="pt-1 d-block">Mã số dự thưởng Xe máy Honda Air Blade và Điện thoại iPhone XS Max đã được lưu trong Mã dự thưởng.</span>
+										</div>
+									
+										<p className="small pt-2 mb-2 text-center">So Mã số dự thưởng tại chương trình Quay Thưởng vào lúc 6h giờ ngày 08/08/20019 <br /><label title="Xem phần thưởng" className="underline pt-2 d-block" style={{color:"#fff", cursor:'pointer'}} onClick={this.showModalTuDo}>Xem phần thưởng</label></p>
+										<button type="button" className="btn btn-xacnhan text-white btn-block text-center" onClick={this.hideModalDetailBonus}>Xác nhận</button>
+									</div>
+									):(
+									<div><div className="text-chucmung text-center" style={{marginTop:70}}>
+											<span className="text-white">Bạn vừa quay vào ô</span>
+											<span className="pt-1 d-block"><img src={itemBonus.urlImage} alt="" /></span>
+										</div>
+										<p className="small pt-2 mb-2 text-center">(Phần thưởng đã được chuyển vào tủ đồ sự kiện) <br /><label title="Xem phần thưởng" className="underline pt-2 d-block" style={{color:"#fff", cursor:'pointer'}} onClick={this.showModalTuDo}>Xem phần thưởng</label></p>
+										<button type="button" className="btn btn-xacnhan text-white btn-block text-center" onClick={this.hideModalDetailBonus}>Xác nhận</button>
+										</div>
+									)}	
+									
+								</div>
+							</div>
 						</div>
-						<p className="small pt-2 mb-2 text-center">(Phần thưởng đã được chuyển vào tủ đồ sự kiện) <br /><label title="Xem phần thưởng" className="underline pt-2 d-block" style={{color:"#fff", cursor:'pointer'}} onClick={this.showModalTuDo}>Xem phần thưởng</label></p>
-						<button type="button" className="btn btn-xacnhan text-white btn-block text-center" onClick={this.hideModalDetailBonus}>Xác nhận</button>
-						</div>
-						</div>
-					</div>
-					</div>
-				</div>
-			</div>
-
-			{/* The Modal Thông báo chúc mừng mã dự thưởng */}
-			<div className="modal" id="myModal7">
-				<div className="modal-dialog">
-					<div className="modal-content popup-phanthuong">
-
-					{/* <!-- Modal Header --> */}
-					<div className="modal-header border-bottom-0">
-						<button type="button" className="close" data-dismiss="modal"><img src={btn_close} alt="Đóng" /></button>
-					</div>
-
-					{/* <!-- Modal body --> */}
-					<div className="modal-body bg-chucmung justify-content-center">
-						<div className="card">
-						<div className="card-body content-chucmung mx-auto">
-						<div className="text-chucmung text-center">
-							<span className="pt-1 d-block">Mã số dự thưởng Xe máy Honda Air Blade và Điện thoại iPhone XS Max đã được lưu trong Mã dự thưởng.</span>
-							<label title="Xem phần thưởng" className="underline pt-2 d-block" style={{color:"#fff", cursor:'pointer'}} onClick={this.showModalCodeBonus}>Xem Mã dự thưởng</label>
-						</div>
-						<p className="small pt-2 mb-2 text-center">So Mã số dự thưởng tại chương trình Quay Thưởng vào lúc 6h giờ ngày 08/08/20019</p>
-						<button type="button" className="btn btn-xacnhan text-white btn-block text-center" onClick={this.hideModalDetail}>Xác nhận</button>
-						</div>
-						</div>
-					</div>
 					</div>
 				</div>
 			</div>

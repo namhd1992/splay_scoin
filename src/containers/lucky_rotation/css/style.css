@@ -51,7 +51,7 @@ font-style:normal;
 .btn-ketqua img {margin:10px 0 0 15px ;float: left; width: 80px}
 .title-giaidacbiet {color: #e70000; margin-bottom: 0; font-size:26px}
 .bg-giaithuong {background-image:url(../images/bg-giaidacbiet.png); background-repeat: no-repeat; background-position: center; width: 441px; height: 529px; vertical-align:middle}
-.card {border: none !important}
+.card {border: none !important; background-color: transparent;}
 .tbl-bvd {width: 901px; height: 190px;}
 .title-bvd {font-size: 26px; color:#282652}
 .top-12 {background-image:url(../images/bg-bangvinhdanh.png); background-position: center; background-repeat: no-repeat; background-size: 100%;}
