@@ -38,9 +38,21 @@ font-style:normal;
 .btn-logout{position: absolute; top: 11%; right: 9%; font-size:1.25rem; color:#282652;}
 .btn-logout h5 {background-image:url(../images/btn-dangxuat-p2.png); background-repeat: no-repeat; background-size: 100%; width: 150px; height: 55px;}
 .btn-logout h5 a {line-height: 50px; color:#282652;}
+.btn-logout h5:hover{
+	opacity: 0.8;
+	width: 145px; 
+	height: 53px;
+	cursor: pointer;
+}
 .btn-quay {width:200px; height: auto; position: absolute; bottom: 15%; right: 14%;}
 .btn-quay img {width: 200px;}
 .btn-quay .custom-control {font-size: 22px; padding-left: 30px; color:#565656}
+.hv:hover{
+	opacity: 0.8;
+	width: 98%;
+	height: 98%;
+}
+
 .custom-control-label:before {width: 1.2rem; height: 1.2rem; background-color:#d4cff3;}
 .custom-control-label:after {width: 1.2rem; height: 1.2rem;}
 .menu-right {position: absolute; right: 1%; bottom: 20%; background:url(../images/menu-right-p2.png) no-repeat; width: 90px; height: 264px;}
@@ -52,9 +64,9 @@ font-style:normal;
 .title-giaidacbiet {color: #e70000; margin-bottom: 0; font-size:26px}
 .bg-giaithuong {background-image:url(../images/bg-giaidacbiet.png); background-repeat: no-repeat; background-position: center; width: 441px; height: 529px; vertical-align:middle}
 .card {border: none !important; background-color: transparent;}
-.tbl-bvd {width: 901px; height: 190px;}
+.tbl-bvd {width: 901px !important; height: 190px;}
 .title-bvd {font-size: 26px; color:#282652}
-.top-12 {background-image:url(../images/bg-bangvinhdanh.png); background-position: center; background-repeat: no-repeat; background-size: 100%;}
+.top-12 {background-image:url(../images/bg-bangvinhdanh.png); background-position: center; background-repeat: no-repeat; background-size: 101%;}
 .top-12 tr td {vertical-align: middle; font-size: 22px}
 .top100 tr td {vertical-align: middle; font-size: 22px; border: solid 2px #005faf}
 .pag-custom .page-item {margin: 5px;}
@@ -79,11 +91,16 @@ a.btn-dv:hover {color: #ffd102;}
 .bg-chucmung .card {background-color: transparent;}
 .popup-phanthuong .bg-chucmung {background-image: url(../images/bg-chucmung.png); background-repeat: no-repeat; background-position: center; background-size: 100%; width: 480px; margin: 0 auto;}
 .btn-xacnhan {background: url(../images/bg-xacnhan.png) center center no-repeat; background-size: 120px; width: 130px; margin: 0 auto;}
+.btn-xacnhan:hover{
+	opacity: 0.8;
+}
 .content-chucmung {width: 260px; height: 350px; padding-top: 85px;}
 .text-chucmung {background-color: #fda817; border-radius: 4px; padding: 8px 0;}
 .text-chucmung img {width: 115px}
 #myModal4 .popup-phanthuong { background-color: transparent; border: none;}
 #myModal4 .close {position: absolute; top: 5%; right: 20%; opacity: 1; z-index: 99;}
+.noti-mdt {top: 52%; right: 15%;}
+.noti-tudo {top: 15%; right: 15%;}
 
 @media (max-width: 1024px) {
 	.btn-quay {bottom: 13%; right: 3%;}
@@ -147,10 +164,14 @@ a.btn-dv:hover {color: #ffd102;}
 	.btn-ketqua img {margin:27px 0 0 10px ;float: left; width: 40px}
 	.container.jumbotron {margin-top:-130px;}
 	#myModal4 .close {position: absolute; top: 7%; right: 7%; opacity: 1; z-index: 99;}
+	.noti-mdt {top: 45%; right: 15%;}
+	.noti-tudo {top: 12%; right: 15%;}
 }
 @media (max-width: 320px) {
 	.vqmm {position: absolute; top: 16%; left: 3%; width: 300px}
 	.page1, .page2 {padding: 0;}
+	.noti-mdt {top: 45%; right: 15%;}
+	.noti-tudo {top: 15%; right: 15%;}
 }
 #button {
   display: inline-block;
