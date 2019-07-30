@@ -187,7 +187,7 @@ export const pickCard = (token, id) => {
 		return axios.get(url, header).then(function (response) {
 			dispatch({
 				type: LUCKY_PICK_RESPONSE,
-				data: response.data.data
+				data: response.data
 			})
 		}).catch(function (error) {
 			dispatch({

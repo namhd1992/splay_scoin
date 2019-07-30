@@ -266,14 +266,14 @@ class Lucky_Rotation extends React.Component {
 			if (user !== null) {
 				if(turnsFree>0){
 					this.props.pickCard(user.access_token, luckySpin.id).then(()=>{
-						if(_this.props.dataPick !==undefined){
-							if(_this.props.dataPick.item.type==="LUCKY_NUMBER"){
+						if(_this.props.dataPick.status ==="01"){
+							if(_this.props.dataPick.data.item.type==="LUCKY_NUMBER"){
 								this.setState({code:true})
 								setTimeout(()=>{
 									this.setState({noti_mdt:true})
 								},4000)
 							}else{
-								if(_this.props.dataPick.item.keyName!=="matluot"){
+								if(_this.props.dataPick.data.item.keyName!=="matluot"){
 									setTimeout(()=>{
 										this.setState({noti_tudo:true})
 									},4000)
@@ -282,11 +282,16 @@ class Lucky_Rotation extends React.Component {
 								this.setState({code:false})
 								
 							}
-							this.setState({itemBonus: _this.props.dataPick.item})
-							var id=_this.props.dataPick.id;
+							this.setState({itemBonus: _this.props.dataPick.data.item})
+							var id=_this.props.dataPick.data.id;
 							var pos = itemOfSpin.map(function(e) { return e.id; }).indexOf(id);
 							this.resetWheel();
 							this.startSpin(pos+1);
+						}
+						if(_this.props.dataPick.status ==="07"){
+							this.setState({message_status:"Sự kiện chưa diễn ra hoặc đã kết thúc."},()=>{
+								$('#myModal8').modal('show');
+							})
 						}
 					})
 					
