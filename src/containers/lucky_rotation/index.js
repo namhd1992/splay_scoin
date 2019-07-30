@@ -111,10 +111,10 @@ class Lucky_Rotation extends React.Component {
 	}
 	componentWillMount(){
 		if (window.innerWidth <= 320) {
-			this.setState({ width: 240, height: 375, img_width:280, img_height:280});
+			this.setState({ width: 242, height: 378, img_width:280, img_height:280});
 		}
 		if (window.innerWidth > 320 && window.innerWidth <= 480) {
-			this.setState({ width: 260, height: 400, img_width:300, img_height:300});
+			this.setState({ width: 260, height: 405, img_width:300, img_height:300});
 		}
 		if (window.innerWidth > 480 && window.innerWidth <= 600) {
 			this.setState({ width: 400, height: 500, img_width:500, img_height:500});
@@ -1000,7 +1000,7 @@ class Lucky_Rotation extends React.Component {
 											<span className="pt-1 d-block">Mã số dự thưởng Xe máy Honda Air Blade và Điện thoại iPhone XS Max đã được lưu trong Mã dự thưởng.</span>
 										</div>
 									
-										<p className="small pt-2 mb-2 text-center">So Mã số dự thưởng với KQ XSMB vào lúc xx giờ ngày 08/08/2019.<br /><label title="Xem phần thưởng" className="underline pt-2 d-block" style={{color:"#fff", cursor:'pointer'}} onClick={this.showModalTuDo}>Xem phần thưởng</label></p>
+										<p className="small pt-2 mb-2 text-center">So Mã số dự thưởng với KQ XSMB vào lúc xx giờ ngày 08/08/2019.<br /><label title="Xem phần thưởng" className="underline pt-2 d-block" style={{color:"#fff", cursor:'pointer'}} onClick={this.showModalCodeBonus}>Xem phần thưởng</label></p>
 										<button type="button" className="btn btn-xacnhan text-white btn-block text-center" onClick={this.hideModalDetailBonus}>Xác nhận</button>
 									</div>
 									):(
