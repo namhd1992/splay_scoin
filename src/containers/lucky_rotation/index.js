@@ -145,7 +145,6 @@ class Lucky_Rotation extends React.Component {
 				var data=this.props.dataRotationWithUser;
 				if(data!==undefined){
 					this.getStatus(data.luckySpin)
-					this.timeRemain(data.luckySpin.endDate)
 					this.setState({userTurnSpin:data.userTurnSpin, itemOfSpin:data.itemOfSpin, luckySpin:data.luckySpin, turnsFree:(data.userTurnSpin.turnsFree+data.userTurnSpin.turnsBuy), isLogin:true})
 				}
 			});
@@ -154,7 +153,6 @@ class Lucky_Rotation extends React.Component {
 				var data=this.props.dataRotation;
 				if(data!==undefined){
 					this.getStatus(data.luckySpin)
-					this.timeRemain(data.luckySpin.endDate)
 					this.setState({userTurnSpin:data.userTurnSpin, itemOfSpin:data.itemOfSpin, luckySpin:data.luckySpin, turnsFree:(data.userTurnSpin.turnsFree+data.userTurnSpin.turnsBuy), isLogin:false})
 				}
 			});
@@ -216,9 +214,11 @@ class Lucky_Rotation extends React.Component {
 		var duration=end-time;
 
 		if (time > distance_3day && time < start) {
+			this.timeRemain(luckySpin.endDate)
 			this.setState({ img_status: sapdienra, message_status:"Sự kiện chưa diễn ra."});
 		}
 		if (time > start && time < end) {
+			this.timeRemain(luckySpin.endDate)
 			this.setState({ img_status: sukiendangdienra});
 		}
 		if (time > end) {
