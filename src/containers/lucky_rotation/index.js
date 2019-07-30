@@ -110,6 +110,7 @@ class Lucky_Rotation extends React.Component {
 			noti_tudo:false,
 			numberPage:3,
 			img_status: sukiendangdienra,
+			message_status:'',
 		};
 	}
 	componentWillMount(){
@@ -215,13 +216,13 @@ class Lucky_Rotation extends React.Component {
 		var duration=end-time;
 
 		if (time > distance_3day && time < start) {
-			this.setState({ img_status: sapdienra});
+			this.setState({ img_status: sapdienra, message_status:"Sự kiện chưa diễn ra."});
 		}
 		if (time > start && time < end) {
 			this.setState({ img_status: sukiendangdienra});
 		}
 		if (time > end) {
-			this.setState({ img_status: ketthuc});
+			this.setState({ img_status: ketthuc, message_status:"Sự kiện đã kết thúc."});
 		}
 	}
 
@@ -259,7 +260,9 @@ class Lucky_Rotation extends React.Component {
 		var _this = this;
 		var user = JSON.parse(localStorage.getItem("user"));
 		var time=Date.now();
-		if(luckySpin.endDate > time){
+		if(time > luckySpin.endDate || time < luckySpin.startDate){
+			$('#myModal8').modal('show');
+		}else{
 			if (user !== null) {
 				if(turnsFree>0){
 					this.props.pickCard(user.access_token, luckySpin.id).then(()=>{
@@ -293,8 +296,6 @@ class Lucky_Rotation extends React.Component {
 			} else {
 				$('#myModal5').modal('show');
 			}
-		}else{
-			$('#myModal8').modal('show');
 		}
 	}
 
@@ -495,7 +496,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	render() {
-		const {height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second, code,numberPage, img_status,
+		const {height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second, code,numberPage, img_status, message_status,
 			 activeTuDo, activeCodeBonus, activeVinhDanh, numberItemInpage, countCodeBonus, countTuDo, countVinhDanh, listCodeBonus, listTuDo, listVinhDanh,itemBonus, turnsFree, noti_mdt, noti_tudo}=this.state;
 		const { classes } = this.props;
 		const notification_mdt=noti_mdt?(<span class="badge badge-pill badge-danger position-absolute noti-mdt">!</span>):(<span></span>);
@@ -1105,7 +1106,7 @@ class Lucky_Rotation extends React.Component {
 					{/* <!-- Modal body --> */}
 					<div class="modal-body">
 						<div class="table-responsive mt-2">              
-							<h5 class="text-thele lead text-center">Sự kiện đã kết thúc.</h5>
+							<h5 class="text-thele lead text-center">{message_status}</h5>
 						</div>       
 					</div>
 
