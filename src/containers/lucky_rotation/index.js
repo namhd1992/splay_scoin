@@ -32,6 +32,8 @@ import bg_rotaion from './khungvongquay.png'
 
 import backtotop from './images/backtotop.png'
 import sukiendangdienra from './images/btn-sukiendangdienra.png'
+import sapdienra from './images/btn-sapdienra.png'
+import ketthuc from './images/btn-ketthuc.png'
 import logo from './images/logo.png';
 import thamgiangay from './images/btn-thamgiangay.gif';
 import logo_p2 from './images/logo-p2.png';
@@ -107,6 +109,7 @@ class Lucky_Rotation extends React.Component {
 			noti_mdt:false,
 			noti_tudo:false,
 			numberPage:3,
+			img_status: sukiendangdienra,
 		};
 	}
 	componentWillMount(){
@@ -140,6 +143,7 @@ class Lucky_Rotation extends React.Component {
 			this.props.getRotationDetailDataUser(user.access_token, 0).then(()=>{
 				var data=this.props.dataRotationWithUser;
 				if(data!==undefined){
+					this.getStatus(data.luckySpin)
 					this.timeRemain(data.luckySpin.endDate)
 					this.setState({userTurnSpin:data.userTurnSpin, itemOfSpin:data.itemOfSpin, luckySpin:data.luckySpin, turnsFree:(data.userTurnSpin.turnsFree+data.userTurnSpin.turnsBuy), isLogin:true})
 				}
@@ -148,6 +152,7 @@ class Lucky_Rotation extends React.Component {
 			this.props.getRotationDetailData(0).then(()=>{
 				var data=this.props.dataRotation;
 				if(data!==undefined){
+					this.getStatus(data.luckySpin)
 					this.timeRemain(data.luckySpin.endDate)
 					this.setState({userTurnSpin:data.userTurnSpin, itemOfSpin:data.itemOfSpin, luckySpin:data.luckySpin, turnsFree:(data.userTurnSpin.turnsFree+data.userTurnSpin.turnsBuy), isLogin:false})
 				}
@@ -201,6 +206,25 @@ class Lucky_Rotation extends React.Component {
 		this.setState({ auto : !this.state.auto, wheelSpinning: true});
 	}
 
+	getStatus=(luckySpin)=>{
+		var start=luckySpin.startDate;
+		var end=luckySpin.endDate;
+		var time=Date.now();
+
+		var distance_3day=start - 3 * 86400 * 1000;
+		var duration=end-time;
+
+		if (time > distance_3day && time < start) {
+			this.setState({ img_status: sapdienra});
+		}
+		if (time > start && time < end) {
+			this.setState({ img_status: sukiendangdienra});
+		}
+		if (time > end) {
+			this.setState({ img_status: ketthuc});
+		}
+	}
+
 	handleScroll = (event) => {
 		if (document.body.getBoundingClientRect().top < -300){
 			$("#button").show();
@@ -234,38 +258,43 @@ class Lucky_Rotation extends React.Component {
 		const {turnsFree, itemOfSpin, luckySpin}=this.state;
 		var _this = this;
 		var user = JSON.parse(localStorage.getItem("user"));
-		if (user !== null) {
-			if(turnsFree>0){
-				this.props.pickCard(user.access_token, luckySpin.id).then(()=>{
-					if(_this.props.dataPick !==undefined){
-						if(_this.props.dataPick.item.type==="LUCKY_NUMBER"){
-							this.setState({code:true})
-							setTimeout(()=>{
-								this.setState({noti_mdt:true})
-							},4000)
-						}else{
-							if(_this.props.dataPick.item.keyName!=="matluot"){
+		var time=Date.now();
+		if(luckySpin.endDate > time){
+			if (user !== null) {
+				if(turnsFree>0){
+					this.props.pickCard(user.access_token, luckySpin.id).then(()=>{
+						if(_this.props.dataPick !==undefined){
+							if(_this.props.dataPick.item.type==="LUCKY_NUMBER"){
+								this.setState({code:true})
 								setTimeout(()=>{
-									this.setState({noti_tudo:true})
+									this.setState({noti_mdt:true})
 								},4000)
+							}else{
+								if(_this.props.dataPick.item.keyName!=="matluot"){
+									setTimeout(()=>{
+										this.setState({noti_tudo:true})
+									},4000)
+									
+								}
+								this.setState({code:false})
 								
 							}
-							this.setState({code:false})
-							
+							this.setState({itemBonus: _this.props.dataPick.item})
+							var id=_this.props.dataPick.id;
+							var pos = itemOfSpin.map(function(e) { return e.id; }).indexOf(id);
+							this.resetWheel();
+							this.startSpin(pos+1);
 						}
-						this.setState({itemBonus: _this.props.dataPick.item})
-						var id=_this.props.dataPick.id;
-						var pos = itemOfSpin.map(function(e) { return e.id; }).indexOf(id);
-						this.resetWheel();
-						this.startSpin(pos+1);
-					}
-				})
-				
-			}else{
-				$('#myModal6').modal('show');
+					})
+					
+				}else{
+					$('#myModal6').modal('show');
+				}
+			} else {
+				$('#myModal5').modal('show');
 			}
-		} else {
-			$('#myModal5').modal('show');
+		}else{
+			$('#myModal8').modal('show');
 		}
 	}
 
@@ -310,7 +339,6 @@ class Lucky_Rotation extends React.Component {
 			}
 			
 		}else{
-			console.log('AAAAAAAAAAA',itemBonus.keyName)
 			if(itemBonus.keyName!=="matluot"){
 				$('#myModal4').modal('show');
 			}
@@ -433,9 +461,6 @@ class Lucky_Rotation extends React.Component {
 	// 	$('#myModal7').modal('hide');
 	// }
 
-	hideModalQuaySo=()=>{
-		$('#myModal8').modal('show');
-	}
 
 	handlePageChangeTuDo=(pageNumber)=> {
 		const {dataTuDo}=this.state;
@@ -470,7 +495,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	render() {
-		const {height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second, code,numberPage,
+		const {height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second, code,numberPage, img_status,
 			 activeTuDo, activeCodeBonus, activeVinhDanh, numberItemInpage, countCodeBonus, countTuDo, countVinhDanh, listCodeBonus, listTuDo, listVinhDanh,itemBonus, turnsFree, noti_mdt, noti_tudo}=this.state;
 		const { classes } = this.props;
 		const notification_mdt=noti_mdt?(<span class="badge badge-pill badge-danger position-absolute noti-mdt">!</span>):(<span></span>);
@@ -482,7 +507,7 @@ class Lucky_Rotation extends React.Component {
 					<h1 className="logo-p1" id="logo"><img src={logo} alt="Logo" width="500" className="img-fluid" /></h1>
 					<div className="container">
 						<div className="timer-p1 float-right">
-							<img src={sukiendangdienra} alt="Sự kiện đang diễn ra" width="298" className="img-fluid" />
+							<img src={img_status} alt="Sự kiện đang diễn ra" width="298" className="img-fluid" />
 							<div className="table-responsive">
 							<table className="table table-borderless">
 								<tr>
@@ -1080,7 +1105,7 @@ class Lucky_Rotation extends React.Component {
 					{/* <!-- Modal body --> */}
 					<div class="modal-body">
 						<div class="table-responsive mt-2">              
-							<h5 class="text-thele lead text-center">Quay số 19001104</h5>
+							<h5 class="text-thele lead text-center">Sự kiện đã kết thúc.</h5>
 						</div>       
 					</div>
 

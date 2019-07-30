@@ -64,7 +64,7 @@ font-style:normal;
 .title-giaidacbiet {color: #e70000; margin-bottom: 0; font-size:26px}
 .bg-giaithuong {background-image:url(../images/bg-giaidacbiet.png); background-repeat: no-repeat; background-position: center; width: 441px; height: 529px; vertical-align:middle}
 .card {border: none !important; background-color: transparent;}
-.tbl-bvd {width: 901px !important; height: 190px;}
+.tbl-bvd {width: 901px; height: 190px;}
 .title-bvd {font-size: 26px; color:#282652}
 .top-12 {background-image:url(../images/bg-bangvinhdanh.png); background-position: center; background-repeat: no-repeat; background-size: 101%;}
 .top-12 tr td {vertical-align: middle; font-size: 22px}
@@ -139,6 +139,7 @@ a.btn-dv:hover {color: #ffd102;}
 	.btn-xacnhan {background-size: 80px; width: 100px; margin: 0 auto;}
 	.popup-phanthuong .bg-chucmung {width: 100%}
 	.text-chucmung img {width: 80px}
+	.tbl-bvd {width: 900px !important;}
 }
 @media (max-width: 480px) {
 	.content-inner-p1 {background-position: 55% 60%; height: 800px; background-size: 110%;}
