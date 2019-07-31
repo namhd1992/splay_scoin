@@ -66,7 +66,7 @@ font-style:normal;
 .card {border: none !important; background-color: transparent;}
 .tbl-bvd {width: 901px; height: 190px;}
 .title-bvd {font-size: 26px; color:#282652}
-.top-12 {background-image:url(../images/bg-bangvinhdanh.png); background-position: center; background-repeat: no-repeat; background-size: 101%;}
+.top-12 {background-image:url(../images/bg-bangvinhdanh.png); background-repeat: no-repeat;}
 .top-12 tr td {vertical-align: middle; font-size: 22px}
 .top100 tr td {vertical-align: middle; font-size: 22px; border: solid 2px #005faf}
 .pag-custom .page-item {margin: 5px;}
