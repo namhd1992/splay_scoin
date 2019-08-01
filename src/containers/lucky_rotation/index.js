@@ -41,6 +41,7 @@ import vqmm_p2 from './images/vqmm-p2.png';
 import btn_quay_p2 from './images/btn-quay-p2.png';
 import honda from './images/honda.png';
 import iphone_xs from './images/iphone-xs.png';
+import xiaomi_black from './images/xiaomi-black-shark-2.png';
 import icon_bangvinhdanh from './images/icon-bangvinhdanh.png';
 import logo_splay from './images/logo_splay.png';
 import logo_scoin from './images/logo_scoin.png';
@@ -143,7 +144,7 @@ class Lucky_Rotation extends React.Component {
 		if (user !== null) {
 			this.props.getRotationDetailDataUser(user.access_token, 0).then(()=>{
 				var data=this.props.dataRotationWithUser;
-				if(data!==undefined){
+				if(data!==null){
 					this.getStatus(data.luckySpin)
 					this.setState({userTurnSpin:data.userTurnSpin, itemOfSpin:data.itemOfSpin, luckySpin:data.luckySpin, turnsFree:(data.userTurnSpin.turnsFree+data.userTurnSpin.turnsBuy), isLogin:true})
 				}
@@ -151,7 +152,7 @@ class Lucky_Rotation extends React.Component {
 		} else {
 			this.props.getRotationDetailData(0).then(()=>{
 				var data=this.props.dataRotation;
-				if(data!==undefined){
+				if(data!==null){
 					this.getStatus(data.luckySpin)
 					this.setState({userTurnSpin:data.userTurnSpin, itemOfSpin:data.itemOfSpin, luckySpin:data.luckySpin, turnsFree:(data.userTurnSpin.turnsFree+data.userTurnSpin.turnsBuy), isLogin:false})
 				}
@@ -159,7 +160,7 @@ class Lucky_Rotation extends React.Component {
 		}
 		this.props.getVinhDanh(0).then(()=>{
 			var data=this.props.dataVinhDanh;
-			if(data!==undefined){	
+			if(data!==null){	
 				this.setState({dataVinhDanh:data, countVinhDanh:data.length, listVinhDanh:data.slice(0, 10)})
 			}
 		});
@@ -241,18 +242,18 @@ class Lucky_Rotation extends React.Component {
 		} else {
 			console.log("Trình duyệt không hỗ trợ localStorage");
 		}
-		// window.location.replace(`http://graph.vtcmobile.vn/oauth/authorize?client_id=707fece431a0948c498d43e881acd2c5&redirect_uri=${window.location.protocol}//${window.location.host}/login&agencyid=0`)
-		window.location.replace(`http://sandbox.graph.vtcmobile.vn/oauth/authorize?client_id=4e7549789b14693eda4e019faaa0c446&agencyid=0&redirect_uri=${window.location.protocol}//${window.location.host}/`);
+		window.location.replace(`http://graph.vtcmobile.vn/oauth/authorize?client_id=707fece431a0948c498d43e881acd2c5&redirect_uri=${window.location.protocol}//${window.location.host}/login&agencyid=0`)
+		// window.location.replace(`http://sandbox.graph.vtcmobile.vn/oauth/authorize?client_id=4e7549789b14693eda4e019faaa0c446&agencyid=0&redirect_uri=${window.location.protocol}//${window.location.host}/`);
 	}
 	logoutAction = () => {
 		localStorage.removeItem("user");
-		// window.location.replace(
-		// 	`https://graph.vtcmobile.vn/oauth/authorize?client_id=707fece431a0948c498d43e881acd2c5&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
-		// );
-
 		window.location.replace(
-			`http://sandbox.graph.vtcmobile.vn/oauth/authorize?client_id=4e7549789b14693eda4e019faaa0c446&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
+			`https://graph.vtcmobile.vn/oauth/authorize?client_id=707fece431a0948c498d43e881acd2c5&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
 		);
+
+		// window.location.replace(
+		// 	`http://sandbox.graph.vtcmobile.vn/oauth/authorize?client_id=4e7549789b14693eda4e019faaa0c446&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
+		// );
 	}
 
 	start=()=>{
@@ -599,9 +600,9 @@ class Lucky_Rotation extends React.Component {
 					<div className="card">
 						<div className="card-body text-center">
 						<h4 className="card-title text-uppercase title-giaidacbiet">Giải nhất</h4>
-						<p className="card-text title-giaidacbiet">iPhone XS Max 64GB</p>
+						<p className="card-text title-giaidacbiet">Xiaomi Black Shark 2</p>
 						<div className="bg-giaithuong d-table-cell align-middle">
-							<img src={iphone_xs} alt="Iphone" width="322" className="img-fluid" />
+							<img src={xiaomi_black} alt="Iphone" width="322" className="img-fluid" />
 						</div>
 						<h5 className="card-title">Mã số trúng thưởng</h5>
 						<h5 className="card-title" style={{color:'red'}}>Chưa có</h5>
@@ -680,9 +681,9 @@ class Lucky_Rotation extends React.Component {
 
 			<div className="container-fluid footer">
 				<p className="text-center"><img src={logo_splay} width="100" alt="" /> <img src={logo_scoin} width="150" hspace="10" alt="" /></p>
-				<p className="text-center"><span className="text-uppercase">CÔNG TY CỔ PHẦN VTC DỊCH VỤ DI ĐỘNG</span> <br />VTC Mobile - Thành viên của Tổng Công ty Truyền thông đa phương tiện Viêt Nam VTC <br /> Tầng 11, tòa nhà VTC Online, số 18 Tam Trinh, phường Minh Khai, quận Hai Bà Trưng, Hà Nội.
-				<br />(84-4).39877470 <br />84-4).39877210<br /> <a href="mailto:vtcmobile@vtc.vn">vtcmobile@vtc.vn</a>
-				</p>
+				<p class="text-center"><span class="text-uppercase">CÔNG TY CỔ PHẦN VTC DỊCH VỤ DI ĐỘNG</span> <br />VTC Mobile - Thành viên của Tổng Công ty Truyền thông đa phương tiện Viêt Nam VTC <br /> Tầng 11, tòa nhà VTC Online, số 18 Tam Trinh, phường Minh Khai, quận Hai Bà Trưng, Hà Nội.
+<br />Tel: (84-4).39877470 <br />Fax: 84-4).39877210<br /> <a href="mailto:vtcmobile@vtc.vn">vtcmobile@vtc.vn</a>
+	</p>
 			</div>
 
 			{/* The Modal Phần thưởng */}
@@ -712,9 +713,9 @@ class Lucky_Rotation extends React.Component {
 						<div className="card">
 							<div className="card-body text-center" style={{padding:"0rem"}}>
 							<h3 className="card-title text-uppercase title-giaidacbiet">Giải nhất</h3>
-							<p className="card-text title-giaidacbiet">iPhone XS Max 64GB</p>
+							<p className="card-text title-giaidacbiet">Xiaomi Black Shark 2</p>
 							<div className="bg-giaithuong d-table-cell align-middle">
-								<img src={iphone_xs} alt="Iphone" className="img-fluid" />
+								<img src={xiaomi_black} alt="Iphone" className="img-fluid" />
 							</div>
 							<h5 className="card-title">TRỊ GIÁ: 23.000.000 <br /> Số lượng giải: 01</h5>
 							</div>
@@ -734,7 +735,7 @@ class Lucky_Rotation extends React.Component {
 							<div className="card-body text-center item-giaikhac" style={{padding:"0rem"}}>              
 							<div className="bg-giaithuong d-table-cell align-middle h-auto py-4">
 								<img src={img_card50k} alt="Thẻ 50k" className="img-fluid mt-2" />
-								<p className="text-giaikhac">Tặng thẻ 50.000đ vào Tủ đồ SK <br />Số lượng giải: 500</p>
+								<p className="text-giaikhac">Tặng thẻ 50.000đ vào Tủ đồ SK <br />Số lượng giải: 200</p>
 							</div>             
 							</div>
 						</div>
@@ -742,7 +743,7 @@ class Lucky_Rotation extends React.Component {
 							<div className="card-body text-center item-giaikhac" style={{padding:"0rem"}}>              
 							<div className="bg-giaithuong d-table-cell align-middle h-auto py-4">
 								<img src={img_card100k} alt="Thẻ 100k" className="img-fluid mt-2" />
-								<p className="text-giaikhac">Tặng thẻ 100.000đ vào Tủ đồ SK <br />Số lượng giải: 150</p>
+								<p className="text-giaikhac">Tặng thẻ 100.000đ vào Tủ đồ SK <br />Số lượng giải: 60</p>
 							</div>              
 							</div>
 						</div>
@@ -750,7 +751,7 @@ class Lucky_Rotation extends React.Component {
 							<div className="card-body text-center item-giaikhac" style={{padding:"0rem"}}>              
 							<div className="bg-giaithuong d-table-cell align-middle h-auto py-4">
 								<img src={img_card500k} alt="Thẻ 500k" className="img-fluid mt-2" />
-								<p className="text-giaikhac">Tặng thẻ 500.000đ vào Tủ đồ SK <br />Số lượng giải: 50</p>
+								<p className="text-giaikhac">Tặng thẻ 500.000đ vào Tủ đồ SK <br />Số lượng giải: 30</p>
 							</div>              
 							</div>
 						</div>     
@@ -781,13 +782,16 @@ class Lucky_Rotation extends React.Component {
 				Nạp thẻ Scoin bất kỳ mệnh giá trong thời gian từ 00:01 01/08 - 23:59 07/08/2019.</p>
 						<h3 className="text-purple">II. Cách thức tham gia sự kiện</h3>
 						<div style={{display:'flex'}}>
-							<div className="bg-orange px-0 py-2 text-center" style={{borderRadius: 4, flex:1}}>Đăng nhập Scoin <br />+<br /> Xác thực số điện thoại</div>
+							{/* <div className="bg-orange px-0 py-2 text-center" style={{borderRadius: 4, flex:1}}>Đăng nhập Scoin <br />+<br /> Xác thực số điện thoại</div>
 							<div className="align-self-center" style={{flexGrowgrow: 0, padding: 0}}><span>></span></div>
 							<div className="bg-orange px-0 py-2 text-center" style={{borderRadius: 4, flex:1}}>Nạp ví/Nạp game (Dùng Scoin) <br />+<br /> Nhận lượt chơi</div>
 							<div className="align-self-center" style={{flexGrowgrow: 0, padding: 0}}><span>></span></div>
 							<div className="bg-orange px-0 py-2 text-center" style={{borderRadius: 4, flex:1}}>Chơi vòng quay <br />+<br /> Nhận mã dự thưởng</div>
 							<div className="align-self-center" style={{flexGrowgrow: 0, padding: 0}}><span>></span></div>
-							<div className="bg-orange px-0 py-2 text-center" style={{borderRadius: 4, flex:1}}>So mã dự thưởng với KQXS vào lúc 18h30' ngày 08/08/2019</div>
+							<div className="bg-orange px-0 py-2 text-center" style={{borderRadius: 4, flex:1}}>So mã dự thưởng với KQXS vào lúc 18h30' ngày 08/08/2019</div> */}
+							<div class="col-4 bg-orange py-2 text-center border border-white rounded-lg"><button type="button" class="btn btn-primary d-block mx-auto mb-3">Bước 1</button><p class="text-dark">Nạp ví/ Nạp game(dùng Scoin)</p> <p class="font-weight-bold text-success my-1">&nabla;</p> <p class="text-dark">Nhận lượt chơi</p></div>          
+          					<div class="col-4 bg-orange py-2 text-center border border-white rounded-lg"><button type="button" class="btn btn-info d-block mx-auto mb-3">Bước 2</button><p class="text-dark">Chơi vòng quay </p> <p class="font-weight-bold text-success my-1">&nabla;</p> <p class="text-dark">Nhận mã dự thưởng</p></div>          
+          					<div class="col-4 bg-orange py-2 text-center border border-white rounded-lg"><button type="button" class="btn btn-success d-block mx-auto mb-3">Bước 3</button><p class="text-dark">So mã dự thưởng với KQ XSMB <br /> 18:30 ngày 08/08/2019</p></div>  
 						</div>
 						<p className="text-thele pt-3">Bước 1: Đăng nhập tài khoản Scoin <code><a href="https://vtcmobile.vn/oauth/accounts/sso/login/" title="Đăng ký" target="_blank">tại đây</a></code> và thực hiện nạp tiền qua kênh thẻ cào Scoin. <br />
 				Bước 2: Nhận lượt quay miễn phí, tương ứng với thẻ Scoin nạp thành công:</p>
