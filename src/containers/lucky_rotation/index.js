@@ -630,7 +630,7 @@ class Lucky_Rotation extends React.Component {
 						<tr>
 							<td></td>
 							<td>Chưa có</td>
-							<td>iPhone XS Max 64GB</td>
+							<td>Xiaomi Black Shark 2</td>
 							<td>Chưa có</td>
 						</tr>              
 						</tbody>
@@ -717,7 +717,7 @@ class Lucky_Rotation extends React.Component {
 							<div className="bg-giaithuong d-table-cell align-middle">
 								<img src={xiaomi_black} alt="Iphone" className="img-fluid" />
 							</div>
-							<h5 className="card-title">TRỊ GIÁ: 23.000.000 <br /> Số lượng giải: 01</h5>
+							<h5 className="card-title">TRỊ GIÁ: 10.000.000 <br /> Số lượng giải: 01</h5>
 							</div>
 						</div>      
 						</div>
@@ -869,7 +869,7 @@ class Lucky_Rotation extends React.Component {
 								</tr>
 								<tr>
 									<th>Giải nhất</th>
-									<th>iPhone XS Max 64GB</th>
+									<th>Xiaomi Black Shark 2</th>
 								</tr>
 								</thead>
 							</table>
