@@ -133,7 +133,7 @@ export const getMoreData = (limit, offset) => {
 		return axios.get(url, header).then(function (response) {
 			dispatch({
 				type: LUCKY_RESPONSE_MORE,
-				data: response.data.data,
+				data: response.data,
 				totalRecords: response.data.totalRecords
 			})
 		}).catch(function (error) {
@@ -159,7 +159,7 @@ export const getDetailData = (id) => {
 		return axios.get(url, header).then(function (response) {
 			dispatch({
 				type: LUCKY_DETAIL_RESPONSE,
-				data: response.data.data
+				data: response.data
 			})
 		}).catch(function (error) {
 			dispatch({
@@ -247,7 +247,7 @@ export const history = (id, type) => {
 			console.log(response.data)
 			dispatch({
 				type: LUCKY_HISTORY_RESPONSE,
-				data: response.data.data
+				data: response.data
 			})
 		}).catch(function (error) {
 			dispatch({
@@ -273,7 +273,7 @@ export const getRotationDetailData = (id) => {
 		return axios.get(url, header).then(function (response) {
 			dispatch({
 				type: LUCKY_ROTATION_DETAIL_RESPONSE,
-				data: response.data.data
+				data: response.data
 			})
 		}).catch(function (error) {
 			dispatch({
@@ -298,7 +298,7 @@ export const getRotationDetailDataUser = (token, id) => {
 		return axios.get(url, header).then(function (response) {
 			dispatch({
 				type: LUCKY_ROTATION_DETAIL_RESPONSE_USER,
-				data: response.data.data
+				data: response.data
 			})
 		}).catch(function (error) {
 			dispatch({
@@ -323,7 +323,7 @@ export const getTuDo = (token, id) => {
 		return axios.get(url, header).then(function (response) {
 			dispatch({
 				type: LUCKY_TU_DO,
-				data: response.data.data
+				data: response.data
 			})
 		}).catch(function (error) {
 			dispatch({
@@ -348,7 +348,7 @@ export const getVinhDanh = (id) => {
 		return axios.get(url, header).then(function (response) {
 			dispatch({
 				type: LUCKY_VINH_DANH,
-				data: response.data.data
+				data: response.data
 			})
 		}).catch(function (error) {
 			dispatch({
@@ -373,7 +373,7 @@ export const getCodeBonus = (token, id, type) => {
 		return axios.get(url, header).then(function (response) {
 			dispatch({
 				type: LUCKY_CODE_BONUS,
-				data: response.data.data
+				data: response.data
 			})
 		}).catch(function (error) {
 			dispatch({
