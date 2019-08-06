@@ -538,7 +538,7 @@ class Lucky_Rotation extends React.Component {
 		//   });
 		const {dataCodeBonus}=this.state;
 		var data=dataCodeBonus.filter(v=>v.description.indexOf(value)!==-1)
-		this.setState({countCodeBonus:data.data.length, listCodeBonus:data.data.slice(0,5)})
+		this.setState({countCodeBonus:data.length, listCodeBonus:data.slice(0,5)})
 	}
 
 	render() {
