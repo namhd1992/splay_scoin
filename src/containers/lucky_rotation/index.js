@@ -817,7 +817,7 @@ class Lucky_Rotation extends React.Component {
 					{/* <!-- Modal body --> */}
 					<div className="modal-body">
 						<h3 className="text-purple">I. Đối tượng tham gia</h3>
-						<p className="text-thele">Khách hàng có tài khoản Scoin. Nếu chưa có, đăng ký <code><a href="https://vtcmobile.vn/oauth/accounts/sso/login/" title="Đăng ký" target="_blank">tại đây</a></code>. <br />
+						<p className="text-thele">Khách hàng có tài khoản Scoin. Nếu chưa có, đăng ký <code><a href="http://scoin.vn" title="Đăng ký" target="_blank">tại đây</a></code>. <br />
 				Xác minh tài khoản Scoin tại đây nếu chưa thực hiện. <br />
 				Nạp thẻ Scoin bất kỳ mệnh giá trong thời gian từ 00:01 01/08 - 23:59 07/08/2019.</p>
 						<h3 className="text-purple">II. Cách thức tham gia sự kiện</h3>
@@ -833,7 +833,7 @@ class Lucky_Rotation extends React.Component {
           					<div class="col-4 bg-orange py-2 text-center border border-white rounded-lg"><button type="button" class="btn btn-info d-block mx-auto mb-3">Bước 2</button><p class="text-dark">Chơi vòng quay </p> <p class="font-weight-bold text-success my-1">&nabla;</p> <p class="text-dark">Nhận mã dự thưởng</p></div>          
           					<div class="col-4 bg-orange py-2 text-center border border-white rounded-lg"><button type="button" class="btn btn-success d-block mx-auto mb-3">Bước 3</button><p class="text-dark">So mã dự thưởng với KQ XSMB <br /> 18:30 ngày 08/08/2019</p></div>  
 						</div>
-						<p className="text-thele pt-3">Bước 1: Đăng nhập tài khoản Scoin <code><a href="https://vtcmobile.vn/oauth/accounts/sso/login/" title="Đăng ký" target="_blank">tại đây</a></code> và thực hiện nạp tiền qua kênh thẻ cào Scoin. <br />
+						<p className="text-thele pt-3">Bước 1: Đăng nhập tài khoản Scoin <code><a href="http://scoin.vn" title="Đăng ký" target="_blank">tại đây</a></code> và thực hiện nạp tiền qua kênh thẻ cào Scoin. <br />
 				Bước 2: Nhận lượt quay miễn phí, tương ứng với thẻ Scoin nạp thành công:</p>
 						<div className="table-responsive">
 							<table className="table table-bordered text-center text-thele">
