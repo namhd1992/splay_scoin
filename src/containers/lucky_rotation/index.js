@@ -317,9 +317,12 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	btnStart=()=>{
-		this.setState({data_auto:[]},()=>{
-			this.start();
-		})
+		const {wheelSpinning}=this.state;
+		if(!wheelSpinning){
+			this.setState({data_auto:[]},()=>{
+				this.start();
+			})
+		}	
 	}
 
 	startSpin=(segmentNumber)=>{
@@ -360,19 +363,15 @@ class Lucky_Rotation extends React.Component {
 		if(auto){
 			var intervalId = setInterval(this.autoRotation, 2000);
 			$('#myModal9').modal('show');
-   			this.setState({intervalId: intervalId, isSpin: true, closeAuto:false});
+   			this.setState({intervalId: intervalId, isSpin: true, closeAuto:false, wheelSpinning: false});
 			
 		}else{
 			if(itemBonus.type!=="ACTION"){
 				$('#myModal4').modal('show');
 			}
-			this.setState({isSpin: false, closeAuto:true});
+			this.setState({isSpin: false, closeAuto:true, wheelSpinning: false});
 			this.getDetailData()
 		}
-		
-		
-		
-		
 	}
 
 	handleChange = () => {
