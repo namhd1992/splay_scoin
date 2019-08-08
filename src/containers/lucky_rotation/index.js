@@ -622,7 +622,7 @@ class Lucky_Rotation extends React.Component {
 
 			<div className="container jumbotron">
 				<h2 className="d-block btn-ketqua text-center">Kết quả quay số</h2>
-				<h4 className="text-center py-2 d-block w-100">Tự động cập nhật theo KQ XSMB lúc 18:30 ngày 08/08/2019</h4>
+				<h4 className="text-center py-2 d-block w-100">Tự động cập nhật theo KQ XSMB lúc 18:30 ngày 26/08/2019</h4>
 			
 				<div className="card-deck">
 					<div className="card">
@@ -711,7 +711,7 @@ class Lucky_Rotation extends React.Component {
 						<a className="nav-link btn-dv text-uppercase text-nowrap" href="https://scoin.vn/nap-game" title="Nạp scoin" target="_blank">Nạp scoin</a>
 						</li>
 						<li className="nav-item">
-						<a className="nav-link btn-dv text-uppercase text-nowrap" href="tel:19001104" title="Hotline hỗ trợ">Hotline hỗ trợ</a>
+						<a className="nav-link btn-dv text-uppercase text-nowrap" href="tel:19001104" title="Hotline hỗ trợ">HOT LINE: 19001104</a>
 						</li>
 					</ul>
 				</div>
@@ -818,7 +818,7 @@ class Lucky_Rotation extends React.Component {
 						<h3 className="text-purple">I. Đối tượng tham gia</h3>
 						<p className="text-thele">Khách hàng có tài khoản Scoin. Nếu chưa có, đăng ký <code><a href="http://scoin.vn" title="Đăng ký" target="_blank">tại đây</a></code>. <br />
 				Xác minh tài khoản Scoin tại đây nếu chưa thực hiện. <br />
-				Nạp thẻ Scoin bất kỳ mệnh giá trong thời gian từ 00:01 01/08 - 23:59 07/08/2019.</p>
+				Nạp thẻ Scoin bất kỳ mệnh giá trong thời gian từ  00:01 19/08 - 23:59 25/08/2019.</p>
 						<h3 className="text-purple">II. Cách thức tham gia sự kiện</h3>
 						<div style={{display:'flex'}}>
 							{/* <div className="bg-orange px-0 py-2 text-center" style={{borderRadius: 4, flex:1}}>Đăng nhập Scoin <br />+<br /> Xác thực số điện thoại</div>
@@ -830,7 +830,7 @@ class Lucky_Rotation extends React.Component {
 							<div className="bg-orange px-0 py-2 text-center" style={{borderRadius: 4, flex:1}}>So mã dự thưởng với KQXS vào lúc 18h30' ngày 08/08/2019</div> */}
 							<div class="col-4 bg-orange py-2 text-center border border-white rounded-lg"><button type="button" class="btn btn-primary d-block mx-auto mb-3">Bước 1</button><p class="text-dark">Nạp ví/ Nạp game(dùng Scoin)</p> <p class="font-weight-bold text-success my-1">&nabla;</p> <p class="text-dark">Nhận lượt chơi</p></div>          
           					<div class="col-4 bg-orange py-2 text-center border border-white rounded-lg"><button type="button" class="btn btn-info d-block mx-auto mb-3">Bước 2</button><p class="text-dark">Chơi vòng quay </p> <p class="font-weight-bold text-success my-1">&nabla;</p> <p class="text-dark">Nhận mã dự thưởng</p></div>          
-          					<div class="col-4 bg-orange py-2 text-center border border-white rounded-lg"><button type="button" class="btn btn-success d-block mx-auto mb-3">Bước 3</button><p class="text-dark">So mã dự thưởng với KQ XSMB <br /> 18:30 ngày 08/08/2019</p></div>  
+          					<div class="col-4 bg-orange py-2 text-center border border-white rounded-lg"><button type="button" class="btn btn-success d-block mx-auto mb-3">Bước 3</button><p class="text-dark">So mã dự thưởng với KQ XSMB <br /> 18:30 ngày 26/08/2019</p></div>  
 						</div>
 						<p className="text-thele pt-3">Bước 1: Đăng nhập tài khoản Scoin <code><a href="http://scoin.vn" title="Đăng ký" target="_blank">tại đây</a></code> và thực hiện nạp tiền qua kênh thẻ cào Scoin. <br />
 				Bước 2: Nhận lượt quay miễn phí, tương ứng với thẻ Scoin nạp thành công:</p>
@@ -898,7 +898,7 @@ class Lucky_Rotation extends React.Component {
 							</table>
 						</div>
 						<p className="text-thele">Bước 3: Tham gia vòng quay để nhận Mã dự thưởng & thẻ Scoin. <br />
-				Bước 4: Mã dự thưởng dùng để đối chiếu với KQ XSMB ngày 08/08/19 để xác định trúng thưởng:</p>
+				Bước 4: Mã dự thưởng dùng để đối chiếu với KQ XSMB ngày 26/08/19 để xác định trúng thưởng:</p>
 						<div className="table-responsive">
 							<table className="table table-bordered w-100 text-center text-thele">
 								<thead>
@@ -916,7 +916,7 @@ class Lucky_Rotation extends React.Component {
 						<h3 className="text-purple">III. Cách thức nhận giải thưởng</h3>
 						<p className="text-thele">Đối với phần thưởng là thẻ Scoin: sẽ được lưu trữ trong Tủ đồ sự kiện. Khách hàng có thể
 				xem và sử dụng trực tiếp để nạp điện thoại hoặc nạp vào các game của VTC Mobile.
-				Đối với phần thưởng là Mã dự thưởng: Sau khi kết quả XSMB ngày 08/08/2019 được
+				Đối với phần thưởng là Mã dự thưởng: Sau khi kết quả XSMB ngày 26/08/2019 được
 				công bố, BTC sẽ cập nhật thông tin của khách hàng trúng thưởng trong Bảng vinh danh.
 				Khách hàng trúng giải liên hệ Hotline 1900 1104 để được hướng dẫn lên nhận thưởng
 				trực tiếp tại trụ sở Công ty cổ phần VTC Dịch vụ di động - tầng 11, tòa nhà VTC Online,
@@ -1074,7 +1074,7 @@ class Lucky_Rotation extends React.Component {
 											<span className="pt-1 d-block">Mã số dự thưởng Xe máy Honda Air Blade và Điện thoại iPhone XS Max đã được lưu trong Mã dự thưởng.</span>
 										</div>
 									
-										<p className="small pt-2 mb-2 text-center">So Mã số dự thưởng với KQ XSMB vào lúc xx giờ ngày 08/08/2019.<br /><label title="Xem phần thưởng" className="underline pt-2 d-block" style={{color:"#fff", cursor:'pointer'}} onClick={this.showModalCodeBonus}>Xem phần thưởng</label></p>
+										<p className="small pt-2 mb-2 text-center">So Mã số dự thưởng với KQ XSMB vào lúc 18:30 ngày 26/08/2019.<br /><label title="Xem phần thưởng" className="underline pt-2 d-block" style={{color:"#fff", cursor:'pointer'}} onClick={this.showModalCodeBonus}>Xem phần thưởng</label></p>
 										<button type="button" className="btn btn-xacnhan text-white btn-block text-center" onClick={this.hideModalDetailBonus}>Xác nhận</button>
 									</div>
 									):(
