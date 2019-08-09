@@ -162,12 +162,8 @@ class Lucky_Rotation extends React.Component {
 				}
 			});
 		}
-		this.props.getVinhDanh(0).then(()=>{
-			var data=this.props.dataVinhDanh;
-			if(data.status==='01'){	
-				this.setState({dataVinhDanh:data.data, countVinhDanh:data.data.length, listVinhDanh:data.data.slice(0, 10)})
-			}
-		});
+		this.getVinhDanh();
+		
 		let theWheel = new Wheel({
 			'numSegments'       : 10,         // Specify number of segments.
 			'outerRadius'       : 150,       // Set outer radius so wheel fits inside the background.
@@ -209,6 +205,15 @@ class Lucky_Rotation extends React.Component {
 	componentWillUnmount() {
 		clearInterval(this.state.intervalId);
 		this.setState({ auto : !this.state.auto});
+	}
+
+	getVinhDanh=()=>{
+		this.props.getVinhDanh(0).then(()=>{
+			var data=this.props.dataVinhDanh;
+			if(data.status==='01'){	
+				this.setState({dataVinhDanh:data.data, countVinhDanh:data.data.length, listVinhDanh:data.data.slice(0, 10)})
+			}
+		});
 	}
 
 	getStatus=(luckySpin)=>{
@@ -285,7 +290,7 @@ class Lucky_Rotation extends React.Component {
 									setTimeout(()=>{
 										this.setState({noti_tudo:true})
 									},2000)
-									
+									this.getVinhDanh();	
 								}
 								this.setState({code:false})
 								
@@ -319,7 +324,7 @@ class Lucky_Rotation extends React.Component {
 	btnStart=()=>{
 		const {wheelSpinning}=this.state;
 		if(!wheelSpinning){
-			this.setState({data_auto:[]},()=>{
+			this.setState({data_auto:[], closeAuto:true},()=>{
 				this.start();
 			})
 		}	
@@ -487,7 +492,7 @@ class Lucky_Rotation extends React.Component {
 
 	closePopupAuto=()=>{
 		clearInterval(this.state.intervalId);
-		this.setState({ isSpin:false, wheelSpinning:false, closeAuto:false});
+		this.setState({ isSpin:false, closeAuto:false});
 		$('#myModal9').modal('hide');
 	}
 
@@ -918,13 +923,13 @@ class Lucky_Rotation extends React.Component {
 				xem và sử dụng trực tiếp để nạp điện thoại hoặc nạp vào các game của VTC Mobile.
 				Đối với phần thưởng là Mã dự thưởng: Sau khi kết quả XSMB ngày 26/08/2019 được
 				công bố, BTC sẽ cập nhật thông tin của khách hàng trúng thưởng trong Bảng vinh danh.
-				Khách hàng trúng giải liên hệ Hotline 1900 1104 để được hướng dẫn lên nhận thưởng
+				Khách hàng trúng giải liên hệ Hotline <a style={{textDecoration:'underline'}} href="tel:19001104" title="Hotline hỗ trợ">19001104</a> để được hướng dẫn lên nhận thưởng
 				trực tiếp tại trụ sở Công ty cổ phần VTC Dịch vụ di động - tầng 11, tòa nhà VTC Online,
 				số 18 Tam Trinh, Hai Bà Trưng, Hà Nội.</p>
 						<p className="text-thele"><code>Lưu ý:</code> Khi đến nhận giải thưởng, khách hàng cần đem theo giấy tờ tùy thân (CMND/ CCCD/ Hộ chiếu còn hiệu lực.</p>
 						<p className="text-thele">Theo khoản 6, điều 3, chương 1 của Luật thuế thu nhập cá nhân, những người may mắn
 				trúng giải thưởng hiện vật có giá trị kinh tế cao có nghĩa vụ nộp thuế theo quy định của
-				Nhà nước. Thông tin chi tiết xem tại đây.</p>
+				Nhà nước. Thông tin chi tiết xem <code><a href="https://www.mof.gov.vn/webcenter/portal/mttpltc/r/m/pchtrphlu/pchtrthtu/pchtrthtu_chitiet;jsessionid=ThZz4VGQnL0QgNbLB0nacaTsM1vAIiOZGx9z8hGOoXitxa62VKmY!304837975!1847050008?centerWidth=100%25&dDocName=BTC260955&dID=31536&leftWidth=0%25&rightWidth=0%25&showFooter=false&showHeader=false&_adf.ctrl-state=1a8d3rpn02_4&_afrLoop=75399789223796617#!%40%40%3F_afrLoop%3D75399789223796617%26centerWidth%3D100%2525%26dDocName%3DBTC260955%26dID%3D31536%26leftWidth%3D0%2525%26rightWidth%3D0%2525%26showFooter%3Dfalse%26showHeader%3Dfalse%26_adf.ctrl-state%3D6d4nwzwwd_4" title="Luật thuế" target="_blank">tại đây</a></code>.</p>
 						<h3 className="text-purple">IV. Thời gian trao thưởng</h3>
 						<p className="text-thele">Công ty cổ phần VTC Dịch vụ di động sẽ trao giải thưởng cho khách hàng chậm nhất
 				sau 15 ngày làm việc kể từ khi kết thúc sự kiện.</p>
