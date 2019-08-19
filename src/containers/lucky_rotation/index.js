@@ -630,7 +630,7 @@ class Lucky_Rotation extends React.Component {
 					</div>
 					<div className="btn-logout">
 						{(isLogin)?(<div><p className="p-0 m-0 text-center">Xin chào {userTurnSpin.currName}</p>
-						<h5 className="text-center"><a style={{cursor:'pointer'}} title="Đăng xuất" onClick={this.logoutAction}>Đăng xuất</a></h5></div>):(<h5 className="text-center"><a style={{cursor:'pointer'}} title="Đăng nhập" onClick={this.loginAction}>Đăng nhập</a></h5>)}
+						<h5 className="text-center" onClick={this.logoutAction}><a style={{cursor:'pointer'}} title="Đăng xuất" >Đăng xuất</a></h5></div>):(<h5 className="text-center" onClick={this.loginAction}><a style={{cursor:'pointer'}} title="Đăng nhập" >Đăng nhập</a></h5>)}
 						
 					</div>
 					<div className="btn-quay">
