@@ -1383,7 +1383,7 @@ class Lucky_Rotation extends React.Component {
 						<div class="modal-body">
 							<div class="table-responsive mt-2">              
 								<h5 class="text-thele lead text-center">Thông báo bảo trì!</h5>
-								<h5 class="text-thele lead text-center">Hệ thống đang được nâng cấp để tối ưu. Vui lòng quy lại sau 10 phút.</h5>
+								<h5 class="text-thele lead text-center">Hệ thống đang được nâng cấp để tối ưu. Vui lòng quay lại sau 10 phút.</h5>
 								<h5 class="text-thele lead text-center">Xin lỗi vì sự bất tiện này</h5>
 								<button type="button" class="btn btn-xacnhan text-white btn-block text-center py-4" onClick={this.closeServerErr}>Xác nhận</button>
 							</div>       
