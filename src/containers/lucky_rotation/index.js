@@ -307,7 +307,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	start=()=>{
-		const {turnsFree, itemOfSpin, luckySpin, isSpin, closeAuto}=this.state;
+		const {turnsFree, itemOfSpin, luckySpin, isSpin, closeAuto, finished}=this.state;
 		var _this = this;
 		var user = JSON.parse(localStorage.getItem("user"));
 		var time=Date.now();
@@ -315,53 +315,57 @@ class Lucky_Rotation extends React.Component {
 			$('#myModal8').modal('show');
 		}else{
 			if (user !== null) {
-				if(turnsFree>0){
-					this.props.pickCard(user.access_token, luckySpin.id).then(()=>{
-						var data=_this.props.dataPick;
-						var list=this.state.data_auto;
-						if(data!==undefined){
-							if(data.status ==="01"){
-								if(data.data.item.type==="LUCKY_NUMBER"){
-									this.setState({code:true})
-									setTimeout(()=>{
-										this.setState({noti_mdt:true})
-									},2000)
-								}else{
-									if(data.data.item.type!=="ACTION"){
+				if(!finished){
+					if(turnsFree>0){
+						this.props.pickCard(user.access_token, luckySpin.id).then(()=>{
+							var data=_this.props.dataPick;
+							var list=this.state.data_auto;
+							if(data!==undefined){
+								if(data.status ==="01"){
+									if(data.data.item.type==="LUCKY_NUMBER"){
+										this.setState({code:true})
 										setTimeout(()=>{
-											this.setState({noti_tudo:true})
+											this.setState({noti_mdt:true})
 										},2000)
-										this.getVinhDanh();	
+									}else{
+										if(data.data.item.type!=="ACTION"){
+											setTimeout(()=>{
+												this.setState({noti_tudo:true})
+											},2000)
+											this.getVinhDanh();	
+										}
+										this.setState({code:false})
+										
 									}
-									this.setState({code:false})
-									
+									list.push(data.data.item.name);
+									var id=_this.props.dataPick.data.id;
+									var pos = itemOfSpin.map(function(e) { return e.id; }).indexOf(id);
+									this.resetWheel();
+									if(!isSpin && closeAuto){
+										this.startSpin(pos+1);
+									}	
+									_this.setState({itemBonus: data.data.item, data_auto: list, closeAuto:true});
+								}else if(data.status ==="04"){
+									$('#myModal13').modal('show');
+								}else if(data.status ==="07"){
+										this.setState({message_status:"Sự kiện chưa diễn ra hoặc đã kết thúc."},()=>{
+										$('#myModal8').modal('show');
+									})
+								}else{
+									$('#myModal11').modal('show');
+									this.setState({message_error:'Vòng quay đang có lỗi. Vui lòng tải lại trang.'})
 								}
-								list.push(data.data.item.name);
-								var id=_this.props.dataPick.data.id;
-								var pos = itemOfSpin.map(function(e) { return e.id; }).indexOf(id);
-								this.resetWheel();
-								if(!isSpin && closeAuto){
-									this.startSpin(pos+1);
-								}	
-								_this.setState({itemBonus: data.data.item, data_auto: list, closeAuto:true});
-							}else if(data.status ==="04"){
-								$('#myModal13').modal('show');
-							}else if(data.status ==="07"){
-									this.setState({message_status:"Sự kiện chưa diễn ra hoặc đã kết thúc."},()=>{
-									$('#myModal8').modal('show');
-								})
 							}else{
-								$('#myModal11').modal('show');
-								this.setState({message_error:'Vòng quay đang có lỗi. Vui lòng tải lại trang.'})
+								$('#myModal12').modal('show');
+								this.setState({server_err:true})
 							}
-						}else{
-							$('#myModal12').modal('show');
-							this.setState({server_err:true})
-						}
-					})
-					
+						})
+						
+					}else{
+						$('#myModal6').modal('show');
+					}
 				}else{
-					$('#myModal6').modal('show');
+					$('#myModal13').modal('show');
 				}
 			} else {
 				$('#myModal5').modal('show');
