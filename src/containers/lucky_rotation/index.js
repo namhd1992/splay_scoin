@@ -117,6 +117,7 @@ class Lucky_Rotation extends React.Component {
 			closeAuto:true,
 			message_error:'',
 			server_err:false,
+			finished:false,
 		};
 	}
 	componentWillMount(){
@@ -150,7 +151,11 @@ class Lucky_Rotation extends React.Component {
 			this.props.getRotationDetailDataUser(user.access_token, 0).then(()=>{
 				var data=this.props.dataRotationWithUser;
 				if(data!==undefined){
+					console.log(data.itemOfSpin)
 					if(data.status==='01'){
+						if(data.data.itemOfSpin[1].quantity===0 && data.data.itemOfSpin[4].quantity===0){
+							this.setState({finished:true})
+						}
 						this.getStatus(data.data.luckySpin)
 						this.setState({userTurnSpin:data.data.userTurnSpin, itemOfSpin:data.data.itemOfSpin, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), isLogin:true})
 					}else{
@@ -166,9 +171,11 @@ class Lucky_Rotation extends React.Component {
 		} else {
 			this.props.getRotationDetailData(0).then(()=>{
 				var data=this.props.dataRotation;
-				console.log(data)
 				if(data!==undefined){
 					if(data.status==='01'){
+						if(data.data.itemOfSpin[1].quantity===0 && data.data.itemOfSpin[4].quantity===0){
+							this.setState({finished:true})
+						}
 						this.getStatus(data.data.luckySpin)
 						this.setState({userTurnSpin:data.data.userTurnSpin, itemOfSpin:data.data.itemOfSpin, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), isLogin:false})
 					}else{
@@ -336,6 +343,8 @@ class Lucky_Rotation extends React.Component {
 									this.startSpin(pos+1);
 								}	
 								_this.setState({itemBonus: data.data.item, data_auto: list, closeAuto:true});
+							}else if(data.status ==="04"){
+								$('#myModal13').modal('show');
 							}else if(data.status ==="07"){
 									this.setState({message_status:"Sự kiện chưa diễn ra hoặc đã kết thúc."},()=>{
 									$('#myModal8').modal('show');
@@ -450,6 +459,8 @@ class Lucky_Rotation extends React.Component {
 						clearInterval(this.state.intervalId);
 					}
 					this.setState({turnsFree:turnsFree})
+				}else if(data.status ==="04"){
+					$('#myModal13').modal('show');
 				}else{
 					$('#myModal11').modal('show');
 					this.setState({message_error:'Lỗi hệ thống. Vui lòng thử lại.'})
@@ -580,6 +591,10 @@ class Lucky_Rotation extends React.Component {
 		$('#myModal12').modal('hide');
 	}
 
+	closePopupFinish=()=>{
+		$('#myModal13').modal('hide');
+	}
+
 	// hideModalCode=()=>{
 	// 	$('#myModal7').modal('hide');
 	// }
@@ -619,7 +634,7 @@ class Lucky_Rotation extends React.Component {
 
 	render() {
 		const {height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second, code,numberPage, img_status, message_status, data_auto,message_error,
-			 activeTuDo, activeCodeBonus, activeVinhDanh, numberItemInpage, countCodeBonus, countTuDo, countVinhDanh, listCodeBonus, listTuDo, listVinhDanh,itemBonus, turnsFree, noti_mdt, noti_tudo}=this.state;
+			 activeTuDo, activeCodeBonus, activeVinhDanh, numberItemInpage, countCodeBonus, countTuDo, countVinhDanh, listCodeBonus, listTuDo, listVinhDanh,itemBonus, turnsFree, noti_mdt, noti_tudo, finished}=this.state;
 		const { classes } = this.props;
 		const notification_mdt=noti_mdt?(<span class="badge badge-pill badge-danger position-absolute noti-mdt">!</span>):(<span></span>);
 		const notification_tudo=noti_tudo?(<span class="badge badge-pill badge-danger position-absolute noti-tudo">!</span>):(<span></span>);
@@ -646,6 +661,11 @@ class Lucky_Rotation extends React.Component {
 									<td align="center" className="p-0 h6">Giây</td>
 								</tr>
 							</table>
+							{(finished)?(<div class="alert alert-danger text-center">
+								<p class="text-dark mb-0">Đã phát hết Mã dự thưởng</p>
+								<h2>100,000 / 100,000</h2>
+							</div>):(<div></div>)}
+							
 							</div>
 						</div> 
 					</div>
@@ -1392,6 +1412,32 @@ class Lucky_Rotation extends React.Component {
 						</div>
 					</div>
 				</div>
+
+				<div class="modal fade" id="myModal13">
+					<div class="modal-dialog">
+						<div class="modal-content popup-phanthuong">
+
+						{/* <!-- Modal Header --> */}
+						<div class="modal-header border-bottom-0">
+							<h4 class="modal-title w-100 text-center"><img src={img_thongbao} alt="" /></h4>
+							<button type="button" class="close" data-dismiss="modal"><img src={btn_close} alt="Đóng" /></button>
+						</div>
+
+						{/* <!-- Modal body --> */}
+						<div class="modal-body">
+							<div class="table-responsive mt-2">           
+								<h5 class="text-thele lead text-center">Mã dự thưởng & thẻ Scoin đã được phát hết do số lượng người tham dự sự kiện quá lớn.</h5>
+								<h5 class="text-thele lead text-center">BTC xin thông báo ngưng phát Mã dự thưởng sớm hơn dự kiến ban đầu và dừng Vòng quay.</h5>
+								<h5 class="text-thele lead text-center" style={{color:'red'}}>Thời điểm so Mã dự thưởng nhận Xe máy Airblade và Điện thoại Xiaomi Black Shark2 vẫn diễn ra vào đúng 18:30 ngày 26/08/2019 theo KQ XSMB.</h5>
+								<h5 class="text-thele lead text-center">BTC trân trọng kính báo tới quý khách hàng.</h5>
+								<button type="button" class="btn btn-xacnhan text-white btn-block text-center py-4" onClick={this.closePopupFinish}>Xác nhận</button>
+							</div>       
+						</div>
+
+						</div>
+					</div>
+				</div>
+
 
 		</div>)
 	}
