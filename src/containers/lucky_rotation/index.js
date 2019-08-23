@@ -151,10 +151,10 @@ class Lucky_Rotation extends React.Component {
 			this.props.getRotationDetailDataUser(user.access_token, 0).then(()=>{
 				var data=this.props.dataRotationWithUser;
 				if(data!==undefined){
-					console.log(data.itemOfSpin)
 					if(data.status==='01'){
 						if(data.data.itemOfSpin[1].quantity===0 && data.data.itemOfSpin[4].quantity===0){
 							this.setState({finished:true})
+							$('#myModal13').modal('show');
 						}
 						this.getStatus(data.data.luckySpin)
 						this.setState({userTurnSpin:data.data.userTurnSpin, itemOfSpin:data.data.itemOfSpin, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), isLogin:true})
@@ -175,6 +175,7 @@ class Lucky_Rotation extends React.Component {
 					if(data.status==='01'){
 						if(data.data.itemOfSpin[1].quantity===0 && data.data.itemOfSpin[4].quantity===0){
 							this.setState({finished:true})
+							$('#myModal13').modal('show');
 						}
 						this.getStatus(data.data.luckySpin)
 						this.setState({userTurnSpin:data.data.userTurnSpin, itemOfSpin:data.data.itemOfSpin, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), isLogin:false})
