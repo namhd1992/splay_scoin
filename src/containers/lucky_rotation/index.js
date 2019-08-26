@@ -767,7 +767,7 @@ class Lucky_Rotation extends React.Component {
 							<img src={honda} alt="Xe máy" className="img-fluid" />
 						</div>
 						<h5 className="card-title">Mã số trúng thưởng</h5>
-						<h5 className="card-title" style={{color:'red'}}>Chưa có</h5>
+						<h5 className="card-title" style={{color:'red'}}>58963</h5>
 						</div>
 					</div>
 					<div className="card">
@@ -778,7 +778,7 @@ class Lucky_Rotation extends React.Component {
 							<img src={xiaomi_black} alt="Iphone" width="322" className="img-fluid" />
 						</div>
 						<h5 className="card-title">Mã số trúng thưởng</h5>
-						<h5 className="card-title" style={{color:'red'}}>Chưa có</h5>
+						<h5 className="card-title" style={{color:'red'}}>95499</h5>
 						</div>
 					</div>      
 				</div>
@@ -796,15 +796,15 @@ class Lucky_Rotation extends React.Component {
 						<tbody className="top-12">
 						<tr>
 							<td></td>
-							<td>Chưa có</td>
+							<td>fb_122598875416***</td>
 							<td>Xe máy Honda Airblade 2019</td>
-							<td>Chưa có</td>
+							<td>18:30:00 26-08-2019</td>
 						</tr>
 						<tr>
 							<td></td>
-							<td>Chưa có</td>
+							<td>tiach***</td>
 							<td>Xiaomi Black Shark 2</td>
-							<td>Chưa có</td>
+							<td>18:30:00 26-08-2019</td>
 						</tr>              
 						</tbody>
 					</table>
