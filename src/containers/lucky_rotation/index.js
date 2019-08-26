@@ -160,8 +160,14 @@ class Lucky_Rotation extends React.Component {
 				if(data!==undefined){
 					if(data.status==='01'){
 						if(data.data.itemOfSpin[1].quantity===0 && data.data.itemOfSpin[4].quantity===0){
+							var time=(1566815400000-Date.now())/1000;
 							this.setState({finished:true})
-							$('#myModal13').modal('show');
+							if(time>0){
+								$('#myModal13').modal('show');
+							}else{
+								$('#myModal14').modal('show');
+							}
+							
 						}
 						this.getStatus(data.data.luckySpin)
 						this.setState({userTurnSpin:data.data.userTurnSpin, itemOfSpin:data.data.itemOfSpin, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), isLogin:true, linkLiveStream:data.data.luckySpin.linkLiveStream})
@@ -181,8 +187,13 @@ class Lucky_Rotation extends React.Component {
 				if(data!==undefined){
 					if(data.status==='01'){
 						if(data.data.itemOfSpin[1].quantity===0 && data.data.itemOfSpin[4].quantity===0){
+							var time=(1566815400000-Date.now())/1000;
 							this.setState({finished:true})
-							$('#myModal13').modal('show');
+							if(time>0){
+								$('#myModal13').modal('show');
+							}else{
+								$('#myModal14').modal('show');
+							}
 						}
 						this.getStatus(data.data.luckySpin)
 						this.setState({userTurnSpin:data.data.userTurnSpin, itemOfSpin:data.data.itemOfSpin, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), isLogin:false, linkLiveStream:data.data.luckySpin.linkLiveStream})
