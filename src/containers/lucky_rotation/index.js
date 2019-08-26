@@ -55,7 +55,9 @@ import img_thele from './images/img-thele.png';
 import img_tudo from './images/img-tudo.png';
 import img_maduthuong from './images/img-maduthuong.png';
 import img_thongbao from './images/img-thongbao.png';
+import img_livestream from './images/img-livestream.png';
 import muiten from './images/muiten.png';
+import spin from './images/spin.gif';
 import $ from 'jquery';
 import 'bootstrap';
 
@@ -118,6 +120,10 @@ class Lucky_Rotation extends React.Component {
 			message_error:'',
 			server_err:false,
 			finished:false,
+			hour_live:'00', 
+			minute_live:'00', 
+			second_live:'00',
+			linkLiveStream:'',
 		};
 	}
 	componentWillMount(){
@@ -147,6 +153,7 @@ class Lucky_Rotation extends React.Component {
 	componentDidMount(){
 		const {img_width, img_height}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
+		this.timeRemain();
 		if (user !== null) {
 			this.props.getRotationDetailDataUser(user.access_token, 0).then(()=>{
 				var data=this.props.dataRotationWithUser;
@@ -157,7 +164,7 @@ class Lucky_Rotation extends React.Component {
 							$('#myModal13').modal('show');
 						}
 						this.getStatus(data.data.luckySpin)
-						this.setState({userTurnSpin:data.data.userTurnSpin, itemOfSpin:data.data.itemOfSpin, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), isLogin:true})
+						this.setState({userTurnSpin:data.data.userTurnSpin, itemOfSpin:data.data.itemOfSpin, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), isLogin:true, linkLiveStream:data.data.luckySpin.linkLiveStream})
 					}else{
 						$('#myModal11').modal('show');
 						this.setState({message_error:'Không lấy được dữ liệu người dùng. Vui lòng tải lại trang.'})
@@ -178,7 +185,7 @@ class Lucky_Rotation extends React.Component {
 							$('#myModal13').modal('show');
 						}
 						this.getStatus(data.data.luckySpin)
-						this.setState({userTurnSpin:data.data.userTurnSpin, itemOfSpin:data.data.itemOfSpin, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), isLogin:false})
+						this.setState({userTurnSpin:data.data.userTurnSpin, itemOfSpin:data.data.itemOfSpin, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), isLogin:false, linkLiveStream:data.data.luckySpin.linkLiveStream})
 					}else{
 						$('#myModal11').modal('show');
 						this.setState({message_error:'Không lấy được dữ liệu.  Vui lòng tải lại trang.'})
@@ -491,15 +498,18 @@ class Lucky_Rotation extends React.Component {
 	// 	}
 	// }
 
-	timeRemain=(toDate)=>{
+	timeRemain=()=>{
 		var _this=this;
 		setInterval(()=>{
-			var time=(toDate-Date.now())/1000;
-			var day=Math.floor(time/86400) > 9 ? Math.floor(time/86400) : `0${Math.floor(time/86400)}`;
-			var hour=Math.floor((time%86400)/3600) > 9 ? Math.floor((time%86400)/3600) : `0${Math.floor((time%86400)/3600)}`;
-			var minute=Math.floor(((time%86400)%3600)/60) > 9 ? Math.floor(((time%86400)%3600)/60) : `0${Math.floor(((time%86400)%3600)/60)}`;
-			var second=Math.ceil(((time%86400)%3600)%60) > 9 ? Math.ceil(((time%86400)%3600)%60) : `0${Math.ceil(((time%86400)%3600)%60)}`;
-			_this.setState({day:day, hour: hour, minute: minute, second:second})
+			var time=(1566815400000-Date.now())/1000;
+			if(time>0){
+				var day=Math.floor(time/86400) > 9 ? Math.floor(time/86400) : `0${Math.floor(time/86400)}`;
+				var hour=Math.floor((time%86400)/3600) > 9 ? Math.floor((time%86400)/3600) : `0${Math.floor((time%86400)/3600)}`;
+				var minute=Math.floor(((time%86400)%3600)/60) > 9 ? Math.floor(((time%86400)%3600)/60) : `0${Math.floor(((time%86400)%3600)/60)}`;
+				var second=Math.ceil(((time%86400)%3600)%60) > 9 ? Math.ceil(((time%86400)%3600)%60) : `0${Math.ceil(((time%86400)%3600)%60)}`;
+				// _this.setState({day:day, hour: hour, minute: minute, second:second})
+				_this.setState({hour_live: hour, minute_live: minute, second_live:second})
+			}
 		}, 1000);
 	}
 
@@ -637,9 +647,20 @@ class Lucky_Rotation extends React.Component {
 		this.setState({countCodeBonus:data.length, listCodeBonus:data.slice(0,5)})
 	}
 
+	showPopupLiveStream=()=>{
+		var time=(1566815400000-Date.now())/1000;
+		if(time>0){
+			this.setState({message_error:'Chưa đến thời điểm live stream'},()=>{
+				$('#myModal11').modal('show');
+			})
+		}else{
+			$('#myModal14').modal('show');
+		}
+	}
+
 	render() {
-		const {height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second, code,numberPage, img_status, message_status, data_auto,message_error,
-			 activeTuDo, activeCodeBonus, activeVinhDanh, numberItemInpage, countCodeBonus, countTuDo, countVinhDanh, listCodeBonus, listTuDo, listVinhDanh,itemBonus, turnsFree, noti_mdt, noti_tudo, finished}=this.state;
+		const {height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second, code,numberPage, img_status, message_status, data_auto,message_error,linkLiveStream,
+			 activeTuDo, activeCodeBonus, activeVinhDanh, numberItemInpage, countCodeBonus, countTuDo, countVinhDanh, listCodeBonus, listTuDo, listVinhDanh,itemBonus, turnsFree, noti_mdt, noti_tudo, finished, hour_live, minute_live, second_live}=this.state;
 		const { classes } = this.props;
 		const notification_mdt=noti_mdt?(<span class="badge badge-pill badge-danger position-absolute noti-mdt">!</span>):(<span></span>);
 		const notification_tudo=noti_tudo?(<span class="badge badge-pill badge-danger position-absolute noti-tudo">!</span>):(<span></span>);
@@ -677,7 +698,7 @@ class Lucky_Rotation extends React.Component {
 					<p className="btn-thamgiangay"><a href="#p2" title="Tham gia ngay"><img src={thamgiangay} alt="Tham gia ngay" width="200" className="img-fluid" /></a></p>
 					<div className="position-absolute-p1">
 						<ul className="nav flex-column menu-left-p1">
-							<li className="pt-6"><a href="http://sandbox.scoin.vn/nap-tien" title="Nạp Scoin" target="_blank">Nạp Scoin</a></li>
+							<li className="pt-6"><a href="http://scoin.vn/nap-tien" title="Nạp Scoin" target="_blank">Nạp Scoin</a></li>
 							<li className="pt-5b"><a href="#" title="Thể lệ" onClick={this.showModalRules}>Thể lệ</a></li>
 							<li className="pt-5b"><a href="#" title="Phần thưởng" onClick={this.showModalBonus}>Phần thưởng</a></li>
 							<li className="pt-5a"><a href="#bvd" title="Vinh danh">Vinh danh</a></li>
@@ -810,13 +831,16 @@ class Lucky_Rotation extends React.Component {
 						<a className="nav-link btn-dv text-uppercase text-nowrap" href="https://www.facebook.com/scoinvtcmobile/" title="Nhận thông báo sk" target="_blank">Nhận thông báo sk</a>
 						</li>
 						<li className="nav-item">
-						<a className="nav-link btn-dv text-uppercase text-nowrap" href="http://sandbox.scoin.vn/nap-tien" title="Nạp scoin" target="_blank">Nạp scoin</a>
+						<a className="nav-link btn-dv text-uppercase text-nowrap" href="http://scoin.vn/nap-tien" title="Nạp scoin" target="_blank">Nạp scoin</a>
 						</li>
 						<li className="nav-item">
 						<a className="nav-link btn-dv text-uppercase text-nowrap" href="tel:19001104" title="Hotline hỗ trợ">HOT LINE: 19001104</a>
 						</li>
 					</ul>
 				</div>
+			</div>
+			<div class="button-bt">
+				<button type="button" class="btn fixed-bottom btn-dv btn-block" onClick={this.showPopupLiveStream}><h5 class="glow mb-0"><img src={spin} width="24" class="pr-1" alt=""/> Xem livestream so Mã dự thưởng tại đây sau: {hour_live}giờ&nbsp;&nbsp;{minute_live}phút&nbsp;&nbsp;{second_live}giây </h5></button>
 			</div>
 
 
@@ -1235,7 +1259,7 @@ class Lucky_Rotation extends React.Component {
 						<div class="table-responsive mt-2">              
 							<h5 class="text-thele lead text-center">Bạn đã hết lượt quay!</h5>
 							<p class="text-thele lead text-center">Hãy nạp Scoin để nhận thêm lượt chơi Vòng quay tháng 8.</p>
-							<button type="button" class="btn btn-xacnhan text-white btn-block text-center py-4" onClick={()=>this.openTabNapScoin('http://sandbox.scoin.vn/nap-tien')}>Nạp Scoin</button>
+							<button type="button" class="btn btn-xacnhan text-white btn-block text-center py-4" onClick={()=>this.openTabNapScoin('http://scoin.vn/nap-tien')}>Nạp Scoin</button>
 						</div>       
 					</div>
 
@@ -1365,7 +1389,7 @@ class Lucky_Rotation extends React.Component {
 								</tr>
 								</tbody>
 							</table>              
-							<button type="button" class="btn btn-xacnhan text-white btn-block text-center" onClick={()=>this.openTabNapScoin('http://sandbox.scoin.vn/nap-tien')}>Nạp</button>
+							<button type="button" class="btn btn-xacnhan text-white btn-block text-center" onClick={()=>this.openTabNapScoin('http://scoin.vn/nap-tien')}>Nạp</button>
 						</div>
 						
 					</div>
@@ -1436,6 +1460,25 @@ class Lucky_Rotation extends React.Component {
 								<h5 class="text-thele lead text-center">BTC trân trọng thông báo.</h5>
 								<button type="button" class="btn btn-xacnhan text-white btn-block text-center py-4" onClick={this.closePopupFinish}>Xác nhận</button>
 							</div>       
+						</div>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="modal fade" id="myModal14">
+					<div class="modal-dialog">
+						<div class="modal-content popup-phanthuong">
+
+						<div class="modal-header border-bottom-0">
+							<h4 class="modal-title w-100 text-center"><img src={img_livestream} alt="" /></h4>
+							<button type="button" class="close" data-dismiss="modal"><img src={btn_close} alt="Đóng" /></button>
+						</div>
+
+						<div class="modal-body">
+								<div class="facebook-responsive">
+									<iframe src={linkLiveStream} width="560" height="315" style={{border:'none', overflow:'hidden'}} scrolling="no" frameborder="0" allowTransparency="true" allowFullScreen="true"></iframe>
+								</div>     
 						</div>
 
 						</div>
