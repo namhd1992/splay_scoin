@@ -1431,9 +1431,8 @@ class Lucky_Rotation extends React.Component {
 						{/* <!-- Modal body --> */}
 						<div class="modal-body">
 							<div class="table-responsive mt-2">           
-								<h5 class="text-thele lead text-center">Mã dự thưởng & thẻ Scoin đã được phát hết do số lượng người tham dự sự kiện quá lớn.</h5>
-								<h5 class="text-thele lead text-center">BTC xin thông báo ngưng phát Mã dự thưởng sớm hơn dự kiến ban đầu và dừng Vòng quay.</h5>
-								<h5 class="text-thele lead text-center" style={{color:'red'}}>Thời điểm so Mã dự thưởng nhận Xe máy Airblade và Điện thoại Xiaomi Black Shark2 vẫn diễn ra vào đúng 18:30 ngày 26/08/2019 theo KQ XSMB.</h5>
+								<h5 class="text-thele lead text-center">Kết quả trúng thưởng 2 giải Xe máy Airblade 2019 & điện thoại Xiaomi Black Shark 2 sẽ được công bố sau ngày 26/08/2019. Vui lòng quay lại sau.</h5>
+								<h5 class="text-thele lead text-center">Đón xem live stream buổi so mã Dự thưởng vào lúc 17:30 - 19:00 ngày 26/08 tại fanpage Scoin: <a href="https://www.facebook.com/scoinvtcmobile/">https://www.facebook.com/scoinvtcmobile/</a></h5>
 								<h5 class="text-thele lead text-center">BTC trân trọng kính báo tới quý khách hàng.</h5>
 								<button type="button" class="btn btn-xacnhan text-white btn-block text-center py-4" onClick={this.closePopupFinish}>Xác nhận</button>
 							</div>       
